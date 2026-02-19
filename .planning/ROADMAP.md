@@ -21,25 +21,26 @@ Decimal phases appear between their surrounding integers in numeric order.
 ### Phase 1: Foundation and Data Pipeline
 **Goal**: Real GitHub commit data is flowing into R2 daily, with a monorepo structure that enforces the JSON contract between Worker and SPA at compile time
 **Depends on**: Nothing (first phase)
-**Requirements**: INFR-01, INFR-02, INFR-03, INFR-04, INFR-05, PIPE-01, PIPE-02, PIPE-03, PIPE-04, PIPE-05, PIPE-06, PIPE-07, PIPE-08, PIPE-09, PIPE-10
+**Requirements**: INFR-01, INFR-02, INFR-04, PIPE-01, PIPE-02, PIPE-03, PIPE-04, PIPE-05, PIPE-06, PIPE-07, PIPE-08, PIPE-09, PIPE-10
 **Success Criteria** (what must be TRUE):
   1. Running `pnpm build` from the repo root compiles all three workspace packages (site, worker, shared) without errors
   2. The Cloudflare Worker runs on its daily cron trigger and writes graph.json, projects.json, and meta.json to R2 with real GitHub data
   3. Private repo entries in R2 JSON contain only commit counts, languages, and dates -- never repo names, URLs, or raw API responses
   4. Public repo entries in R2 JSON include repo name, URL, languages, commit counts, dates, and rich commit-level data
   5. R2 JSON files are accessible from a browser via the configured public URL (CORS verified)
-**Plans:** 4 plans
+**Plans:** 5 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Monorepo skeleton with pnpm workspaces, shared types, site skeleton (Vite+React), worker skeleton (Wrangler)
-- [ ] 01-02-PLAN.md — Data transformation and sanitization (TDD): private repo allowlist, public repo enrichment, graph transformation
-- [ ] 01-03-PLAN.md — GitHub API fetching layer: GraphQL contribution calendar, REST repo/commit/language enumeration, rate limit handling
-- [ ] 01-04-PLAN.md — Pipeline orchestration, R2 writes, Worker handlers, CORS config, deployment verification
+- [ ] 01-01-PLAN.md — Monorepo root with pnpm workspaces, shared TypeScript types package (JSON contract)
+- [ ] 01-02-PLAN.md — Site skeleton (Vite+React) and worker skeleton (Wrangler) with shared type imports
+- [ ] 01-03-PLAN.md — Data transformation and sanitization (TDD): private repo allowlist, public repo enrichment, graph transformation, backfill detection
+- [ ] 01-04-PLAN.md — GitHub API fetching layer: GraphQL contribution calendar, REST repo/commit/language enumeration, rate limit handling
+- [ ] 01-05-PLAN.md — Pipeline orchestration, R2 writes, Worker handlers, CORS config, deployment verification
 
 ### Phase 2: Site Shell, Design System, and Hero
 **Goal**: Visitors see a polished dark-themed hero page that loads commit metadata from R2, with the full design system and page layout skeleton ready for visualizations
 **Depends on**: Phase 1
-**Requirements**: HERO-01, HERO-02, HERO-03, HERO-04, DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05, DSGN-06, DSGN-08, DSGN-09, DSGN-10, DSGN-11, META-01, META-02, META-03
+**Requirements**: INFR-03, INFR-05, HERO-01, HERO-02, HERO-03, HERO-04, DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05, DSGN-06, DSGN-08, DSGN-09, DSGN-10, DSGN-11, META-01, META-02, META-03
 **Success Criteria** (what must be TRUE):
   1. Visiting the site shows the hero section with photo, name ("Jack Labbe"), tagline ("Software / AI Engineer"), and a working contact button that opens an email client
   2. The page renders correctly on mobile viewports (375px) and desktop (1440px) with the dark navy background, Inter/system headings, monospace accent text, and structural divider lines
@@ -75,6 +76,6 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation and Data Pipeline | 0/4 | Planned | - |
+| 1. Foundation and Data Pipeline | 0/5 | Planned | - |
 | 2. Site Shell, Design System, and Hero | 0/0 | Not started | - |
 | 3. Core Visualizations and Launch | 0/0 | Not started | - |

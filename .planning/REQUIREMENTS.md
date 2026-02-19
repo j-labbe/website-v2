@@ -157,9 +157,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DSGN-11 | Phase 2 | Pending |
 | INFR-01 | Phase 1 | Pending |
 | INFR-02 | Phase 1 | Pending |
-| INFR-03 | Phase 1 | Pending |
+| INFR-03 | Phase 2 | Pending |
 | INFR-04 | Phase 1 | Pending |
-| INFR-05 | Phase 1 | Pending |
+| INFR-05 | Phase 2 | Pending |
 | META-01 | Phase 2 | Pending |
 | META-02 | Phase 2 | Pending |
 | META-03 | Phase 2 | Pending |
