@@ -11,6 +11,12 @@ dist/
 # TypeScript
 *.tsbuildinfo
 
+# Shared package build artifacts (live types pattern -- source is canonical)
+shared/src/**/*.js
+shared/src/**/*.js.map
+shared/src/**/*.d.ts
+shared/src/**/*.d.ts.map
+
 # Environment
 .env
 .env.local
