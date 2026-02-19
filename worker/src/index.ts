@@ -1,8 +1,4 @@
-import type { PipelineMeta } from '@jacklabbe/shared';
-
-// Cross-package type import proves workspace resolution works
-const _typeCheck: PipelineMeta | null = null;
-void _typeCheck;
+import { runPipeline } from './pipeline.js';
 
 interface Env {
   R2_BUCKET: R2Bucket;
@@ -13,25 +9,38 @@ interface Env {
 export default {
   async scheduled(
     _controller: ScheduledController,
-    _env: Env,
-    _ctx: ExecutionContext,
+    env: Env,
+    ctx: ExecutionContext,
   ): Promise<void> {
-    console.log('Pipeline triggered (cron)');
-    // Stub -- pipeline implementation in subsequent plans
+    console.log(JSON.stringify({ stage: 'cron-triggered', ts: Date.now() }));
+    ctx.waitUntil(runPipeline(env));
   },
 
   async fetch(
     request: Request,
     env: Env,
-    _ctx: ExecutionContext,
+    ctx: ExecutionContext,
   ): Promise<Response> {
+    // Only POST triggers pipeline refresh
+    if (request.method !== 'POST') {
+      return new Response('Method not allowed', { status: 405 });
+    }
+
+    // Bearer token auth
     const authHeader = request.headers.get('Authorization');
     if (authHeader !== `Bearer ${env.REFRESH_SECRET}`) {
       return new Response('Unauthorized', { status: 401 });
     }
 
-    console.log('Pipeline triggered (manual)');
-    // Stub -- pipeline implementation in subsequent plans
-    return new Response('Pipeline triggered', { status: 202 });
+    // Check for explicit backfill parameter
+    const url = new URL(request.url);
+    const forceBackfill = url.searchParams.get('backfill') === 'true';
+
+    // Trigger pipeline (non-blocking via waitUntil)
+    ctx.waitUntil(runPipeline(env, forceBackfill));
+    return new Response(
+      JSON.stringify({ status: 'triggered', backfill: forceBackfill }),
+      { status: 202, headers: { 'Content-Type': 'application/json' } },
+    );
   },
 };
