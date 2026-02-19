@@ -10,27 +10,27 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 ## Current Position
 
 Phase: 1 of 3 (Foundation and Data Pipeline)
-Plan: 2 of 5 in current phase (01-02 complete)
+Plan: 4 of 5 in current phase (01-04 complete)
 Status: Executing
-Last activity: 2026-02-19 -- Completed 01-02 (site + worker skeletons)
+Last activity: 2026-02-19 -- Completed 01-04 (GitHub API integration)
 
-Progress: [███░░░░░░░] 13%
+Progress: [██████░░░░] 27%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
+- Total plans completed: 4
 - Average duration: 2.5 min
-- Total execution time: 0.08 hours
+- Total execution time: 0.17 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation | 2/5 | 5 min | 2.5 min |
+| 01-foundation | 4/5 | 10 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2 min), 01-02 (3 min)
+- Last 5 plans: 01-01 (2 min), 01-02 (3 min), 01-03 (2 min), 01-04 (3 min)
 - Trend: Consistent
 
 *Updated after each plan completion*
@@ -49,6 +49,9 @@ Recent decisions affecting current work:
 - [01-02]: Worker Env interface includes R2_BUCKET, GITHUB_TOKEN, and REFRESH_SECRET bindings matching research patterns
 - [01-02]: Worker uses both scheduled and fetch handler stubs for cron and manual refresh endpoints
 - [01-02]: Added .gitignore rules for shared package build artifacts to keep live types pattern clean
+- [01-04]: fetchCommitDetail returns null (not throw) when rate limit < 200 -- graceful degradation over hard failure
+- [01-04]: checkRateLimit called before each individual commit detail fetch to prevent rate limit exhaustion
+- [01-04]: Raw API response types kept separate from shared types -- types.ts is internal to worker, not exported to shared
 
 ### Pending Todos
 
@@ -63,5 +66,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed 01-02-PLAN.md
-Resume file: .planning/phases/01-foundation-and-data-pipeline/01-02-SUMMARY.md
+Stopped at: Completed 01-04-PLAN.md
+Resume file: .planning/phases/01-foundation-and-data-pipeline/01-04-SUMMARY.md
