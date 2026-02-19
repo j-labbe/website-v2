@@ -1,0 +1,14 @@
+{
+  "name": "jacklabbe.com",
+  "private": true,
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev:worker": "cd worker && wrangler dev --test-scheduled",
+    "dev:site": "cd site && vite dev",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "typescript": "^5.9"
+  }
+}
