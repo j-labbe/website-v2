@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 ## Current Position
 
 Phase: 1 of 3 (Foundation and Data Pipeline)
-Plan: 1 of 5 in current phase (01-01 complete)
+Plan: 2 of 5 in current phase (01-02 complete)
 Status: Executing
-Last activity: 2026-02-19 -- Completed 01-01 (monorepo + shared types)
+Last activity: 2026-02-19 -- Completed 01-02 (site + worker skeletons)
 
-Progress: [██░░░░░░░░] 7%
+Progress: [███░░░░░░░] 13%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 2 min
-- Total execution time: 0.03 hours
+- Total plans completed: 2
+- Average duration: 2.5 min
+- Total execution time: 0.08 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation | 1/5 | 2 min | 2 min |
+| 01-foundation | 2/5 | 5 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2 min)
-- Trend: Starting
+- Last 5 plans: 01-01 (2 min), 01-02 (3 min)
+- Trend: Consistent
 
 *Updated after each plan completion*
 
@@ -46,6 +46,9 @@ Recent decisions affecting current work:
 - [Roadmap]: All DSGN requirements except hover states (DSGN-07) go in Phase 2; hover states ship with the components they apply to in Phase 3
 - [01-01]: Used live types pattern (customConditions + source exports) to eliminate build step for shared package
 - [01-01]: Type-only re-exports (export type) in index.ts to ensure zero runtime footprint
+- [01-02]: Worker Env interface includes R2_BUCKET, GITHUB_TOKEN, and REFRESH_SECRET bindings matching research patterns
+- [01-02]: Worker uses both scheduled and fetch handler stubs for cron and manual refresh endpoints
+- [01-02]: Added .gitignore rules for shared package build artifacts to keep live types pattern clean
 
 ### Pending Todos
 
@@ -60,5 +63,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed 01-01-PLAN.md
-Resume file: .planning/phases/01-foundation-and-data-pipeline/01-01-SUMMARY.md
+Stopped at: Completed 01-02-PLAN.md
+Resume file: .planning/phases/01-foundation-and-data-pipeline/01-02-SUMMARY.md
