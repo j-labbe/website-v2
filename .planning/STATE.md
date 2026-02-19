@@ -34,6 +34,7 @@ Progress: [██████░░░░] 27%
 - Trend: Consistent
 
 *Updated after each plan completion*
+| Phase 01 P03 | 5 min | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -52,6 +53,9 @@ Recent decisions affecting current work:
 - [01-04]: fetchCommitDetail returns null (not throw) when rate limit < 200 -- graceful degradation over hard failure
 - [01-04]: checkRateLimit called before each individual commit detail fetch to prevent rate limit exhaustion
 - [01-04]: Raw API response types kept separate from shared types -- types.ts is internal to worker, not exported to shared
+- [01-03]: Used node:crypto createHash for SHA-256 hashing (available in Workers runtime, no extra deps)
+- [01-03]: RawGitHubRepo interface defined locally in sanitize.ts rather than shared package (internal to worker)
+- [01-03]: Backfill boundary at strictly >48h (not >=), so exactly 48h still counts as fresh
 
 ### Pending Todos
 
@@ -66,5 +70,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed 01-04-PLAN.md
-Resume file: .planning/phases/01-foundation-and-data-pipeline/01-04-SUMMARY.md
+Stopped at: Completed 01-03-PLAN.md (transform layer + all 01-04 plans also complete)
+Resume file: .planning/phases/01-foundation-and-data-pipeline/01-03-SUMMARY.md

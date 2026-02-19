@@ -14,10 +14,10 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **PIPE-03**: Worker uses GitHub REST API for repo enumeration and per-repo metadata
 - [x] **PIPE-04**: Worker fetches data from all repos user contributes to (owned, org, forked)
 - [ ] **PIPE-05**: Worker writes split JSON files to R2: graph.json, projects.json, meta.json
-- [ ] **PIPE-06**: Private repo data is sanitized via allowlist field extraction -- only commit counts, languages, and dates stored (never repo names, URLs, or raw API responses)
-- [ ] **PIPE-07**: Public repo data includes repo name, URL, languages, commit counts, dates, and rich commit-level data (messages, diffs) for future use
+- [x] **PIPE-06**: Private repo data is sanitized via allowlist field extraction -- only commit counts, languages, and dates stored (never repo names, URLs, or raw API responses)
+- [x] **PIPE-07**: Public repo data includes repo name, URL, languages, commit counts, dates, and rich commit-level data (messages, diffs) for future use
 - [x] **PIPE-08**: Pipeline handles GitHub API rate limits gracefully (backoff, error logging)
-- [ ] **PIPE-09**: Pipeline handles initial backfill separately from daily incremental updates
+- [x] **PIPE-09**: Pipeline handles initial backfill separately from daily incremental updates
 - [x] **PIPE-10**: GitHub PAT stored as Cloudflare Worker secret (never in code or R2)
 
 ### Hero / Identity
@@ -121,10 +121,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PIPE-03 | Phase 1 | Complete |
 | PIPE-04 | Phase 1 | Complete |
 | PIPE-05 | Phase 1 | Pending |
-| PIPE-06 | Phase 1 | Pending |
-| PIPE-07 | Phase 1 | Pending |
+| PIPE-06 | Phase 1 | Complete |
+| PIPE-07 | Phase 1 | Complete |
 | PIPE-08 | Phase 1 | Complete |
-| PIPE-09 | Phase 1 | Pending |
+| PIPE-09 | Phase 1 | Complete |
 | PIPE-10 | Phase 1 | Complete |
 | HERO-01 | Phase 2 | Pending |
 | HERO-02 | Phase 2 | Pending |
