@@ -5,9 +5,16 @@
 
 // -- GraphQL contribution calendar types --
 
+export type ContributionLevel =
+  | 'NONE'
+  | 'FIRST_QUARTILE'
+  | 'SECOND_QUARTILE'
+  | 'THIRD_QUARTILE'
+  | 'FOURTH_QUARTILE';
+
 export interface GitHubContributionDay {
   contributionCount: number;
-  contributionLevel: string;
+  contributionLevel: ContributionLevel;
   date: string;
 }
 

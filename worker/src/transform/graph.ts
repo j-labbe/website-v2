@@ -1,33 +1,8 @@
 import type { GraphData, ContributionDay } from '@jacklabbe/shared';
-
-/**
- * GitHub GraphQL contributionLevel enum values.
- */
-type ContributionLevel =
-  | 'NONE'
-  | 'FIRST_QUARTILE'
-  | 'SECOND_QUARTILE'
-  | 'THIRD_QUARTILE'
-  | 'FOURTH_QUARTILE';
-
-/**
- * Shape of a single day from GitHub's GraphQL contributionCalendar.
- */
-interface GitHubContributionDay {
-  contributionCount: number;
-  contributionLevel: ContributionLevel;
-  date: string;
-}
-
-/**
- * Shape of GitHub's GraphQL contributionCalendar response.
- */
-export interface GitHubContributionCalendar {
-  totalContributions: number;
-  weeks: Array<{
-    contributionDays: GitHubContributionDay[];
-  }>;
-}
+import type {
+  ContributionLevel,
+  GitHubContributionCalendar,
+} from '../github/types.js';
 
 const LEVEL_MAP: Record<ContributionLevel, 0 | 1 | 2 | 3 | 4> = {
   NONE: 0,
