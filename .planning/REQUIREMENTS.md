@@ -63,8 +63,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFR-01**: TypeScript React application (Vite build toolchain)
-- [ ] **INFR-02**: pnpm monorepo with shared types package (site/, worker/, shared/)
+- [x] **INFR-01**: TypeScript React application (Vite build toolchain)
+- [x] **INFR-02**: pnpm monorepo with shared types package (site/, worker/, shared/)
 - [ ] **INFR-03**: Deployed to Cloudflare Pages (static upload)
 - [ ] **INFR-04**: Commit data served from Cloudflare R2 (CDN-cacheable JSON)
 - [ ] **INFR-05**: Site fetches R2 JSON on visit (not full SSG)
@@ -155,8 +155,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DSGN-09 | Phase 2 | Pending |
 | DSGN-10 | Phase 2 | Pending |
 | DSGN-11 | Phase 2 | Pending |
-| INFR-01 | Phase 1 | Pending |
-| INFR-02 | Phase 1 | Pending |
+| INFR-01 | Phase 1 | Complete |
+| INFR-02 | Phase 1 | Complete |
 | INFR-03 | Phase 2 | Pending |
 | INFR-04 | Phase 1 | Pending |
 | INFR-05 | Phase 2 | Pending |
