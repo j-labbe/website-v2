@@ -1,0 +1,78 @@
+# Roadmap: jacklabbe.com
+
+## Overview
+
+Three phases deliver jacklabbe.com from empty repo to live portfolio. Phase 1 builds the monorepo skeleton and the entire Cloudflare Worker data pipeline so real GitHub data lands in R2 before any UI work begins. Phase 2 creates the React SPA shell with the full design system, hero section, and page layout -- proving end-to-end data flow from R2 to browser. Phase 3 builds the two signature visualizations (commit graph and project timeline) against real data and ships the production site.
+
+## Phases
+
+**Phase Numbering:**
+- Integer phases (1, 2, 3): Planned milestone work
+- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
+
+Decimal phases appear between their surrounding integers in numeric order.
+
+- [ ] **Phase 1: Foundation and Data Pipeline** - Monorepo, shared types, Cloudflare Worker pipeline writing real GitHub data to R2
+- [ ] **Phase 2: Site Shell, Design System, and Hero** - React SPA with design tokens, hero section, page layout, data fetching, SEO
+- [ ] **Phase 3: Core Visualizations and Launch** - Commit graph, project timeline with scroll-synced date spine, hover states, production deploy
+
+## Phase Details
+
+### Phase 1: Foundation and Data Pipeline
+**Goal**: Real GitHub commit data is flowing into R2 daily, with a monorepo structure that enforces the JSON contract between Worker and SPA at compile time
+**Depends on**: Nothing (first phase)
+**Requirements**: INFR-01, INFR-02, INFR-03, INFR-04, INFR-05, PIPE-01, PIPE-02, PIPE-03, PIPE-04, PIPE-05, PIPE-06, PIPE-07, PIPE-08, PIPE-09, PIPE-10
+**Success Criteria** (what must be TRUE):
+  1. Running `pnpm build` from the repo root compiles all three workspace packages (site, worker, shared) without errors
+  2. The Cloudflare Worker runs on its daily cron trigger and writes graph.json, projects.json, and meta.json to R2 with real GitHub data
+  3. Private repo entries in R2 JSON contain only commit counts, languages, and dates -- never repo names, URLs, or raw API responses
+  4. Public repo entries in R2 JSON include repo name, URL, languages, commit counts, dates, and rich commit-level data
+  5. R2 JSON files are accessible from a browser via the configured public URL (CORS verified)
+**Plans**: TBD
+
+Plans:
+- [ ] 01-01: TBD
+- [ ] 01-02: TBD
+
+### Phase 2: Site Shell, Design System, and Hero
+**Goal**: Visitors see a polished dark-themed hero page that loads commit metadata from R2, with the full design system and page layout skeleton ready for visualizations
+**Depends on**: Phase 1
+**Requirements**: HERO-01, HERO-02, HERO-03, HERO-04, DSGN-01, DSGN-02, DSGN-03, DSGN-04, DSGN-05, DSGN-06, DSGN-08, DSGN-09, DSGN-10, DSGN-11, META-01, META-02, META-03
+**Success Criteria** (what must be TRUE):
+  1. Visiting the site shows the hero section with photo, name ("Jack Labbe"), tagline ("Software / AI Engineer"), and a working contact button that opens an email client
+  2. The page renders correctly on mobile viewports (375px) and desktop (1440px) with the dark navy background, Inter/system headings, monospace accent text, and structural divider lines
+  3. The site fetches R2 JSON on load and displays a loading state, then renders content (or an error state if R2 is unavailable)
+  4. Sharing the URL on social platforms shows a correct Open Graph preview card with title, description, and image
+  5. A keyboard-only user can navigate the page using Tab, activate the contact button, and use the skip-to-content link
+**Plans**: TBD
+
+Plans:
+- [ ] 02-01: TBD
+- [ ] 02-02: TBD
+
+### Phase 3: Core Visualizations and Launch
+**Goal**: The complete portfolio is live at jacklabbe.com with an auto-updating commit graph and scroll-navigable project timeline
+**Depends on**: Phase 2
+**Requirements**: GRPH-01, GRPH-02, GRPH-03, GRPH-04, GRPH-05, TIME-01, TIME-02, TIME-03, TIME-04, TIME-05, TIME-06, TIME-07, TIME-08, TIME-09, DSGN-07
+**Success Criteria** (what must be TRUE):
+  1. A blue-tinted GitHub-style contribution heatmap renders below the hero showing 12 months of commit activity as an inline SVG, readable on both mobile and desktop
+  2. Scrolling past the commit graph reveals a chronological project timeline grouped by month, with public repos showing name/link/badges and private repos showing "Private Repo" with badges only
+  3. The right-side date spine highlights the current month as the user scrolls, and clicking a month on the spine jumps to that month's projects
+  4. Hovering over commit graph cells, timeline entries, and links produces visible hover state changes
+  5. The site is live at jacklabbe.com on Cloudflare Pages with the Worker running daily and data refreshing automatically
+**Plans**: TBD
+
+Plans:
+- [ ] 03-01: TBD
+- [ ] 03-02: TBD
+
+## Progress
+
+**Execution Order:**
+Phases execute in numeric order: 1 → 2 → 3
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 1. Foundation and Data Pipeline | 0/0 | Not started | - |
+| 2. Site Shell, Design System, and Hero | 0/0 | Not started | - |
+| 3. Core Visualizations and Launch | 0/0 | Not started | - |
