@@ -28,11 +28,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Private repo entries in R2 JSON contain only commit counts, languages, and dates -- never repo names, URLs, or raw API responses
   4. Public repo entries in R2 JSON include repo name, URL, languages, commit counts, dates, and rich commit-level data
   5. R2 JSON files are accessible from a browser via the configured public URL (CORS verified)
-**Plans**: TBD
+**Plans:** 4 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md — Monorepo skeleton with pnpm workspaces, shared types, site skeleton (Vite+React), worker skeleton (Wrangler)
+- [ ] 01-02-PLAN.md — Data transformation and sanitization (TDD): private repo allowlist, public repo enrichment, graph transformation
+- [ ] 01-03-PLAN.md — GitHub API fetching layer: GraphQL contribution calendar, REST repo/commit/language enumeration, rate limit handling
+- [ ] 01-04-PLAN.md — Pipeline orchestration, R2 writes, Worker handlers, CORS config, deployment verification
 
 ### Phase 2: Site Shell, Design System, and Hero
 **Goal**: Visitors see a polished dark-themed hero page that loads commit metadata from R2, with the full design system and page layout skeleton ready for visualizations
@@ -73,6 +75,6 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation and Data Pipeline | 0/0 | Not started | - |
+| 1. Foundation and Data Pipeline | 0/4 | Planned | - |
 | 2. Site Shell, Design System, and Hero | 0/0 | Not started | - |
 | 3. Core Visualizations and Launch | 0/0 | Not started | - |
