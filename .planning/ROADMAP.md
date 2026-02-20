@@ -13,7 +13,7 @@ Three phases deliver jacklabbe.com from empty repo to live portfolio. Phase 1 bu
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation and Data Pipeline** - Monorepo, shared types, GitHub Actions pipeline writing real GitHub data to R2
-- [ ] **Phase 2: Site Shell, Design System, and Hero** - React SPA with design tokens, hero section, page layout, data fetching, SEO (gap closure in progress)
+- [x] **Phase 2: Site Shell, Design System, and Hero** - React SPA with design tokens, hero section, page layout, data fetching, SEO
 - [ ] **Phase 3: Core Visualizations and Launch** - Commit graph, project timeline with scroll-synced date spine, hover states, production deploy
 
 ## Phase Details
@@ -53,8 +53,8 @@ Plans:
 - [x] 02-01-PLAN.md — Design system foundation: CSS tokens, fonts, animations, global styles, Vite config, R2 data hook, font-ready hook
 - [x] 02-02-PLAN.md — Core UI components: Hero section with skeleton, sticky Navbar with glass blur, SkipToContent, social icons
 - [x] 02-03-PLAN.md — App composition, Footer, section placeholders, dividers, OG meta tags, CORS update, Cloudflare Pages deployment
-- [ ] 02-04-PLAN.md — Gap closure: Migrate from CSS Modules to Tailwind CSS v4 (install, @theme tokens, convert all components)
-- [ ] 02-05-PLAN.md — Gap closure: Squircle photo shape (superellipse clip-path) and LQIP blur-in photo loading
+- [x] 02-04-PLAN.md — Gap closure: Migrate from CSS Modules to Tailwind CSS v4 (install, @theme tokens, convert all components)
+- [x] 02-05-PLAN.md — Gap closure: LQIP blur-in photo loading, rounded-2xl shape, 3D tilt hover effect
 
 ### Phase 3: Core Visualizations and Launch
 **Goal**: The complete portfolio is live at jacklabbe.com with an auto-updating commit graph and scroll-navigable project timeline
@@ -80,5 +80,5 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation and Data Pipeline | 5/5 | Complete | 2026-02-20 |
-| 2. Site Shell, Design System, and Hero | 3/5 | Gap closure | 2026-02-20 |
+| 2. Site Shell, Design System, and Hero | 5/5 | Complete | 2026-02-20 |
 | 3. Core Visualizations and Launch | 0/0 | Not started | - |

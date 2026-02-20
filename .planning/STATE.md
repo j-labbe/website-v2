@@ -5,34 +5,34 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Show what I'm actively building -- a living, auto-updating portfolio driven by real commit data, not manually curated content.
-**Current focus:** Phase 2 gap closure: Tailwind CSS migration complete
+**Current focus:** Phase 2 complete -- ready to plan Phase 3
 
 ## Current Position
 
 Phase: 2 of 3 (Site Shell, Design System, and Hero)
-Plan: 4 of 5 in Phase 2 complete
-Status: Executing Phase 2 Gap Closure
-Last activity: 2026-02-20 -- Completed 02-04 (Tailwind CSS v4 migration)
+Plan: 5 of 5 in Phase 2 complete
+Status: Phase 2 Complete
+Last activity: 2026-02-20 -- Completed 02-05 (LQIP photo loading + visual polish)
 
-Progress: [█████████░] 85%
+Progress: [██████████] 100% (Phase 2)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
+- Total plans completed: 10
 - Average duration: ~10 min
-- Total execution time: ~1.5 hours
+- Total execution time: ~1.6 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 5/5 | ~75 min | ~15 min |
-| 02-site-shell | 4/5 | ~23 min | ~6 min |
+| 02-site-shell | 5/5 | ~31 min | ~6 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-05 (~60 min), 02-01 (3 min), 02-02 (2 min), 02-03 (~15 min), 02-04 (3 min)
-- Trend: 02-04 Tailwind migration was fast due to well-specified plan
+- Last 5 plans: 02-01 (3 min), 02-02 (2 min), 02-03 (~15 min), 02-04 (3 min), 02-05 (~8 min)
+- Trend: Phase 2 complete, all plans executed efficiently
 
 *Updated after each plan completion*
 
@@ -69,6 +69,10 @@ Recent decisions affecting current work:
 - [02-04]: Tailwind @theme for design tokens: --color-* convention maps to bg-*, text-*, border-* utilities
 - [02-04]: Navbar scroll-state handled via CSS rule in @layer components rather than React state
 - [02-04]: Renamed staggerItem to stagger-item for kebab-case consistency with Tailwind conventions
+- [02-05]: Replaced squircle clip-path with rounded-2xl per user feedback during visual verification
+- [02-05]: Build-time LQIP generation via sharp instead of hardcoded base64 -- regenerates from actual headshot
+- [02-05]: 3D tilt hover effect on hero photo with +/-17deg rotation (Apple TV style)
+- [02-05]: Photo dimensions fixed at 300x250px for predictable layout
 
 ### Pending Todos
 
@@ -82,6 +86,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 02-04-PLAN.md -- Tailwind CSS v4 migration
-Resume file: .planning/phases/02-site-shell-design-system-and-hero/02-04-SUMMARY.md
-Next action: Execute 02-05 (squircle photo + LQIP) or Plan Phase 3
+Stopped at: Completed 02-05-PLAN.md -- LQIP photo loading and visual polish (Phase 2 complete)
+Resume file: .planning/phases/02-site-shell-design-system-and-hero/02-05-SUMMARY.md
+Next action: Plan Phase 3 (Core Visualizations and Launch)
