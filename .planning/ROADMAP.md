@@ -47,11 +47,12 @@ Plans:
   3. The site fetches R2 JSON on load and displays a loading state, then renders content (or an error state if R2 is unavailable)
   4. Sharing the URL on social platforms shows a correct Open Graph preview card with title, description, and image
   5. A keyboard-only user can navigate the page using Tab, activate the contact button, and use the skip-to-content link
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md — Design system foundation: CSS tokens, fonts, animations, global styles, Vite config, R2 data hook, font-ready hook
+- [ ] 02-02-PLAN.md — Core UI components: Hero section with skeleton, sticky Navbar with glass blur, SkipToContent, social icons
+- [ ] 02-03-PLAN.md — App composition, Footer, section placeholders, dividers, OG meta tags, CORS update, Cloudflare Pages deployment
 
 ### Phase 3: Core Visualizations and Launch
 **Goal**: The complete portfolio is live at jacklabbe.com with an auto-updating commit graph and scroll-navigable project timeline
@@ -77,5 +78,5 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation and Data Pipeline | 5/5 | Complete | 2026-02-20 |
-| 2. Site Shell, Design System, and Hero | 0/0 | Not started | - |
+| 2. Site Shell, Design System, and Hero | 0/3 | Planning complete | - |
 | 3. Core Visualizations and Launch | 0/0 | Not started | - |
