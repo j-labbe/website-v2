@@ -109,9 +109,9 @@
   .skeleton {
     background: linear-gradient(
       100deg,
-      var(--color-surface) 40%,
+      var(--color-border) 40%,
       var(--color-surface-2) 50%,
-      var(--color-surface) 60%
+      var(--color-border) 60%
     );
     background-size: 200% 100%;
     animation: shimmer 1.5s ease-in-out infinite;
@@ -120,8 +120,13 @@
 
   .stagger-item {
     opacity: 0;
-    animation: fadeInUp 400ms ease-out forwards;
-    animation-delay: calc(var(--stagger-index, 0) * 100ms);
+    transform: translateY(20px);
+    transition: opacity 400ms, transform 400ms;
+  }
+
+  .stagger-item.visible {
+    opacity: 1;
+    transform: none;
   }
 
   nav[data-scrolled="true"] {
@@ -164,9 +169,9 @@
   }
 
   .stagger-item {
-    animation: none;
     opacity: 1;
     transform: none;
+    transition: none;
   }
 
   .lqip-full {
