@@ -59,7 +59,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **DSGN-08**: Single-scroll page layout: hero → commit graph → divider → timeline → footer
 - [x] **DSGN-09**: Responsive layout -- mobile-first, works on all viewports
 - [x] **DSGN-10**: WCAG AA contrast ratios on all text
-- [x] **DSGN-11**: CSS Modules + CSS custom properties (no CSS frameworks)
+- [x] **DSGN-11**: ~~CSS Modules + CSS custom properties~~ Tailwind CSS v4 with @theme design tokens (migrated in 02-04)
 
 ### Infrastructure
 

@@ -5,22 +5,22 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Show what I'm actively building -- a living, auto-updating portfolio driven by real commit data, not manually curated content.
-**Current focus:** Phase 2 complete: Site Shell, Design System, and Hero
+**Current focus:** Phase 2 gap closure: Tailwind CSS migration complete
 
 ## Current Position
 
 Phase: 2 of 3 (Site Shell, Design System, and Hero)
-Plan: 3 of 3 in Phase 2 complete
-Status: Phase 2 Complete
-Last activity: 2026-02-20 -- Completed 02-03 (app composition and deployment)
+Plan: 4 of 5 in Phase 2 complete
+Status: Executing Phase 2 Gap Closure
+Last activity: 2026-02-20 -- Completed 02-04 (Tailwind CSS v4 migration)
 
-Progress: [████████░░] 80%
+Progress: [█████████░] 85%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: ~11 min
+- Total plans completed: 9
+- Average duration: ~10 min
 - Total execution time: ~1.5 hours
 
 **By Phase:**
@@ -28,11 +28,11 @@ Progress: [████████░░] 80%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 5/5 | ~75 min | ~15 min |
-| 02-site-shell | 3/3 | ~20 min | ~7 min |
+| 02-site-shell | 4/5 | ~23 min | ~6 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-04 (3 min), 01-05 (~60 min), 02-01 (3 min), 02-02 (2 min), 02-03 (~15 min)
-- Trend: 02-03 included deployment and human verification checkpoint
+- Last 5 plans: 01-05 (~60 min), 02-01 (3 min), 02-02 (2 min), 02-03 (~15 min), 02-04 (3 min)
+- Trend: 02-04 Tailwind migration was fast due to well-specified plan
 
 *Updated after each plan completion*
 
@@ -66,6 +66,9 @@ Recent decisions affecting current work:
 - [02-02]: Navbar contact button uses text-sm (slightly smaller than hero text-base) for visual hierarchy
 - [02-03]: Static OG tags in index.html for social crawlers plus React 19 runtime metadata
 - [02-03]: CORS config expanded to include jacklabbe.pages.dev origin for R2 data fetching
+- [02-04]: Tailwind @theme for design tokens: --color-* convention maps to bg-*, text-*, border-* utilities
+- [02-04]: Navbar scroll-state handled via CSS rule in @layer components rather than React state
+- [02-04]: Renamed staggerItem to stagger-item for kebab-case consistency with Tailwind conventions
 
 ### Pending Todos
 
@@ -79,6 +82,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 02-03-PLAN.md -- Phase 2 complete
-Resume file: .planning/phases/02-site-shell-design-system-and-hero/02-03-SUMMARY.md
-Next action: Plan Phase 3 (Core Visualizations and Launch)
+Stopped at: Completed 02-04-PLAN.md -- Tailwind CSS v4 migration
+Resume file: .planning/phases/02-site-shell-design-system-and-hero/02-04-SUMMARY.md
+Next action: Execute 02-05 (squircle photo + LQIP) or Plan Phase 3
