@@ -66,11 +66,12 @@ Plans:
   3. The right-side date spine highlights the current month as the user scrolls, and clicking a month on the spine jumps to that month's projects
   4. Hovering over commit graph cells, timeline entries, and links produces visible hover state changes
   5. The site is live at jacklabbe.com on Cloudflare Pages with the Worker running daily and data refreshing automatically
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md -- Commit graph SVG heatmap with tooltip, legend, wave animation, and mobile scroll
+- [ ] 03-02-PLAN.md -- Project timeline with month-grouped cards, date spine, scroll spy, and hover states
+- [ ] 03-03-PLAN.md -- App integration, global hover states, and visual verification checkpoint
 
 ## Progress
 
