@@ -23,6 +23,14 @@ jobs:
 
       - run: pnpm install
 
+      - name: Verify GitHub token
+        run: |
+          echo "GH_PAT length: ${#GH_PAT}"
+          echo "GH_PAT prefix: ${GH_PAT:0:4}"
+          curl -sf -H "Authorization: bearer $GH_PAT" https://api.github.com/user | jq '{login, id}'
+        env:
+          GH_PAT: ${{ secrets.PIPELINE_GITHUB_TOKEN }}
+
       - name: Run pipeline
         run: pnpm --filter @jacklabbe/worker exec tsx scripts/run-pipeline.ts
         env:
