@@ -39,7 +39,7 @@ export async function fetchContributionCalendar(
 ): Promise<GitHubContributionCalendar> {
   const graphqlWithAuth = graphql.defaults({
     headers: {
-      authorization: `bearer ${token}`,
+      authorization: `token ${token}`,
     },
   });
 
