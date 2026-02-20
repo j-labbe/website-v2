@@ -29,11 +29,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Commit Graph
 
-- [ ] **GRPH-01**: GitHub-style contribution heatmap displaying rolling 12 months of commit activity
-- [ ] **GRPH-02**: Blue-tinted color scale matching site palette (not GitHub green)
-- [ ] **GRPH-03**: Rendered as inline SVG (no charting libraries)
-- [ ] **GRPH-04**: Graph positioned directly beneath hero section
-- [ ] **GRPH-05**: Responsive -- readable on mobile viewports
+- [x] **GRPH-01**: GitHub-style contribution heatmap displaying rolling 12 months of commit activity
+- [x] **GRPH-02**: Blue-tinted color scale matching site palette (not GitHub green)
+- [x] **GRPH-03**: Rendered as inline SVG (no charting libraries)
+- [x] **GRPH-04**: Graph positioned directly beneath hero section
+- [x] **GRPH-05**: Responsive -- readable on mobile viewports
 
 ### Project Timeline
 
@@ -130,11 +130,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | HERO-02 | Phase 2 | Complete |
 | HERO-03 | Phase 2 | Complete |
 | HERO-04 | Phase 2 | Complete |
-| GRPH-01 | Phase 3 | Pending |
-| GRPH-02 | Phase 3 | Pending |
-| GRPH-03 | Phase 3 | Pending |
-| GRPH-04 | Phase 3 | Pending |
-| GRPH-05 | Phase 3 | Pending |
+| GRPH-01 | Phase 3 | Complete |
+| GRPH-02 | Phase 3 | Complete |
+| GRPH-03 | Phase 3 | Complete |
+| GRPH-04 | Phase 3 | Complete |
+| GRPH-05 | Phase 3 | Complete |
 | TIME-01 | Phase 3 | Complete |
 | TIME-02 | Phase 3 | Complete |
 | TIME-03 | Phase 3 | Complete |
