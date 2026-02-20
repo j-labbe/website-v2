@@ -1,0 +1,10 @@
+.divider {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.line {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+}
