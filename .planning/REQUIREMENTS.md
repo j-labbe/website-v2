@@ -49,17 +49,17 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Design System
 
-- [ ] **DSGN-01**: Dark theme with `#040d21` navy background
-- [ ] **DSGN-02**: Inter/system sans-serif font for headings (bold weight)
-- [ ] **DSGN-03**: Monospace font for accent text (tagline, section labels, metadata)
+- [x] **DSGN-01**: Dark theme with `#040d21` navy background
+- [x] **DSGN-02**: Inter/system sans-serif font for headings (bold weight)
+- [x] **DSGN-03**: Monospace font for accent text (tagline, section labels, metadata)
 - [ ] **DSGN-04**: Decorative structural 1px divider lines between sections
 - [ ] **DSGN-05**: Monospace section labels (e.g., `// projects`, `// contact`)
-- [ ] **DSGN-06**: Toggleable subtle crosshatch grid pattern background (low opacity, easy enable/disable)
+- [x] **DSGN-06**: Toggleable subtle crosshatch grid pattern background (low opacity, easy enable/disable)
 - [ ] **DSGN-07**: Hover states on interactive elements (links, graph cells, timeline entries)
 - [ ] **DSGN-08**: Single-scroll page layout: hero → commit graph → divider → timeline → footer
-- [ ] **DSGN-09**: Responsive layout -- mobile-first, works on all viewports
-- [ ] **DSGN-10**: WCAG AA contrast ratios on all text
-- [ ] **DSGN-11**: CSS Modules + CSS custom properties (no CSS frameworks)
+- [x] **DSGN-09**: Responsive layout -- mobile-first, works on all viewports
+- [x] **DSGN-10**: WCAG AA contrast ratios on all text
+- [x] **DSGN-11**: CSS Modules + CSS custom properties (no CSS frameworks)
 
 ### Infrastructure
 
@@ -67,7 +67,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **INFR-02**: pnpm monorepo with shared types package (site/, worker/, shared/)
 - [ ] **INFR-03**: Deployed to Cloudflare Pages (static upload)
 - [ ] **INFR-04**: Commit data served from Cloudflare R2 (CDN-cacheable JSON)
-- [ ] **INFR-05**: Site fetches R2 JSON on visit (not full SSG)
+- [x] **INFR-05**: Site fetches R2 JSON on visit (not full SSG)
 
 ### Meta / SEO
 
@@ -144,22 +144,22 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TIME-07 | Phase 3 | Pending |
 | TIME-08 | Phase 3 | Pending |
 | TIME-09 | Phase 3 | Pending |
-| DSGN-01 | Phase 2 | Pending |
-| DSGN-02 | Phase 2 | Pending |
-| DSGN-03 | Phase 2 | Pending |
+| DSGN-01 | Phase 2 | Complete |
+| DSGN-02 | Phase 2 | Complete |
+| DSGN-03 | Phase 2 | Complete |
 | DSGN-04 | Phase 2 | Pending |
 | DSGN-05 | Phase 2 | Pending |
-| DSGN-06 | Phase 2 | Pending |
+| DSGN-06 | Phase 2 | Complete |
 | DSGN-07 | Phase 3 | Pending |
 | DSGN-08 | Phase 2 | Pending |
-| DSGN-09 | Phase 2 | Pending |
-| DSGN-10 | Phase 2 | Pending |
-| DSGN-11 | Phase 2 | Pending |
+| DSGN-09 | Phase 2 | Complete |
+| DSGN-10 | Phase 2 | Complete |
+| DSGN-11 | Phase 2 | Complete |
 | INFR-01 | Phase 1 | Complete |
 | INFR-02 | Phase 1 | Complete |
 | INFR-03 | Phase 2 | Pending |
 | INFR-04 | Phase 1 | Pending |
-| INFR-05 | Phase 2 | Pending |
+| INFR-05 | Phase 2 | Complete |
 | META-01 | Phase 2 | Pending |
 | META-02 | Phase 2 | Pending |
 | META-03 | Phase 2 | Pending |

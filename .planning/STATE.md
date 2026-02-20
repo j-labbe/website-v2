@@ -5,33 +5,34 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Show what I'm actively building -- a living, auto-updating portfolio driven by real commit data, not manually curated content.
-**Current focus:** Phase 1 complete. Ready for Phase 2: Site Shell, Design System, and Hero
+**Current focus:** Phase 2 in progress: Site Shell, Design System, and Hero
 
 ## Current Position
 
-Phase: 1 of 3 complete (Foundation and Data Pipeline)
-Plan: 5 of 5 in Phase 1 (all complete)
-Status: Phase 1 Complete
-Last activity: 2026-02-20 -- Completed 01-05 (pipeline orchestration and deployment)
+Phase: 2 of 3 (Site Shell, Design System, and Hero)
+Plan: 1 of 3 in Phase 2 complete
+Status: Executing Phase 2
+Last activity: 2026-02-20 -- Completed 02-01 (design system foundation)
 
-Progress: [████░░░░░░] 33%
+Progress: [██████░░░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: ~15 min (including 01-05 debugging)
-- Total execution time: ~1.2 hours
+- Total plans completed: 6
+- Average duration: ~13 min
+- Total execution time: ~1.25 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 5/5 | ~75 min | ~15 min |
+| 02-site-shell | 1/3 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2 min), 01-02 (3 min), 01-03 (2 min), 01-04 (3 min), 01-05 (~60 min)
-- Trend: 01-05 took longer due to deployment debugging (auth issues, platform pivot)
+- Last 5 plans: 01-02 (3 min), 01-03 (2 min), 01-04 (3 min), 01-05 (~60 min), 02-01 (3 min)
+- Trend: 02-01 fast execution -- CSS/hook creation with no external dependencies
 
 *Updated after each plan completion*
 
@@ -59,6 +60,8 @@ Recent decisions affecting current work:
 - [01-05]: GH_PAT env var avoids GITHUB_TOKEN auto-injection conflict in Actions
 - [01-05]: GraphQL auth uses bearer prefix per GitHub's recommendation
 - [01-05]: Pipeline config (username, orgs) externalized to pipeline.config.json
+- [02-01]: sessionStorage caching with 1hr TTL for R2 data -- improves repeat visits without service worker complexity
+- [02-01]: Added .env.production to .gitignore alongside .env -- both contain environment-specific URLs
 
 ### Pending Todos
 
@@ -72,6 +75,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Phase 2 context gathered
-Resume file: .planning/phases/02-site-shell-design-system-and-hero/02-CONTEXT.md
-Next action: /gsd:plan-phase 2
+Stopped at: Completed 02-01-PLAN.md
+Resume file: .planning/phases/02-site-shell-design-system-and-hero/02-01-SUMMARY.md
+Next action: Execute 02-02-PLAN.md

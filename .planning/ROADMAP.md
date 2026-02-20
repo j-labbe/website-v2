@@ -50,7 +50,7 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Design system foundation: CSS tokens, fonts, animations, global styles, Vite config, R2 data hook, font-ready hook
+- [x] 02-01-PLAN.md — Design system foundation: CSS tokens, fonts, animations, global styles, Vite config, R2 data hook, font-ready hook
 - [ ] 02-02-PLAN.md — Core UI components: Hero section with skeleton, sticky Navbar with glass blur, SkipToContent, social icons
 - [ ] 02-03-PLAN.md — App composition, Footer, section placeholders, dividers, OG meta tags, CORS update, Cloudflare Pages deployment
 
@@ -78,5 +78,5 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation and Data Pipeline | 5/5 | Complete | 2026-02-20 |
-| 2. Site Shell, Design System, and Hero | 0/3 | Planning complete | - |
+| 2. Site Shell, Design System, and Hero | 1/3 | In Progress | - |
 | 3. Core Visualizations and Launch | 0/0 | Not started | - |
