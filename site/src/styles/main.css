@@ -244,4 +244,14 @@
   .commit-cell:hover {
     transform: none;
   }
+
+  .timeline-card,
+  .link-hover,
+  .link-hover::after,
+  .spine-month {
+    transition: none;
+  }
+  .timeline-card:hover {
+    transform: none;
+  }
 }
