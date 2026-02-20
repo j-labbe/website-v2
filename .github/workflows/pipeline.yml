@@ -27,14 +27,14 @@ jobs:
 
       - name: Upload to R2
         run: |
-          npx wrangler r2 object put jacklabbe-data/graph.json \
-            --file worker/output/graph.json \
+          pnpm --filter @jacklabbe/worker exec wrangler r2 object put jacklabbe-data/graph.json \
+            --file output/graph.json \
             --content-type application/json
-          npx wrangler r2 object put jacklabbe-data/projects.json \
-            --file worker/output/projects.json \
+          pnpm --filter @jacklabbe/worker exec wrangler r2 object put jacklabbe-data/projects.json \
+            --file output/projects.json \
             --content-type application/json
-          npx wrangler r2 object put jacklabbe-data/meta.json \
-            --file worker/output/meta.json \
+          pnpm --filter @jacklabbe/worker exec wrangler r2 object put jacklabbe-data/meta.json \
+            --file output/meta.json \
             --content-type application/json
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

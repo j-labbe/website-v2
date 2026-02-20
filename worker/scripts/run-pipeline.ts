@@ -31,7 +31,7 @@ async function main() {
     process.exit(1);
   }
 
-  const outDir = join(process.cwd(), 'worker', 'output');
+  const outDir = join(process.cwd(), 'output');
   mkdirSync(outDir, { recursive: true });
 
   try {
@@ -76,6 +76,7 @@ async function main() {
         'j-labbe',
         since,
         until,
+        repo.private,
       );
 
       const monthlyCommits: Record<string, number> = {};
