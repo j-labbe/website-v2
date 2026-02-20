@@ -72,6 +72,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Phase 1 complete. All 5 plans executed and verified.
-Resume file: .planning/phases/01-foundation-and-data-pipeline/01-05-SUMMARY.md
+Stopped at: Phase 2 context gathered
+Resume file: .planning/phases/02-site-shell-design-system-and-hero/02-CONTEXT.md
 Next action: /gsd:plan-phase 2
