@@ -23,6 +23,7 @@ shared/src/**/*.d.ts.map
 # Environment
 .env
 .env.local
+.env.production
 .env.*.local
 
 # OS

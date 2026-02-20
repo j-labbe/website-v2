@@ -1,0 +1,71 @@
+:root {
+  /* Colors (LOCKED) */
+  --bg: #040d21;
+  --surface: #0a1628;
+  --surface-2: #111d33;
+  --border: #1a2844;
+  --text: #c9d1d9;
+  /*
+   * WARNING: --text-dim fails WCAG AA for normal text on all backgrounds.
+   * Use only for large text (>=18.66px bold, >=24px regular) or decorative text.
+   * Contrast ratios: 4.44:1 on --bg, 4.16:1 on --surface, 3.86:1 on --surface-2.
+   */
+  --text-dim: #6e7a8a;
+  --text-bright: #f0f6fc;
+  --accent: #4F7DF5;
+  --accent-secondary: #6B9CFF;
+  --accent-glow: rgba(79, 125, 245, 0.15);
+
+  /*
+   * Button text on --accent: use --bg (dark), NOT white.
+   * White on #4F7DF5 is only 3.76:1 (FAIL AA).
+   * --bg on #4F7DF5 is 5.15:1 (PASS AA).
+   *
+   * Use --accent-secondary (#6B9CFF) for links/interactive text:
+   * 7.21:1 on --bg (PASS AA).
+   */
+
+  /* Semantic colors */
+  --success: #3fb950;
+  --warning: #d29922;
+  --error: #f85149;
+
+  /* Typography */
+  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Type scale */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 2rem;       /* 32px */
+  --text-4xl: 3rem;       /* 48px */
+  --text-5xl: 4rem;       /* 64px */
+
+  /* Spacing (4px grid) */
+  --space-1: 0.25rem;     /* 4px */
+  --space-2: 0.5rem;      /* 8px */
+  --space-3: 0.75rem;     /* 12px */
+  --space-4: 1rem;        /* 16px */
+  --space-5: 1.5rem;      /* 24px */
+  --space-6: 2rem;        /* 32px */
+  --space-8: 3rem;        /* 48px */
+  --space-10: 4rem;       /* 64px */
+  --space-12: 5rem;       /* 80px */
+  --space-16: 8rem;       /* 128px */
+
+  /* Layout */
+  --max-width: 1200px;
+  --radius: 8px;
+  --radius-pill: 9999px;
+
+  /* Decorative */
+  --grid-visible: 0; /* Toggle: 0 = hidden, 1 = visible */
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+}

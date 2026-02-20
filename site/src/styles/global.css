@@ -1,0 +1,11 @@
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: calc(var(--grid-visible) * 0.04);
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M0 40L40 0M-10 10L10 -10M30 50L50 30' stroke='%23c9d1d9' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-size: 40px 40px;
+  transition: opacity var(--transition-base);
+}
