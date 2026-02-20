@@ -22,10 +22,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Hero / Identity
 
-- [ ] **HERO-01**: Hero section displays photo, name ("Jack Labbe"), and tagline ("Software / AI Engineer")
-- [ ] **HERO-02**: Contact button in hero section (mailto link, no contact form)
-- [ ] **HERO-03**: Minimal navbar with only a contact button (top-right)
-- [ ] **HERO-04**: Spacious hero layout with generous whitespace
+- [x] **HERO-01**: Hero section displays photo, name ("Jack Labbe"), and tagline ("Software / AI Engineer")
+- [x] **HERO-02**: Contact button in hero section (mailto link, no contact form)
+- [x] **HERO-03**: Minimal navbar with only a contact button (top-right)
+- [x] **HERO-04**: Spacious hero layout with generous whitespace
 
 ### Commit Graph
 
@@ -52,8 +52,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **DSGN-01**: Dark theme with `#040d21` navy background
 - [x] **DSGN-02**: Inter/system sans-serif font for headings (bold weight)
 - [x] **DSGN-03**: Monospace font for accent text (tagline, section labels, metadata)
-- [ ] **DSGN-04**: Decorative structural 1px divider lines between sections
-- [ ] **DSGN-05**: Monospace section labels (e.g., `// projects`, `// contact`)
+- [x] **DSGN-04**: Decorative structural 1px divider lines between sections
+- [x] **DSGN-05**: Monospace section labels (e.g., `// projects`, `// contact`)
 - [x] **DSGN-06**: Toggleable subtle crosshatch grid pattern background (low opacity, easy enable/disable)
 - [ ] **DSGN-07**: Hover states on interactive elements (links, graph cells, timeline entries)
 - [ ] **DSGN-08**: Single-scroll page layout: hero → commit graph → divider → timeline → footer
@@ -72,8 +72,8 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Meta / SEO
 
 - [ ] **META-01**: Open Graph tags for social sharing preview (og:title, og:description, og:image)
-- [ ] **META-02**: Semantic HTML structure (nav, main, section, article elements)
-- [ ] **META-03**: Keyboard navigable, skip-to-content link
+- [x] **META-02**: Semantic HTML structure (nav, main, section, article elements)
+- [x] **META-03**: Keyboard navigable, skip-to-content link
 
 ## v2 Requirements
 
@@ -126,10 +126,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PIPE-08 | Phase 1 | Complete |
 | PIPE-09 | Phase 1 | Complete |
 | PIPE-10 | Phase 1 | Complete |
-| HERO-01 | Phase 2 | Pending |
-| HERO-02 | Phase 2 | Pending |
-| HERO-03 | Phase 2 | Pending |
-| HERO-04 | Phase 2 | Pending |
+| HERO-01 | Phase 2 | Complete |
+| HERO-02 | Phase 2 | Complete |
+| HERO-03 | Phase 2 | Complete |
+| HERO-04 | Phase 2 | Complete |
 | GRPH-01 | Phase 3 | Pending |
 | GRPH-02 | Phase 3 | Pending |
 | GRPH-03 | Phase 3 | Pending |
@@ -147,8 +147,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DSGN-01 | Phase 2 | Complete |
 | DSGN-02 | Phase 2 | Complete |
 | DSGN-03 | Phase 2 | Complete |
-| DSGN-04 | Phase 2 | Pending |
-| DSGN-05 | Phase 2 | Pending |
+| DSGN-04 | Phase 2 | Complete |
+| DSGN-05 | Phase 2 | Complete |
 | DSGN-06 | Phase 2 | Complete |
 | DSGN-07 | Phase 3 | Pending |
 | DSGN-08 | Phase 2 | Pending |
@@ -161,8 +161,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFR-04 | Phase 1 | Pending |
 | INFR-05 | Phase 2 | Complete |
 | META-01 | Phase 2 | Pending |
-| META-02 | Phase 2 | Pending |
-| META-03 | Phase 2 | Pending |
+| META-02 | Phase 2 | Complete |
+| META-03 | Phase 2 | Complete |
 
 **Coverage:**
 - v1 requirements: 47 total

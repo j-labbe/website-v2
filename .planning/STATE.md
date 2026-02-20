@@ -10,29 +10,29 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 ## Current Position
 
 Phase: 2 of 3 (Site Shell, Design System, and Hero)
-Plan: 1 of 3 in Phase 2 complete
+Plan: 2 of 3 in Phase 2 complete
 Status: Executing Phase 2
-Last activity: 2026-02-20 -- Completed 02-01 (design system foundation)
+Last activity: 2026-02-20 -- Completed 02-02 (core UI components)
 
-Progress: [██████░░░░] 50%
+Progress: [████████░░] 75%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: ~13 min
-- Total execution time: ~1.25 hours
+- Total plans completed: 7
+- Average duration: ~11 min
+- Total execution time: ~1.3 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 5/5 | ~75 min | ~15 min |
-| 02-site-shell | 1/3 | 3 min | 3 min |
+| 02-site-shell | 2/3 | 5 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (3 min), 01-03 (2 min), 01-04 (3 min), 01-05 (~60 min), 02-01 (3 min)
-- Trend: 02-01 fast execution -- CSS/hook creation with no external dependencies
+- Last 5 plans: 01-03 (2 min), 01-04 (3 min), 01-05 (~60 min), 02-01 (3 min), 02-02 (2 min)
+- Trend: 02-02 fast execution -- component creation with all dependencies already in place
 
 *Updated after each plan completion*
 
@@ -62,6 +62,8 @@ Recent decisions affecting current work:
 - [01-05]: Pipeline config (username, orgs) externalized to pipeline.config.json
 - [02-01]: sessionStorage caching with 1hr TTL for R2 data -- improves repeat visits without service worker complexity
 - [02-01]: Added .env.production to .gitignore alongside .env -- both contain environment-specific URLs
+- [02-02]: IntersectionObserver with sentinel element for navbar scroll detection -- avoids scroll event listener performance cost
+- [02-02]: Navbar contact button uses text-sm (slightly smaller than hero text-base) for visual hierarchy
 
 ### Pending Todos
 
@@ -75,6 +77,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 02-01-PLAN.md
-Resume file: .planning/phases/02-site-shell-design-system-and-hero/02-01-SUMMARY.md
-Next action: Execute 02-02-PLAN.md
+Stopped at: Completed 02-02-PLAN.md
+Resume file: .planning/phases/02-site-shell-design-system-and-hero/02-02-SUMMARY.md
+Next action: Execute 02-03-PLAN.md
