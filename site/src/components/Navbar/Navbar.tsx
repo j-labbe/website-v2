@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import styles from './Navbar.module.css';
 
 export function Navbar() {
   const navRef = useRef<HTMLElement>(null);
@@ -37,14 +36,14 @@ export function Navbar() {
   return (
     <nav
       ref={navRef}
-      className={styles.navbar}
+      className="sticky top-0 z-100 bg-bg/80 backdrop-blur-[12px] border-b border-transparent transition-[border-color] duration-250 ease py-4"
       aria-label="Main navigation"
       data-scrolled="false"
     >
-      <div className={styles.inner}>
+      <div className="max-w-[1200px] mx-auto px-8 flex justify-end items-center">
         <a
           href="mailto:contact@jacklabbe.com"
-          className={styles.contactButton}
+          className="inline-flex items-center justify-center px-6 py-2 bg-accent text-bg rounded-full font-sans font-semibold text-sm no-underline transition-opacity duration-150 hover:opacity-85 focus-visible:outline-2 focus-visible:outline-accent-secondary focus-visible:outline-offset-2"
         >
           Contact
         </a>

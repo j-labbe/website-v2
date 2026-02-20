@@ -1,4 +1,3 @@
-import styles from './Footer.module.css';
 import { GitHubIcon, LinkedInIcon, MailIcon, XIcon } from '../icons/SocialIcons';
 
 const socialLinks = [
@@ -10,10 +9,10 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className={styles.footer}>
-      <div className={styles.container}>
-        <span className={styles.copyright}>&copy; 2026 Jack Labbe</span>
-        <div className={styles.socials}>
+    <footer className="py-12 border-t border-border">
+      <div className="max-w-[1200px] mx-auto px-8 flex justify-between items-center">
+        <span className="text-text-dim text-sm">&copy; 2026 Jack Labbe</span>
+        <div className="flex gap-4 items-center">
           {socialLinks.map(({ href, label, Icon }) => (
             <a
               key={label}
@@ -21,7 +20,7 @@ export function Footer() {
               aria-label={label}
               target="_blank"
               rel="noopener noreferrer"
-              className={styles.socialLink}
+              className="text-text-dim transition-colors duration-150 flex hover:text-text focus-visible:outline-2 focus-visible:outline-accent-secondary focus-visible:outline-offset-2 focus-visible:rounded-lg"
             >
               <Icon />
             </a>

@@ -1,4 +1,3 @@
-import styles from './App.module.css';
 import { SkipToContent } from './components/SkipToContent/SkipToContent';
 import { Navbar } from './components/Navbar/Navbar';
 import { Hero } from './components/Hero/Hero';
@@ -21,7 +20,7 @@ export default function App() {
   }
 
   return (
-    <div className={styles.app}>
+    <div className="relative">
       <title>Jack Labbe - Software / AI Engineer</title>
       <meta
         name="description"
