@@ -23,7 +23,7 @@ jobs:
       - name: Run pipeline
         run: pnpm --filter @jacklabbe/worker exec tsx scripts/run-pipeline.ts
         env:
-          GITHUB_TOKEN: ${{ secrets.PIPELINE_GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.PIPELINE_GITHUB_TOKEN }}
 
       - name: Upload to R2
         run: |

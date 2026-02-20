@@ -37,9 +37,9 @@ function loadConfig(): PipelineConfig {
 }
 
 async function main() {
-  const token = process.env.GITHUB_TOKEN;
+  const token = process.env.GH_PAT;
   if (!token) {
-    console.error('GITHUB_TOKEN environment variable is required');
+    console.error('GH_PAT environment variable is required');
     process.exit(1);
   }
 
