@@ -5,7 +5,8 @@ on:
     - cron: "0 6 * * *"
   workflow_dispatch:
 
-permissions: {}
+permissions:
+  contents: read
 
 jobs:
   pipeline:
@@ -26,6 +27,7 @@ jobs:
         run: pnpm --filter @jacklabbe/worker exec tsx scripts/run-pipeline.ts
         env:
           GH_PAT: ${{ secrets.PIPELINE_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ""
 
       - name: Upload to R2
         run: |
