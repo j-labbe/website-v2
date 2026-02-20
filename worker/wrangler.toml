@@ -1,4 +1,5 @@
 name = "jacklabbe-pipeline"
+account_id = "ef226d71a9cc27a00dfb2f2c9b5cb362"
 main = "src/index.ts"
 compatibility_date = "2026-02-01"
 compatibility_flags = ["nodejs_compat"]
