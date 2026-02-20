@@ -1,5 +1,5 @@
-import { writeFileSync, mkdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { join, resolve } from 'node:path';
 import type {
   CommitDetail,
   PipelineMeta,
@@ -24,12 +24,27 @@ function toMonthKey(isoDate: string): string {
   return isoDate.slice(0, 7);
 }
 
+interface PipelineConfig {
+  username: string;
+  orgs: string[];
+}
+
+function loadConfig(): PipelineConfig {
+  // Resolve from repo root (one level up from worker/)
+  const configPath = resolve(process.cwd(), '..', 'pipeline.config.json');
+  const raw = readFileSync(configPath, 'utf-8');
+  return JSON.parse(raw) as PipelineConfig;
+}
+
 async function main() {
   const token = process.env.GITHUB_TOKEN;
   if (!token) {
     console.error('GITHUB_TOKEN environment variable is required');
     process.exit(1);
   }
+
+  const config = loadConfig();
+  log('config-loaded', { username: config.username, orgs: config.orgs });
 
   const outDir = join(process.cwd(), 'output');
   mkdirSync(outDir, { recursive: true });
@@ -38,7 +53,7 @@ async function main() {
     log('pipeline-start', { mode: 'backfill' });
 
     // 1. Fetch contribution calendar (12 months)
-    const calendar = await fetchContributionCalendar(token, 'j-labbe');
+    const calendar = await fetchContributionCalendar(token, config.username);
     const graphData = transformContributionCalendar(calendar);
     log('calendar-fetched', {
       totalContributions: graphData.totalContributions,
@@ -47,7 +62,7 @@ async function main() {
 
     // 2. Fetch all repos
     const octokit = createOctokit(token);
-    const allRepos = await fetchAllRepos(octokit);
+    const allRepos = await fetchAllRepos(octokit, config.orgs);
     log('repos-fetched', { total: allRepos.length });
 
     // 3. Date range: 24 months back for full backfill
@@ -73,7 +88,7 @@ async function main() {
         octokit,
         owner,
         repoName,
-        'j-labbe',
+        config.username,
         since,
         until,
         repo.private,

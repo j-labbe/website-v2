@@ -88,6 +88,7 @@ export function createOctokit(token: string): Octokit {
  */
 export async function fetchAllRepos(
   octokit: Octokit,
+  orgs: string[] = [],
 ): Promise<GitHubRepo[]> {
   // 1. Fetch repos where user has explicit access (owned + collaborator + org member)
   const userRepos = await octokit.paginate(
@@ -100,26 +101,18 @@ export async function fetchAllRepos(
 
   log('fetch-user-repos', { count: userRepos.length });
 
-  // 2. Fetch all orgs the user belongs to
-  const orgs = await octokit.paginate(octokit.orgs.listForAuthenticatedUser, {
-    per_page: 100,
-  });
-
-  log('fetch-orgs', { count: orgs.length, orgs: orgs.map((o) => o.login) });
-
-  // 3. For each org, fetch all repos (includes repos where user has
-  //    org-level access but not explicit individual permission)
+  // 2. Fetch repos from configured orgs
   const orgRepos = [];
   for (const org of orgs) {
     const repos = await octokit.paginate(octokit.repos.listForOrg, {
-      org: org.login,
+      org,
       per_page: 100,
     });
-    log('fetch-org-repos', { org: org.login, count: repos.length });
+    log('fetch-org-repos', { org, count: repos.length });
     orgRepos.push(...repos);
   }
 
-  // 4. Merge and deduplicate by repo id
+  // 3. Merge and deduplicate by repo id
   const seen = new Set<number>();
   const allRepos = [];
 
