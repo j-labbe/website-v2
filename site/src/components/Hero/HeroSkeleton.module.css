@@ -1,0 +1,73 @@
+.hero {
+  background: radial-gradient(
+    ellipse at 70% 50%,
+    var(--accent-glow),
+    var(--bg) 70%
+  );
+  padding: var(--space-12) 0;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+}
+
+.photoPlaceholder {
+  flex: 0 0 auto;
+  max-width: 320px;
+  width: 50%;
+}
+
+.photoShape {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.namePlaceholder {
+  width: 60%;
+  height: 4rem; /* matches --text-5xl */
+  border-radius: var(--radius);
+}
+
+.taglinePlaceholder {
+  width: 40%;
+  height: 1.25rem; /* matches --text-xl */
+  border-radius: var(--radius);
+}
+
+.buttonPlaceholder {
+  width: 120px;
+  height: 48px;
+  border-radius: var(--radius-pill);
+  margin-top: var(--space-2);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .photoPlaceholder {
+    max-width: 200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .content {
+    align-items: center;
+  }
+}
