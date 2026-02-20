@@ -127,6 +127,34 @@
   nav[data-scrolled="true"] {
     border-bottom-color: var(--color-border);
   }
+
+  /* LQIP (Low Quality Image Placeholder) blur-in transition */
+  .lqip-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lqip-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(20px);
+    transform: scale(1.1);
+  }
+
+  .lqip-full {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 500ms ease;
+  }
+
+  .lqip-full.loaded {
+    opacity: 1;
+  }
 }
 
 /* Reduced motion */
@@ -139,5 +167,10 @@
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  .lqip-full {
+    opacity: 1;
+    transition: none;
   }
 }
