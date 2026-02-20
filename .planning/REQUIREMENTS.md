@@ -56,7 +56,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **DSGN-05**: Monospace section labels (e.g., `// projects`, `// contact`)
 - [x] **DSGN-06**: Toggleable subtle crosshatch grid pattern background (low opacity, easy enable/disable)
 - [ ] **DSGN-07**: Hover states on interactive elements (links, graph cells, timeline entries)
-- [ ] **DSGN-08**: Single-scroll page layout: hero → commit graph → divider → timeline → footer
+- [x] **DSGN-08**: Single-scroll page layout: hero → commit graph → divider → timeline → footer
 - [x] **DSGN-09**: Responsive layout -- mobile-first, works on all viewports
 - [x] **DSGN-10**: WCAG AA contrast ratios on all text
 - [x] **DSGN-11**: CSS Modules + CSS custom properties (no CSS frameworks)
@@ -65,13 +65,13 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **INFR-01**: TypeScript React application (Vite build toolchain)
 - [x] **INFR-02**: pnpm monorepo with shared types package (site/, worker/, shared/)
-- [ ] **INFR-03**: Deployed to Cloudflare Pages (static upload)
+- [x] **INFR-03**: Deployed to Cloudflare Pages (static upload)
 - [ ] **INFR-04**: Commit data served from Cloudflare R2 (CDN-cacheable JSON)
 - [x] **INFR-05**: Site fetches R2 JSON on visit (not full SSG)
 
 ### Meta / SEO
 
-- [ ] **META-01**: Open Graph tags for social sharing preview (og:title, og:description, og:image)
+- [x] **META-01**: Open Graph tags for social sharing preview (og:title, og:description, og:image)
 - [x] **META-02**: Semantic HTML structure (nav, main, section, article elements)
 - [x] **META-03**: Keyboard navigable, skip-to-content link
 
@@ -151,16 +151,16 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DSGN-05 | Phase 2 | Complete |
 | DSGN-06 | Phase 2 | Complete |
 | DSGN-07 | Phase 3 | Pending |
-| DSGN-08 | Phase 2 | Pending |
+| DSGN-08 | Phase 2 | Complete |
 | DSGN-09 | Phase 2 | Complete |
 | DSGN-10 | Phase 2 | Complete |
 | DSGN-11 | Phase 2 | Complete |
 | INFR-01 | Phase 1 | Complete |
 | INFR-02 | Phase 1 | Complete |
-| INFR-03 | Phase 2 | Pending |
+| INFR-03 | Phase 2 | Complete |
 | INFR-04 | Phase 1 | Pending |
 | INFR-05 | Phase 2 | Complete |
-| META-01 | Phase 2 | Pending |
+| META-01 | Phase 2 | Complete |
 | META-02 | Phase 2 | Complete |
 | META-03 | Phase 2 | Complete |
 
