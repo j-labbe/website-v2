@@ -12,7 +12,7 @@ Three phases deliver jacklabbe.com from empty repo to live portfolio. Phase 1 bu
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation and Data Pipeline** - Monorepo, shared types, Cloudflare Worker pipeline writing real GitHub data to R2
+- [x] **Phase 1: Foundation and Data Pipeline** - Monorepo, shared types, GitHub Actions pipeline writing real GitHub data to R2
 - [ ] **Phase 2: Site Shell, Design System, and Hero** - React SPA with design tokens, hero section, page layout, data fetching, SEO
 - [ ] **Phase 3: Core Visualizations and Launch** - Commit graph, project timeline with scroll-synced date spine, hover states, production deploy
 
@@ -35,7 +35,7 @@ Plans:
 - [x] 01-02-PLAN.md — Site skeleton (Vite+React) and worker skeleton (Wrangler) with shared type imports
 - [x] 01-03-PLAN.md — Data transformation and sanitization (TDD): private repo allowlist, public repo enrichment, graph transformation, backfill detection
 - [x] 01-04-PLAN.md — GitHub API fetching layer: GraphQL contribution calendar, REST repo/commit/language enumeration, rate limit handling
-- [ ] 01-05-PLAN.md — Pipeline orchestration, R2 writes, Worker handlers, CORS config, deployment verification
+- [x] 01-05-PLAN.md — Pipeline orchestration, R2 writes, Worker handlers, CORS config, deployment verification
 
 ### Phase 2: Site Shell, Design System, and Hero
 **Goal**: Visitors see a polished dark-themed hero page that loads commit metadata from R2, with the full design system and page layout skeleton ready for visualizations
@@ -76,6 +76,6 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation and Data Pipeline | 4/5 | In Progress | - |
+| 1. Foundation and Data Pipeline | 5/5 | Complete | 2026-02-20 |
 | 2. Site Shell, Design System, and Hero | 0/0 | Not started | - |
 | 3. Core Visualizations and Launch | 0/0 | Not started | - |

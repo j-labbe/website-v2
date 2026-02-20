@@ -5,36 +5,35 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Show what I'm actively building -- a living, auto-updating portfolio driven by real commit data, not manually curated content.
-**Current focus:** Phase 1: Foundation and Data Pipeline
+**Current focus:** Phase 1 complete. Ready for Phase 2: Site Shell, Design System, and Hero
 
 ## Current Position
 
-Phase: 1 of 3 (Foundation and Data Pipeline)
-Plan: 4 of 5 in current phase (01-04 complete)
-Status: Executing
-Last activity: 2026-02-19 -- Completed 01-04 (GitHub API integration)
+Phase: 1 of 3 complete (Foundation and Data Pipeline)
+Plan: 5 of 5 in Phase 1 (all complete)
+Status: Phase 1 Complete
+Last activity: 2026-02-20 -- Completed 01-05 (pipeline orchestration and deployment)
 
-Progress: [██████░░░░] 27%
+Progress: [████░░░░░░] 33%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 2.5 min
-- Total execution time: 0.17 hours
+- Total plans completed: 5
+- Average duration: ~15 min (including 01-05 debugging)
+- Total execution time: ~1.2 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation | 4/5 | 10 min | 2.5 min |
+| 01-foundation | 5/5 | ~75 min | ~15 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2 min), 01-02 (3 min), 01-03 (2 min), 01-04 (3 min)
-- Trend: Consistent
+- Last 5 plans: 01-01 (2 min), 01-02 (3 min), 01-03 (2 min), 01-04 (3 min), 01-05 (~60 min)
+- Trend: 01-05 took longer due to deployment debugging (auth issues, platform pivot)
 
 *Updated after each plan completion*
-| Phase 01 P03 | 5 min | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -56,6 +55,10 @@ Recent decisions affecting current work:
 - [01-03]: Used node:crypto createHash for SHA-256 hashing (available in Workers runtime, no extra deps)
 - [01-03]: RawGitHubRepo interface defined locally in sanitize.ts rather than shared package (internal to worker)
 - [01-03]: Backfill boundary at strictly >48h (not >=), so exactly 48h still counts as fresh
+- [01-05]: Pivoted from Worker cron to GitHub Actions due to 1000 subrequest limit
+- [01-05]: GH_PAT env var avoids GITHUB_TOKEN auto-injection conflict in Actions
+- [01-05]: GraphQL auth uses bearer prefix per GitHub's recommendation
+- [01-05]: Pipeline config (username, orgs) externalized to pipeline.config.json
 
 ### Pending Todos
 
@@ -63,12 +66,12 @@ None yet.
 
 ### Blockers/Concerns
 
-- Cloudflare Worker plan limits (free vs. paid) need verification before pipeline implementation
-- GitHub GraphQL contributionsCollection exact field names need verification against current schema
-- R2 CORS configuration steps may have changed -- verify during Phase 1
+- Cloudflare API token permissions should be verified if R2 uploads fail
+- Worker handlers (scheduled/fetch) remain functional but unused since pivot to GH Actions
 
 ## Session Continuity
 
-Last session: 2026-02-19
-Stopped at: Completed 01-03-PLAN.md (transform layer + all 01-04 plans also complete)
-Resume file: .planning/phases/01-foundation-and-data-pipeline/01-03-SUMMARY.md
+Last session: 2026-02-20
+Stopped at: Phase 1 complete. All 5 plans executed and verified.
+Resume file: .planning/phases/01-foundation-and-data-pipeline/01-05-SUMMARY.md
+Next action: /gsd:plan-phase 2
