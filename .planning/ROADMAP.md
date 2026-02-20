@@ -47,7 +47,7 @@ Plans:
   3. The site fetches R2 JSON on load and displays a loading state, then renders content (or an error state if R2 is unavailable)
   4. Sharing the URL on social platforms shows a correct Open Graph preview card with title, description, and image
   5. A keyboard-only user can navigate the page using Tab, activate the contact button, and use the skip-to-content link
-**Plans:** 5 plans
+**Plans:** 5/5 plans complete
 
 Plans:
 - [x] 02-01-PLAN.md — Design system foundation: CSS tokens, fonts, animations, global styles, Vite config, R2 data hook, font-ready hook
@@ -80,5 +80,5 @@ Phases execute in numeric order: 1 → 2 → 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation and Data Pipeline | 5/5 | Complete | 2026-02-20 |
-| 2. Site Shell, Design System, and Hero | 5/5 | Complete | 2026-02-20 |
+| 2. Site Shell, Design System, and Hero | 5/5 | Complete    | 2026-02-20 |
 | 3. Core Visualizations and Launch | 0/0 | Not started | - |
