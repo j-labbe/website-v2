@@ -3,8 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc -b && vite build",
+    "build": "node scripts/generate-lqip.mjs && tsc -b && vite build",
     "dev": "vite",
+    "generate:lqip": "node scripts/generate-lqip.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^4",
+    "sharp": "^0.34.5",
     "typescript": "^5.9",
     "vite": "^7"
   }
