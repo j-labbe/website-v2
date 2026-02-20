@@ -37,15 +37,15 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Project Timeline
 
-- [ ] **TIME-01**: Chronological project list sorted by most recent contribution (newest first)
-- [ ] **TIME-02**: Month-grouped entries (January 2026, December 2025, etc.)
-- [ ] **TIME-03**: Public repos display: repo name with GitHub link, language badges, last active date, commit count
-- [ ] **TIME-04**: Private repos display as "Private Repo" with language badges, last active date, commit count (no name or link)
-- [ ] **TIME-05**: Time Machine-style right-side date spine showing months
-- [ ] **TIME-06**: Scroll-synced date spine -- active month highlights as user scrolls through content
-- [ ] **TIME-07**: Clickable date spine -- clicking a month jumps to that month's projects
-- [ ] **TIME-08**: Compact timeline density (more content visible at once)
-- [ ] **TIME-09**: Subtle fade-in animation on scroll for timeline entries
+- [x] **TIME-01**: Chronological project list sorted by most recent contribution (newest first)
+- [x] **TIME-02**: Month-grouped entries (January 2026, December 2025, etc.)
+- [x] **TIME-03**: Public repos display: repo name with GitHub link, language badges, last active date, commit count
+- [x] **TIME-04**: Private repos display as "Private Repo" with language badges, last active date, commit count (no name or link)
+- [x] **TIME-05**: Time Machine-style right-side date spine showing months
+- [x] **TIME-06**: Scroll-synced date spine -- active month highlights as user scrolls through content
+- [x] **TIME-07**: Clickable date spine -- clicking a month jumps to that month's projects
+- [x] **TIME-08**: Compact timeline density (more content visible at once)
+- [x] **TIME-09**: Subtle fade-in animation on scroll for timeline entries
 
 ### Design System
 
@@ -55,7 +55,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **DSGN-04**: Decorative structural 1px divider lines between sections
 - [x] **DSGN-05**: Monospace section labels (e.g., `// projects`, `// contact`)
 - [x] **DSGN-06**: Toggleable subtle crosshatch grid pattern background (low opacity, easy enable/disable)
-- [ ] **DSGN-07**: Hover states on interactive elements (links, graph cells, timeline entries)
+- [x] **DSGN-07**: Hover states on interactive elements (links, graph cells, timeline entries)
 - [x] **DSGN-08**: Single-scroll page layout: hero → commit graph → divider → timeline → footer
 - [x] **DSGN-09**: Responsive layout -- mobile-first, works on all viewports
 - [x] **DSGN-10**: WCAG AA contrast ratios on all text
@@ -135,22 +135,22 @@ Which phases cover which requirements. Updated during roadmap creation.
 | GRPH-03 | Phase 3 | Pending |
 | GRPH-04 | Phase 3 | Pending |
 | GRPH-05 | Phase 3 | Pending |
-| TIME-01 | Phase 3 | Pending |
-| TIME-02 | Phase 3 | Pending |
-| TIME-03 | Phase 3 | Pending |
-| TIME-04 | Phase 3 | Pending |
-| TIME-05 | Phase 3 | Pending |
-| TIME-06 | Phase 3 | Pending |
-| TIME-07 | Phase 3 | Pending |
-| TIME-08 | Phase 3 | Pending |
-| TIME-09 | Phase 3 | Pending |
+| TIME-01 | Phase 3 | Complete |
+| TIME-02 | Phase 3 | Complete |
+| TIME-03 | Phase 3 | Complete |
+| TIME-04 | Phase 3 | Complete |
+| TIME-05 | Phase 3 | Complete |
+| TIME-06 | Phase 3 | Complete |
+| TIME-07 | Phase 3 | Complete |
+| TIME-08 | Phase 3 | Complete |
+| TIME-09 | Phase 3 | Complete |
 | DSGN-01 | Phase 2 | Complete |
 | DSGN-02 | Phase 2 | Complete |
 | DSGN-03 | Phase 2 | Complete |
 | DSGN-04 | Phase 2 | Complete |
 | DSGN-05 | Phase 2 | Complete |
 | DSGN-06 | Phase 2 | Complete |
-| DSGN-07 | Phase 3 | Pending |
+| DSGN-07 | Phase 3 | Complete |
 | DSGN-08 | Phase 2 | Complete |
 | DSGN-09 | Phase 2 | Complete |
 | DSGN-10 | Phase 2 | Complete |

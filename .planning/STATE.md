@@ -5,22 +5,22 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Show what I'm actively building -- a living, auto-updating portfolio driven by real commit data, not manually curated content.
-**Current focus:** Phase 2 complete -- ready to plan Phase 3
+**Current focus:** Phase 3 -- Core Visualizations and Launch
 
 ## Current Position
 
-Phase: 2 of 3 (Site Shell, Design System, and Hero)
-Plan: 5 of 5 in Phase 2 complete
-Status: Phase 2 Complete
-Last activity: 2026-02-20 -- Completed 02-05 (LQIP photo loading + visual polish)
+Phase: 3 of 3 (Core Visualizations and Launch)
+Plan: 2 of 3 in Phase 3 complete
+Status: Executing Phase 3
+Last activity: 2026-02-20 -- Completed 03-02 (Project Timeline)
 
-Progress: [██████████] 100% (Phase 2)
+Progress: [██████----] 67% (Phase 3)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: ~10 min
+- Total plans completed: 12
+- Average duration: ~8 min
 - Total execution time: ~1.6 hours
 
 **By Phase:**
@@ -29,10 +29,11 @@ Progress: [██████████] 100% (Phase 2)
 |-------|-------|-------|----------|
 | 01-foundation | 5/5 | ~75 min | ~15 min |
 | 02-site-shell | 5/5 | ~31 min | ~6 min |
+| 03-core-vis   | 2/3 | ~5 min  | ~3 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (3 min), 02-02 (2 min), 02-03 (~15 min), 02-04 (3 min), 02-05 (~8 min)
-- Trend: Phase 2 complete, all plans executed efficiently
+- Last 5 plans: 02-04 (3 min), 02-05 (~8 min), 03-01 (2 min), 03-02 (~3 min)
+- Trend: Phase 3 executing efficiently
 
 *Updated after each plan completion*
 
@@ -73,6 +74,12 @@ Recent decisions affecting current work:
 - [02-05]: Build-time LQIP generation via sharp instead of hardcoded base64 -- regenerates from actual headshot
 - [02-05]: 3D tilt hover effect on hero photo with +/-17deg rotation (Apple TV style)
 - [02-05]: Photo dimensions fixed at 300x250px for predictable layout
+- [03-01]: UTC date methods throughout to avoid timezone shifting (getUTCDay, Intl with timeZone UTC)
+- [03-01]: Tooltip positioned via container getBoundingClientRect + SVG-to-DOM coordinate scaling
+- [03-01]: transform-box: fill-box for SVG rect hover scaling from center
+- [03-02]: useInViewRef callback pattern co-located in Timeline.tsx for fade-in animation
+- [03-02]: Composite React keys ${monthKey}-${project.id} for multi-month project deduplication
+- [03-02]: DateSpine responsive format via CSS visibility classes (full label desktop, abbreviated mobile)
 
 ### Pending Todos
 
@@ -86,6 +93,6 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Phase 3 context gathered
-Resume file: .planning/phases/03-core-visualizations-and-launch/03-CONTEXT.md
-Next action: Plan Phase 3 (Core Visualizations and Launch)
+Stopped at: Completed 03-02-PLAN.md
+Resume file: .planning/phases/03-core-visualizations-and-launch/03-02-SUMMARY.md
+Next action: Execute 03-03 (Page Assembly and Launch)
