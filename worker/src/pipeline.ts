@@ -89,6 +89,7 @@ export async function runPipeline(
         'j-labbe',
         since,
         until,
+        repo.private,
       );
 
       // Aggregate commits into monthly buckets
