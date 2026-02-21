@@ -99,11 +99,11 @@ export function CommitGraph({ data }: CommitGraphProps) {
   const legendY = svgHeight - 22;
 
   return (
-    <div
-      ref={containerRef}
-      className="relative overflow-x-auto"
-      style={{ WebkitOverflowScrolling: 'touch' }}
-    >
+    <div ref={containerRef} className="relative">
+      <div
+        className="overflow-x-auto"
+        style={{ WebkitOverflowScrolling: 'touch' }}
+      >
       <svg
         ref={svgRef}
         viewBox={`0 0 ${svgWidth} ${svgHeight}`}
@@ -197,12 +197,14 @@ export function CommitGraph({ data }: CommitGraphProps) {
           More
         </text>
       </svg>
+      </div>
 
       <CommitGraphTooltip
         visible={tooltip.visible}
         x={tooltip.x}
         y={tooltip.y}
         text={tooltip.text}
+        containerRef={containerRef}
       />
     </div>
   );
