@@ -88,6 +88,11 @@ export function CommitGraph({ data }: CommitGraphProps) {
     setTooltip((prev) => ({ ...prev, visible: false }));
   }, []);
 
+  const handleClick = useCallback((cell: CellPosition) => {
+    const monthKey = cell.date.slice(0, 7); // "2026-02-15" → "2026-02"
+    document.getElementById('month-' + monthKey)?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
   // Legend dimensions
   const legendWidth = 5 * (LEGEND_CELL_SIZE + LEGEND_GAP) + 60; // cells + "Less" + "More" text
   const legendX = svgWidth - legendWidth - 5;
@@ -155,6 +160,7 @@ export function CommitGraph({ data }: CommitGraphProps) {
             }}
             onMouseEnter={(e) => handleMouseEnter(cell, e)}
             onMouseLeave={handleMouseLeave}
+            onClick={() => handleClick(cell)}
           />
         ))}
 
