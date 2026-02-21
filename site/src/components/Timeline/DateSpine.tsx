@@ -1,9 +1,13 @@
-import { useState, useCallback } from 'react';
+import { useState, useMemo } from 'react';
 
 interface DateSpineProps {
   months: { key: string; label: string }[];
   activeMonth: string | null;
 }
+
+type SpineItem =
+  | { type: 'year'; year: string }
+  | { type: 'month'; key: string; label: string; monthIndex: number };
 
 /** Extract short month name from "February 2026" → "Feb" */
 function shortMonth(label: string): string {
@@ -15,25 +19,17 @@ function yearFromKey(key: string): string {
   return key.split('-')[0];
 }
 
-/** Check if this month is the first of its year in the list */
-function isYearBoundary(key: string, index: number, months: { key: string }[]): boolean {
-  if (index === 0) return true;
-  return yearFromKey(key) !== yearFromKey(months[index - 1].key);
-}
-
 /**
- * Dock-style magnification with smooth falloff.
- * Returns scale (1..1.5) and brightness (0..1) based on distance from hovered.
- * Each step away is another gradual reduction — not a hard cutoff.
+ * Dock-style magnification with smooth gaussian falloff.
+ * Each step away from hovered is another gradual reduction.
  */
-function getMagnification(index: number, hoveredIndex: number | null): { scale: number; brightness: number } {
-  if (hoveredIndex === null) return { scale: 1, brightness: 0 };
-  const distance = Math.abs(index - hoveredIndex);
-  // Smooth gaussian-ish falloff over 4 steps
+function getMagnification(monthIndex: number, hoveredMonthIndex: number | null): { scale: number; brightness: number } {
+  if (hoveredMonthIndex === null) return { scale: 1, brightness: 0 };
+  const distance = Math.abs(monthIndex - hoveredMonthIndex);
   const falloff = Math.exp(-(distance * distance) / 3);
   return {
-    scale: 1 + 0.5 * falloff,       // 1.0 → 1.5 at center
-    brightness: falloff,              // 1.0 → 0 smooth fade
+    scale: 1 + 0.5 * falloff,
+    brightness: falloff,
   };
 }
 
@@ -52,50 +48,86 @@ function lerpColor(a: string, b: string, t: number): string {
   return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${bl.toString(16).padStart(2, '0')}`;
 }
 
-const COLOR_DIM = '#1a2844';    // --color-border
-const COLOR_BRIGHT = '#f0f6fc'; // --color-text-bright
-const COLOR_ACCENT = '#4F7DF5'; // --color-accent
+const COLOR_DIM = '#1a2844';
+const COLOR_BRIGHT = '#f0f6fc';
+const COLOR_ACCENT = '#4F7DF5';
+
+/** Build a flat list interleaving year separators and month items */
+function buildSpineItems(months: { key: string; label: string }[]): SpineItem[] {
+  const items: SpineItem[] = [];
+  let lastYear = '';
+  let monthIndex = 0;
+
+  for (const { key, label } of months) {
+    const year = yearFromKey(key);
+    if (year !== lastYear) {
+      items.push({ type: 'year', year });
+      lastYear = year;
+    }
+    items.push({ type: 'month', key, label, monthIndex });
+    monthIndex++;
+  }
+
+  return items;
+}
 
 export function DateSpine({ months, activeMonth }: DateSpineProps) {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredMonthIndex, setHoveredMonthIndex] = useState<number | null>(null);
   const [spineHovered, setSpineHovered] = useState(false);
+
+  const items = useMemo(() => buildSpineItems(months), [months]);
 
   function handleClick(key: string) {
     document.getElementById('month-' + key)?.scrollIntoView({ behavior: 'smooth' });
   }
-
-  const handleMouseEnter = useCallback((index: number) => {
-    setHoveredIndex(index);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setHoveredIndex(null);
-  }, []);
 
   return (
     <nav
       aria-label="Timeline navigation"
       className="sticky top-20 self-start h-fit"
       onMouseEnter={() => setSpineHovered(true)}
-      onMouseLeave={() => { setSpineHovered(false); setHoveredIndex(null); }}
+      onMouseLeave={() => { setSpineHovered(false); setHoveredMonthIndex(null); }}
     >
       <ul className="flex flex-col items-end gap-[3px]">
-        {months.map(({ key, label }, index) => {
-          const isActive = 'month-' + key === activeMonth;
-          const { scale, brightness } = getMagnification(index, hoveredIndex);
+        {items.map((item) => {
+          if (item.type === 'year') {
+            return (
+              <li key={`year-${item.year}`} className="flex items-center justify-end py-0.5">
+                <span
+                  className="text-[10px] font-mono text-text-dim"
+                  style={{
+                    opacity: spineHovered ? 0 : 1,
+                    transition: 'opacity 150ms ease-out',
+                  }}
+                >
+                  {item.year}
+                </span>
+              </li>
+            );
+          }
 
-          // Bar color: active = accent, otherwise interpolate dim→bright based on proximity
+          const isActive = 'month-' + item.key === activeMonth;
+          const { scale, brightness } = getMagnification(item.monthIndex, hoveredMonthIndex);
+
           const barColor = isActive
             ? lerpColor(COLOR_ACCENT, COLOR_BRIGHT, brightness * 0.4)
             : lerpColor(COLOR_DIM, COLOR_BRIGHT, brightness);
 
-          // Month label opacity follows the same falloff
           const labelOpacity = spineHovered ? 0.3 + brightness * 0.7 : 0;
           const labelColor = isActive ? COLOR_ACCENT : lerpColor('#6e7a8a', COLOR_BRIGHT, brightness);
 
           return (
-            <li key={key} className="flex items-center gap-2 justify-end">
-              {/* Month label — fades in on spine hover, brightness follows magnification */}
+            <li
+              key={item.key}
+              className="flex items-center gap-2 justify-end"
+              onMouseEnter={() => setHoveredMonthIndex(item.monthIndex)}
+              onClick={() => handleClick(item.key)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter') handleClick(item.key); }}
+              style={{ cursor: 'pointer' }}
+            >
+              {/* Month label */}
               <span
                 className="text-xs font-mono whitespace-nowrap"
                 style={{
@@ -105,58 +137,23 @@ export function DateSpine({ months, activeMonth }: DateSpineProps) {
                   transition: 'all 150ms ease-out',
                 }}
               >
-                {shortMonth(label)}
+                {shortMonth(item.label)}
               </span>
 
               {/* Rounded rectangle selector */}
-              <button
-                onClick={() => handleClick(key)}
-                onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={handleMouseLeave}
-                className="relative flex items-center justify-end"
-                aria-label={label}
-              >
-                <div
-                  className="rounded-[4px]"
-                  style={{
-                    width: `${scale * 24}px`,
-                    height: `${scale * 6}px`,
-                    backgroundColor: barColor,
-                    transition: 'all 150ms ease-out',
-                  }}
-                />
-              </button>
+              <div
+                className="rounded-[4px]"
+                style={{
+                  width: `${scale * 24}px`,
+                  height: `${scale * 6}px`,
+                  backgroundColor: barColor,
+                  transition: 'all 150ms ease-out',
+                }}
+              />
             </li>
           );
         })}
-
-        {/* Year labels — shown inline below each year's last month when not hovered */}
-        {!spineHovered && (
-          <li className="sr-only" aria-hidden="true" />
-        )}
       </ul>
-
-      {/* Year markers overlaid at year boundaries when spine is not hovered */}
-      {!spineHovered && (
-        <div className="absolute inset-0 pointer-events-none flex flex-col items-end gap-[3px]">
-          {months.map(({ key }, index) => {
-            const showYear = isYearBoundary(key, index, months);
-            return (
-              <div
-                key={key}
-                className="flex items-center justify-end"
-                style={{ height: '9px' }} // matches 6px bar + 3px gap
-              >
-                {showYear && (
-                  <span className="text-[10px] font-mono text-text-dim pr-1">
-                    {yearFromKey(key)}
-                  </span>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      )}
     </nav>
   );
 }

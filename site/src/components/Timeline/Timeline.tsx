@@ -55,10 +55,10 @@ export function Timeline({ projects }: TimelineProps) {
         <div className="mt-2 h-px bg-[linear-gradient(to_right,var(--color-border),transparent)]" />
       </div>
 
-      {/* Two-column layout: main content + date spine */}
-      <div className="flex gap-6 overflow-visible">
-        {/* Main content */}
-        <div className="flex-1 min-w-0 space-y-10">
+      {/* Layout: cards take full width, spine floats on the right outside flow */}
+      <div className="relative">
+        {/* Main content — full width, unaffected by spine */}
+        <div className="space-y-10 pr-12">
           {months.map((month) => (
             <div key={month.key} id={'month-' + month.key}>
               <h3 className="font-bold font-mono text-text-bright text-sm mb-3 pb-2 border-b border-border">
@@ -79,11 +79,13 @@ export function Timeline({ projects }: TimelineProps) {
           ))}
         </div>
 
-        {/* Date spine sidebar */}
-        <DateSpine
-          months={months.map((m) => ({ key: m.key, label: m.label }))}
-          activeMonth={activeMonth}
-        />
+        {/* Date spine — absolutely positioned so it never affects card width */}
+        <div className="absolute top-0 right-0">
+          <DateSpine
+            months={months.map((m) => ({ key: m.key, label: m.label }))}
+            activeMonth={activeMonth}
+          />
+        </div>
       </div>
     </section>
   );
