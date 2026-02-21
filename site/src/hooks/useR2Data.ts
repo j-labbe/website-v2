@@ -12,7 +12,7 @@ export type R2State =
   | { status: 'loaded'; data: R2Data }
   | { status: 'error'; error: string };
 
-const R2_BASE = import.meta.env.VITE_R2_BASE_URL;
+const R2_BASE = 'https://data.jacklabbe.com';
 const TIMEOUT_MS = 5_000;
 const CACHE_KEY = 'r2-data-cache';
 const CACHE_MAX_AGE_MS = 60 * 60 * 1000; // 1 hour
