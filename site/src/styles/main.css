@@ -211,13 +211,6 @@
     width: 100%;
   }
 
-  /* Date spine month hover */
-  .spine-month {
-    transition: color 120ms ease;
-  }
-  .spine-month:hover {
-    color: var(--color-text-bright);
-  }
 }
 
 /* Reduced motion */
@@ -247,8 +240,7 @@
 
   .timeline-card,
   .link-hover,
-  .link-hover::after,
-  .spine-month {
+  .link-hover::after {
     transition: none;
   }
   .timeline-card:hover {

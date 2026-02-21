@@ -57,11 +57,11 @@ export default function App() {
         <div className={stagger(isVisible(4))}>
           <Divider />
         </div>
-        <div className={stagger(isVisible(5))}>
+        <div className={`max-w-[1200px] mx-auto px-8 ${stagger(isVisible(5))}`}>
           {r2State.status === "loaded" && r2State.data.graph ? (
             <CommitGraph data={r2State.data.graph} />
           ) : r2State.status === "error" ? (
-            <div className="max-w-[1200px] mx-auto px-8 py-4">
+            <div className="py-4">
               <p className="text-text-dim font-mono text-sm">Data unavailable</p>
             </div>
           ) : null}
@@ -69,11 +69,11 @@ export default function App() {
         <div className={stagger(isVisible(6))}>
           <Divider />
         </div>
-        <div className={stagger(isVisible(7))}>
+        <div className={`max-w-[1200px] mx-auto px-8 ${stagger(isVisible(7))}`}>
           {r2State.status === "loaded" && r2State.data.projects ? (
             <Timeline projects={r2State.data.projects} />
           ) : r2State.status === "error" ? (
-            <div className="max-w-[1200px] mx-auto px-8 py-4">
+            <div className="py-4">
               <p className="text-text-dim font-mono text-sm">Data unavailable</p>
             </div>
           ) : null}
