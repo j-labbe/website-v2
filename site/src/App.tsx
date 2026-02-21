@@ -5,6 +5,7 @@ import { Divider } from "./components/Divider/Divider";
 import { CommitGraph } from "./components/CommitGraph/CommitGraph";
 import { Timeline } from "./components/Timeline/Timeline";
 import { Footer } from "./components/Footer/Footer";
+import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop";
 import { useR2Data } from "./hooks/useR2Data";
 import { useFontsReady } from "./hooks/useFontsReady";
 import { useStagedReveal } from "./hooks/useStagedReveal";
@@ -80,6 +81,7 @@ export default function App() {
         </div>
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }
