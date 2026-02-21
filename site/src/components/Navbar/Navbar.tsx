@@ -36,7 +36,7 @@ export function Navbar() {
   return (
     <nav
       ref={navRef}
-      className="sticky top-0 z-100 bg-bg/80 backdrop-blur-[12px] border-b border-transparent transition-[border-color] duration-250 ease py-4"
+      className="sticky top-0 z-100 py-4"
       aria-label="Main navigation"
       data-scrolled="false"
     >
