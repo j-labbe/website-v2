@@ -2,49 +2,66 @@
 phase: 02-site-shell-design-system-and-hero
 plan: 02
 subsystem: ui
-tags: [react-components, hero, navbar, skeleton, css-modules, accessibility, staggered-animation, backdrop-filter, svg-icons]
+tags:
+    [
+        react-components,
+        hero,
+        navbar,
+        skeleton,
+        css-modules,
+        accessibility,
+        staggered-animation,
+        backdrop-filter,
+        svg-icons,
+    ]
 
 # Dependency graph
 requires:
-  - phase: 02-site-shell-design-system-and-hero
-    plan: 01
-    provides: CSS design tokens, animations (shimmer, staggerItem), font loading
+    - phase: 02-site-shell-design-system-and-hero
+      plan: 01
+      provides: CSS design tokens, animations (shimmer, staggerItem), font loading
 provides:
-  - Hero component with split layout, radial gradient, staggered entrance animation
-  - HeroSkeleton component with content-shaped shimmer placeholders
-  - Sticky Navbar with glass blur effect and scroll-aware border
-  - SkipToContent accessibility link targeting #main-content
-  - Social icon SVG components (GitHubIcon, LinkedInIcon, MailIcon, XIcon)
+    - Hero component with split layout, radial gradient, staggered entrance animation
+    - HeroSkeleton component with content-shaped shimmer placeholders
+    - Sticky Navbar with glass blur effect and scroll-aware border
+    - SkipToContent accessibility link targeting #main-content
+    - Social icon SVG components (GitHubIcon, LinkedInIcon, MailIcon, XIcon)
 affects: [02-03, 03]
 
 # Tech tracking
 tech-stack:
-  added: []
-  patterns: ["IntersectionObserver for scroll detection", "CSS custom property for stagger index", "Inline SVG icon components with no dependencies"]
+    added: []
+    patterns:
+        [
+            "IntersectionObserver for scroll detection",
+            "CSS custom property for stagger index",
+            "Inline SVG icon components with no dependencies",
+        ]
 
 key-files:
-  created:
-    - site/src/components/Hero/Hero.tsx
-    - site/src/components/Hero/Hero.module.css
-    - site/src/components/Hero/HeroSkeleton.tsx
-    - site/src/components/Hero/HeroSkeleton.module.css
-    - site/src/components/Navbar/Navbar.tsx
-    - site/src/components/Navbar/Navbar.module.css
-    - site/src/components/SkipToContent/SkipToContent.tsx
-    - site/src/components/SkipToContent/SkipToContent.module.css
-    - site/src/components/icons/SocialIcons.tsx
-  modified: []
+    created:
+        - site/src/components/Hero/Hero.tsx
+        - site/src/components/Hero/Hero.module.css
+        - site/src/components/Hero/HeroSkeleton.tsx
+        - site/src/components/Hero/HeroSkeleton.module.css
+        - site/src/components/Navbar/Navbar.tsx
+        - site/src/components/Navbar/Navbar.module.css
+        - site/src/components/SkipToContent/SkipToContent.tsx
+        - site/src/components/SkipToContent/SkipToContent.module.css
+        - site/src/components/icons/SocialIcons.tsx
+    modified: []
 
 key-decisions:
-  - "IntersectionObserver with sentinel element for scroll detection -- avoids scroll event listener performance cost"
-  - "Navbar contact button uses slightly smaller font-size (text-sm) than hero button for visual hierarchy"
+    - "IntersectionObserver with sentinel element for scroll detection -- avoids scroll event listener performance cost"
+    - "Navbar contact button uses slightly smaller font-size (text-sm) than hero button for visual hierarchy"
 
 patterns-established:
-  - "Component structure: ComponentName/ComponentName.tsx + ComponentName.module.css"
-  - "Stagger animation: apply staggerItem global class with --stagger-index CSS variable cast via React.CSSProperties"
-  - "WCAG AA buttons: dark text (var(--bg)) on accent background, never white"
+    - "Component structure: ComponentName/ComponentName.tsx + ComponentName.module.css"
+    - "Stagger animation: apply staggerItem global class with --stagger-index CSS variable cast via React.CSSProperties"
+    - "WCAG AA buttons: dark text (var(--bg)) on accent background, never white"
 
-requirements-completed: [HERO-01, HERO-02, HERO-03, HERO-04, DSGN-04, DSGN-05, META-02, META-03]
+requirements-completed:
+    [HERO-01, HERO-02, HERO-03, HERO-04, DSGN-04, DSGN-05, META-02, META-03]
 
 # Metrics
 duration: 2min
@@ -64,6 +81,7 @@ completed: 2026-02-20
 - **Files modified:** 9
 
 ## Accomplishments
+
 - Hero component with photo-left/text-right split layout, radial gradient background, staggered entrance animation (photo -> name -> tagline -> button), and responsive mobile restack at 768px
 - HeroSkeleton with content-shaped shimmer placeholders matching real hero dimensions (photo rectangle, name bar, tagline bar, button pill)
 - Sticky navbar with glass/backdrop-blur effect, IntersectionObserver-driven scroll detection, and contact-only button (no branding)
@@ -78,6 +96,7 @@ Each task was committed atomically:
 2. **Task 2: Create Navbar, SkipToContent, and social icon components** - `e281bbb` (feat)
 
 ## Files Created/Modified
+
 - `site/src/components/Hero/Hero.tsx` - Hero section with split layout, staggered animation, isLoading prop
 - `site/src/components/Hero/Hero.module.css` - Hero styles with radial gradient, responsive breakpoint, WCAG-compliant button
 - `site/src/components/Hero/HeroSkeleton.tsx` - Skeleton loading state matching hero layout with shimmer class
@@ -89,6 +108,7 @@ Each task was committed atomically:
 - `site/src/components/icons/SocialIcons.tsx` - GitHubIcon, LinkedInIcon, MailIcon, XIcon as inline SVG
 
 ## Decisions Made
+
 - Used IntersectionObserver with a sentinel element for navbar scroll detection instead of scroll event listener -- better performance, no throttling needed
 - Navbar contact button uses `text-sm` font size (slightly smaller than hero's `text-base`) for visual hierarchy between primary and secondary CTAs
 - Hero photo uses `aspect-ratio: 4/5` portrait orientation with `object-fit: cover` and rounded rectangle (not circle) per research recommendation
@@ -106,6 +126,7 @@ None
 None - no external service configuration required. A headshot image should be placed at `site/public/headshot.webp` before deployment.
 
 ## Next Phase Readiness
+
 - All core UI components ready for composition in Plan 03 (App.tsx layout assembly)
 - Hero accepts `isLoading` prop to toggle between skeleton and real content
 - Navbar, SkipToContent, and SocialIcons are standalone components ready for import
@@ -116,5 +137,6 @@ None - no external service configuration required. A headshot image should be pl
 All 9 created files verified on disk. Both task commits (c901da3, e281bbb) verified in git log.
 
 ---
-*Phase: 02-site-shell-design-system-and-hero*
-*Completed: 2026-02-20*
+
+_Phase: 02-site-shell-design-system-and-hero_
+_Completed: 2026-02-20_

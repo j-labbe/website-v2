@@ -71,15 +71,16 @@ Show what I'm actively building — a living, auto-updating portfolio driven by 
 
 ## Key Decisions
 
-| Decision | Rationale | Outcome |
-|----------|-----------|---------|
-| Cloudflare Worker for pipeline | Keeps everything in Cloudflare ecosystem, cron triggers built-in | — Pending |
-| JSON in R2 over KV/D1 | Simplest approach, CDN-cacheable, no query layer needed | — Pending |
-| Inter/system over Alliance No. 1 | No custom font overhead, widely available, fast load | — Pending |
-| Blue-tinted commit graph over green | Match site palette, differentiate from GitHub's green | — Pending |
-| Collect rich commit data but don't display | Future-proof the data layer without UI complexity now | — Pending |
-| Grid pattern toggleable | Easy to test with/without during development | — Pending |
-| All contributed repos (owned + org + forked) | Comprehensive activity picture, no manual curation | — Pending |
+| Decision                                     | Rationale                                                        | Outcome   |
+| -------------------------------------------- | ---------------------------------------------------------------- | --------- |
+| Cloudflare Worker for pipeline               | Keeps everything in Cloudflare ecosystem, cron triggers built-in | — Pending |
+| JSON in R2 over KV/D1                        | Simplest approach, CDN-cacheable, no query layer needed          | — Pending |
+| Inter/system over Alliance No. 1             | No custom font overhead, widely available, fast load             | — Pending |
+| Blue-tinted commit graph over green          | Match site palette, differentiate from GitHub's green            | — Pending |
+| Collect rich commit data but don't display   | Future-proof the data layer without UI complexity now            | — Pending |
+| Grid pattern toggleable                      | Easy to test with/without during development                     | — Pending |
+| All contributed repos (owned + org + forked) | Comprehensive activity picture, no manual curation               | — Pending |
 
 ---
-*Last updated: 2026-02-19 after initialization*
+
+_Last updated: 2026-02-19 after initialization_

@@ -15,6 +15,7 @@ Key research findings: (1) React 19 natively supports `<title>`, `<meta>`, and `
 **Primary recommendation:** Build the design system as CSS custom properties in a global tokens file, compose all components with CSS Modules (`.module.css`), self-host fonts via `@fontsource-variable/*`, and use React 19's native metadata support for OG tags. Deploy to Cloudflare Pages via `wrangler pages deploy site/dist`.
 
 <user_constraints>
+
 ## User Constraints (from CONTEXT.md)
 
 ### Locked Decisions
@@ -52,61 +53,63 @@ None -- discussion stayed within phase scope.
 </user_constraints>
 
 <phase_requirements>
+
 ## Phase Requirements
 
-| ID | Description | Research Support |
-|----|-------------|-----------------|
-| INFR-03 | Deployed to Cloudflare Pages (static upload) | Cloudflare Pages deployment via `wrangler pages deploy site/dist`, SPA routing config |
-| INFR-05 | Site fetches R2 JSON on visit (not full SSG) | R2 public bucket access pattern, parallel fetch with Promise.all, 5s timeout, error handling |
-| HERO-01 | Hero section displays photo, name ("Jack Labbe"), and tagline ("Software / AI Engineer") | Split layout pattern, Inter font via Fontsource, typography scale, responsive breakpoints |
-| HERO-02 | Contact button in hero section (mailto link, no contact form) | Pill button styling, dark text on accent for AA contrast, mailto: link pattern |
-| HERO-03 | Minimal navbar with only a contact button (top-right) | Sticky nav, backdrop-filter blur, z-index layering |
-| HERO-04 | Spacious hero layout with generous whitespace | Spacing scale with CSS custom properties, padding tokens |
-| DSGN-01 | Dark theme with #040d21 navy background | CSS custom properties for full token palette, verified contrast ratios |
-| DSGN-02 | Inter/system sans-serif font for headings (bold weight) | @fontsource-variable/inter, font-display: swap, variable font single-file loading |
-| DSGN-03 | Monospace font for accent text (tagline, section labels, metadata) | @fontsource-variable/jetbrains-mono -- NOTE: tagline is Inter per locked decision, JetBrains Mono for section labels/metadata only |
-| DSGN-04 | Decorative structural 1px divider lines between sections | CSS border or pseudo-element patterns, gradient fade recommendation |
-| DSGN-05 | Monospace section labels (e.g., // projects, // contact) | JetBrains Mono, dimmed text-dim color, left-aligned in container |
-| DSGN-06 | Toggleable subtle crosshatch grid pattern background (low opacity, easy enable/disable) | SVG-in-CSS background pattern, CSS variable toggle `--grid-visible` |
-| DSGN-08 | Single-scroll page layout: hero -> commit graph -> divider -> timeline -> footer | Section-based layout, semantic HTML, placeholder sections for Phase 3 content |
-| DSGN-09 | Responsive layout -- mobile-first, works on all viewports | CSS Grid/Flexbox, mobile-first breakpoints (375px base, 768px tablet, 1024px desktop) |
-| DSGN-10 | WCAG AA contrast ratios on all text | Verified contrast ratios for all token pairs (see Contrast Audit section) |
-| DSGN-11 | CSS Modules + CSS custom properties (no CSS frameworks) | Vite built-in CSS Modules (.module.css), camelCase localsConvention |
-| META-01 | Open Graph tags for social sharing preview | React 19 native metadata in JSX, static OG image (1200x630 PNG) |
-| META-02 | Semantic HTML structure (nav, main, section, article) | HTML5 semantic elements, ARIA landmarks |
-| META-03 | Keyboard navigable, skip-to-content link | Skip-to-content pattern, tabindex management, focus styles |
+| ID      | Description                                                                              | Research Support                                                                                                                   |
+| ------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| INFR-03 | Deployed to Cloudflare Pages (static upload)                                             | Cloudflare Pages deployment via `wrangler pages deploy site/dist`, SPA routing config                                              |
+| INFR-05 | Site fetches R2 JSON on visit (not full SSG)                                             | R2 public bucket access pattern, parallel fetch with Promise.all, 5s timeout, error handling                                       |
+| HERO-01 | Hero section displays photo, name ("Jack Labbe"), and tagline ("Software / AI Engineer") | Split layout pattern, Inter font via Fontsource, typography scale, responsive breakpoints                                          |
+| HERO-02 | Contact button in hero section (mailto link, no contact form)                            | Pill button styling, dark text on accent for AA contrast, mailto: link pattern                                                     |
+| HERO-03 | Minimal navbar with only a contact button (top-right)                                    | Sticky nav, backdrop-filter blur, z-index layering                                                                                 |
+| HERO-04 | Spacious hero layout with generous whitespace                                            | Spacing scale with CSS custom properties, padding tokens                                                                           |
+| DSGN-01 | Dark theme with #040d21 navy background                                                  | CSS custom properties for full token palette, verified contrast ratios                                                             |
+| DSGN-02 | Inter/system sans-serif font for headings (bold weight)                                  | @fontsource-variable/inter, font-display: swap, variable font single-file loading                                                  |
+| DSGN-03 | Monospace font for accent text (tagline, section labels, metadata)                       | @fontsource-variable/jetbrains-mono -- NOTE: tagline is Inter per locked decision, JetBrains Mono for section labels/metadata only |
+| DSGN-04 | Decorative structural 1px divider lines between sections                                 | CSS border or pseudo-element patterns, gradient fade recommendation                                                                |
+| DSGN-05 | Monospace section labels (e.g., // projects, // contact)                                 | JetBrains Mono, dimmed text-dim color, left-aligned in container                                                                   |
+| DSGN-06 | Toggleable subtle crosshatch grid pattern background (low opacity, easy enable/disable)  | SVG-in-CSS background pattern, CSS variable toggle `--grid-visible`                                                                |
+| DSGN-08 | Single-scroll page layout: hero -> commit graph -> divider -> timeline -> footer         | Section-based layout, semantic HTML, placeholder sections for Phase 3 content                                                      |
+| DSGN-09 | Responsive layout -- mobile-first, works on all viewports                                | CSS Grid/Flexbox, mobile-first breakpoints (375px base, 768px tablet, 1024px desktop)                                              |
+| DSGN-10 | WCAG AA contrast ratios on all text                                                      | Verified contrast ratios for all token pairs (see Contrast Audit section)                                                          |
+| DSGN-11 | CSS Modules + CSS custom properties (no CSS frameworks)                                  | Vite built-in CSS Modules (.module.css), camelCase localsConvention                                                                |
+| META-01 | Open Graph tags for social sharing preview                                               | React 19 native metadata in JSX, static OG image (1200x630 PNG)                                                                    |
+| META-02 | Semantic HTML structure (nav, main, section, article)                                    | HTML5 semantic elements, ARIA landmarks                                                                                            |
+| META-03 | Keyboard navigable, skip-to-content link                                                 | Skip-to-content pattern, tabindex management, focus styles                                                                         |
+
 </phase_requirements>
 
 ## Standard Stack
 
 ### Core (already installed)
 
-| Library | Version | Purpose | Why Standard |
-|---------|---------|---------|--------------|
-| React | 19.2.4 | UI framework | Already installed. Native metadata support eliminates need for helmet libraries |
-| React DOM | 19.2.4 | DOM rendering | Already installed |
-| Vite | 7.3.1 | Build tool | Already installed. Built-in CSS Modules support, zero config needed |
-| TypeScript | ^5.9 | Type safety | Already installed |
-| @vitejs/plugin-react | ^4 | React JSX transform | Already installed |
+| Library              | Version | Purpose             | Why Standard                                                                    |
+| -------------------- | ------- | ------------------- | ------------------------------------------------------------------------------- |
+| React                | 19.2.4  | UI framework        | Already installed. Native metadata support eliminates need for helmet libraries |
+| React DOM            | 19.2.4  | DOM rendering       | Already installed                                                               |
+| Vite                 | 7.3.1   | Build tool          | Already installed. Built-in CSS Modules support, zero config needed             |
+| TypeScript           | ^5.9    | Type safety         | Already installed                                                               |
+| @vitejs/plugin-react | ^4      | React JSX transform | Already installed                                                               |
 
 ### New Dependencies to Add
 
-| Library | Version | Purpose | Why Standard |
-|---------|---------|---------|--------------|
-| @fontsource-variable/inter | latest | Self-hosted Inter variable font | 221K+ weekly downloads. Single WOFF2 file covers weights 100-900. Eliminates Google Fonts dependency. font-display: swap built in |
-| @fontsource-variable/jetbrains-mono | latest | Self-hosted JetBrains Mono variable font | Self-hosted monospace for accent text. Single file covers weights 100-800 |
+| Library                             | Version | Purpose                                  | Why Standard                                                                                                                      |
+| ----------------------------------- | ------- | ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| @fontsource-variable/inter          | latest  | Self-hosted Inter variable font          | 221K+ weekly downloads. Single WOFF2 file covers weights 100-900. Eliminates Google Fonts dependency. font-display: swap built in |
+| @fontsource-variable/jetbrains-mono | latest  | Self-hosted JetBrains Mono variable font | Self-hosted monospace for accent text. Single file covers weights 100-800                                                         |
 
 ### No Additional Libraries Needed
 
-| Capability | Why No Library | Built-in Solution |
-|------------|---------------|-------------------|
-| CSS styling | DSGN-11 locks CSS Modules + custom properties | Vite built-in `.module.css` support |
-| Document head/meta | React 19 has native support | `<title>`, `<meta>`, `<link>` in JSX auto-hoist to `<head>` |
-| Routing | Single-page, single-scroll site | No router needed -- one page |
-| State management | Only fetch state (loading/loaded/error) | React useState + useEffect |
-| Icons (social) | Only 4 icons needed | Hand-written SVG components (6-10 lines each) -- avoids icon library dependency for 4 icons |
-| Animations | Only entrance animations | CSS @keyframes + animation-delay -- no library needed for sequential fade-ins |
-| HTTP fetching | Simple GET requests | Native fetch API with Promise.all |
+| Capability         | Why No Library                                | Built-in Solution                                                                           |
+| ------------------ | --------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| CSS styling        | DSGN-11 locks CSS Modules + custom properties | Vite built-in `.module.css` support                                                         |
+| Document head/meta | React 19 has native support                   | `<title>`, `<meta>`, `<link>` in JSX auto-hoist to `<head>`                                 |
+| Routing            | Single-page, single-scroll site               | No router needed -- one page                                                                |
+| State management   | Only fetch state (loading/loaded/error)       | React useState + useEffect                                                                  |
+| Icons (social)     | Only 4 icons needed                           | Hand-written SVG components (6-10 lines each) -- avoids icon library dependency for 4 icons |
+| Animations         | Only entrance animations                      | CSS @keyframes + animation-delay -- no library needed for sequential fade-ins               |
+| HTTP fetching      | Simple GET requests                           | Native fetch API with Promise.all                                                           |
 
 **Installation:**
 
@@ -171,60 +174,62 @@ site/
 ```css
 /* tokens.css */
 :root {
-  /* Colors */
-  --bg: #040d21;
-  --surface: #0a1628;
-  --surface-2: #111d33;
-  --border: #1a2844;
-  --text: #c9d1d9;
-  --text-dim: #6e7a8a;
-  --text-bright: #f0f6fc;
-  --accent: #4F7DF5;
-  --accent-secondary: #6B9CFF;
-  --accent-glow: rgba(79, 125, 245, 0.15);
+    /* Colors */
+    --bg: #040d21;
+    --surface: #0a1628;
+    --surface-2: #111d33;
+    --border: #1a2844;
+    --text: #c9d1d9;
+    --text-dim: #6e7a8a;
+    --text-bright: #f0f6fc;
+    --accent: #4f7df5;
+    --accent-secondary: #6b9cff;
+    --accent-glow: rgba(79, 125, 245, 0.15);
 
-  /* Semantic colors */
-  --success: #3fb950;
-  --warning: #d29922;
-  --error: #f85149;
+    /* Semantic colors */
+    --success: #3fb950;
+    --warning: #d29922;
+    --error: #f85149;
 
-  /* Typography */
-  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'Fira Code', monospace;
+    /* Typography */
+    --font-sans:
+        "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
+    --font-mono:
+        "JetBrains Mono Variable", "JetBrains Mono", "Fira Code", monospace;
 
-  --text-xs: 0.75rem;    /* 12px */
-  --text-sm: 0.875rem;   /* 14px */
-  --text-base: 1rem;     /* 16px */
-  --text-lg: 1.125rem;   /* 18px */
-  --text-xl: 1.25rem;    /* 20px */
-  --text-2xl: 1.5rem;    /* 24px */
-  --text-3xl: 2rem;      /* 32px */
-  --text-4xl: 3rem;      /* 48px */
-  --text-5xl: 4rem;      /* 64px */
+    --text-xs: 0.75rem; /* 12px */
+    --text-sm: 0.875rem; /* 14px */
+    --text-base: 1rem; /* 16px */
+    --text-lg: 1.125rem; /* 18px */
+    --text-xl: 1.25rem; /* 20px */
+    --text-2xl: 1.5rem; /* 24px */
+    --text-3xl: 2rem; /* 32px */
+    --text-4xl: 3rem; /* 48px */
+    --text-5xl: 4rem; /* 64px */
 
-  /* Spacing */
-  --space-1: 0.25rem;    /* 4px */
-  --space-2: 0.5rem;     /* 8px */
-  --space-3: 0.75rem;    /* 12px */
-  --space-4: 1rem;       /* 16px */
-  --space-5: 1.5rem;     /* 24px */
-  --space-6: 2rem;       /* 32px */
-  --space-8: 3rem;       /* 48px */
-  --space-10: 4rem;      /* 64px */
-  --space-12: 5rem;      /* 80px */
-  --space-16: 8rem;      /* 128px */
+    /* Spacing */
+    --space-1: 0.25rem; /* 4px */
+    --space-2: 0.5rem; /* 8px */
+    --space-3: 0.75rem; /* 12px */
+    --space-4: 1rem; /* 16px */
+    --space-5: 1.5rem; /* 24px */
+    --space-6: 2rem; /* 32px */
+    --space-8: 3rem; /* 48px */
+    --space-10: 4rem; /* 64px */
+    --space-12: 5rem; /* 80px */
+    --space-16: 8rem; /* 128px */
 
-  /* Layout */
-  --max-width: 1200px;
-  --radius: 8px;
-  --radius-pill: 9999px;
+    /* Layout */
+    --max-width: 1200px;
+    --radius: 8px;
+    --radius-pill: 9999px;
 
-  /* Decorative */
-  --grid-visible: 0;  /* Toggle: 0 = hidden, 1 = visible */
+    /* Decorative */
+    --grid-visible: 0; /* Toggle: 0 = hidden, 1 = visible */
 
-  /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-base: 250ms ease;
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
 }
 ```
 
@@ -263,63 +268,63 @@ export function Hero() {
 ```css
 /* Hero.module.css */
 .hero {
-  background: radial-gradient(
-    ellipse at 70% 50%,
-    var(--accent-glow),
-    var(--bg) 70%
-  );
-  padding: var(--space-12) 0;
+    background: radial-gradient(
+        ellipse at 70% 50%,
+        var(--accent-glow),
+        var(--bg) 70%
+    );
+    padding: var(--space-12) 0;
 }
 
 .container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 var(--space-6);
-  display: flex;
-  align-items: center;
-  gap: var(--space-10);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+    display: flex;
+    align-items: center;
+    gap: var(--space-10);
 }
 
 .name {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: var(--text-5xl);
-  color: var(--text-bright);
-  line-height: 1.1;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: var(--text-5xl);
+    color: var(--text-bright);
+    line-height: 1.1;
 }
 
 .tagline {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: var(--text-xl);
-  color: var(--text);
-  margin-top: var(--space-3);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: var(--text-xl);
+    color: var(--text);
+    margin-top: var(--space-3);
 }
 
 .contactButton {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--space-3) var(--space-6);
-  background: var(--accent);
-  color: var(--bg);
-  border-radius: var(--radius-pill);
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: var(--text-base);
-  text-decoration: none;
-  margin-top: var(--space-5);
-  transition: opacity var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-3) var(--space-6);
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: var(--text-base);
+    text-decoration: none;
+    margin-top: var(--space-5);
+    transition: opacity var(--transition-fast);
 }
 
 /* Mobile restack */
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    text-align: center;
-  }
-  .name {
-    font-size: var(--text-4xl);
-  }
+    .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .name {
+        font-size: var(--text-4xl);
+    }
 }
 ```
 
@@ -334,20 +339,24 @@ export function Hero() {
 ```css
 /* animations.css */
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 .skeleton {
-  background: linear-gradient(
-    100deg,
-    var(--surface) 40%,
-    var(--surface-2) 50%,
-    var(--surface) 60%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
-  border-radius: var(--radius);
+    background: linear-gradient(
+        100deg,
+        var(--surface) 40%,
+        var(--surface-2) 50%,
+        var(--surface) 60%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    border-radius: var(--radius);
 }
 ```
 
@@ -362,28 +371,28 @@ export function Hero() {
 ```css
 /* animations.css */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .staggerItem {
-  opacity: 0;
-  animation: fadeInUp 400ms ease-out forwards;
-  animation-delay: calc(var(--stagger-index, 0) * 100ms);
+    opacity: 0;
+    animation: fadeInUp 400ms ease-out forwards;
+    animation-delay: calc(var(--stagger-index, 0) * 100ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .staggerItem {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
+    .staggerItem {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
 }
 ```
 
@@ -405,72 +414,83 @@ export function Hero() {
 
 ```typescript
 // hooks/useR2Data.ts
-import type { GraphData, ProjectsFile, PipelineMeta } from '@jacklabbe/shared';
+import type { GraphData, ProjectsFile, PipelineMeta } from "@jacklabbe/shared";
 
 interface R2Data {
-  graph: GraphData | null;
-  projects: ProjectsFile | null;
-  meta: PipelineMeta | null;
+    graph: GraphData | null;
+    projects: ProjectsFile | null;
+    meta: PipelineMeta | null;
 }
 
 type R2State =
-  | { status: 'loading' }
-  | { status: 'loaded'; data: R2Data }
-  | { status: 'error'; error: string };
+    | { status: "loading" }
+    | { status: "loaded"; data: R2Data }
+    | { status: "error"; error: string };
 
 const R2_BASE = import.meta.env.VITE_R2_BASE_URL;
 const TIMEOUT_MS = 5_000;
 
-async function fetchWithTimeout(url: string, timeoutMs: number): Promise<Response> {
-  const controller = new AbortController();
-  const id = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const res = await fetch(url, { signal: controller.signal });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return res;
-  } finally {
-    clearTimeout(id);
-  }
+async function fetchWithTimeout(
+    url: string,
+    timeoutMs: number,
+): Promise<Response> {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+        const res = await fetch(url, { signal: controller.signal });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res;
+    } finally {
+        clearTimeout(id);
+    }
 }
 
 export function useR2Data(): R2State {
-  const [state, setState] = useState<R2State>({ status: 'loading' });
+    const [state, setState] = useState<R2State>({ status: "loading" });
 
-  useEffect(() => {
-    let cancelled = false;
+    useEffect(() => {
+        let cancelled = false;
 
-    async function load() {
-      try {
-        const [graphRes, projectsRes, metaRes] = await Promise.all([
-          fetchWithTimeout(`${R2_BASE}/graph.json`, TIMEOUT_MS),
-          fetchWithTimeout(`${R2_BASE}/projects.json`, TIMEOUT_MS),
-          fetchWithTimeout(`${R2_BASE}/meta.json`, TIMEOUT_MS),
-        ]);
+        async function load() {
+            try {
+                const [graphRes, projectsRes, metaRes] = await Promise.all([
+                    fetchWithTimeout(`${R2_BASE}/graph.json`, TIMEOUT_MS),
+                    fetchWithTimeout(`${R2_BASE}/projects.json`, TIMEOUT_MS),
+                    fetchWithTimeout(`${R2_BASE}/meta.json`, TIMEOUT_MS),
+                ]);
 
-        const [graph, projects, meta] = await Promise.all([
-          graphRes.json() as Promise<GraphData>,
-          projectsRes.json() as Promise<ProjectsFile>,
-          metaRes.json() as Promise<PipelineMeta>,
-        ]);
+                const [graph, projects, meta] = await Promise.all([
+                    graphRes.json() as Promise<GraphData>,
+                    projectsRes.json() as Promise<ProjectsFile>,
+                    metaRes.json() as Promise<PipelineMeta>,
+                ]);
 
-        if (!cancelled) {
-          setState({ status: 'loaded', data: { graph, projects, meta } });
+                if (!cancelled) {
+                    setState({
+                        status: "loaded",
+                        data: { graph, projects, meta },
+                    });
+                }
+            } catch (err) {
+                if (!cancelled) {
+                    setState({
+                        status: "error",
+                        error:
+                            err instanceof Error
+                                ? err.message
+                                : "Failed to load data",
+                    });
+                }
+            }
         }
-      } catch (err) {
-        if (!cancelled) {
-          setState({
-            status: 'error',
-            error: err instanceof Error ? err.message : 'Failed to load data',
-          });
-        }
-      }
-    }
 
-    load();
-    return () => { cancelled = true; };
-  }, []);
+        load();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
 
-  return state;
+    return state;
 }
 ```
 
@@ -485,23 +505,36 @@ export function useR2Data(): R2State {
 ```tsx
 // App.tsx
 function App() {
-  return (
-    <>
-      <title>Jack Labbe - Software / AI Engineer</title>
-      <meta name="description" content="Software and AI engineer portfolio..." />
-      <meta property="og:title" content="Jack Labbe - Software / AI Engineer" />
-      <meta property="og:description" content="Software and AI engineer portfolio..." />
-      <meta property="og:image" content="https://jacklabbe.com/og-image.png" />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://jacklabbe.com" />
-      <meta name="twitter:card" content="summary_large_image" />
-      {/* ... rest of app */}
-    </>
-  );
+    return (
+        <>
+            <title>Jack Labbe - Software / AI Engineer</title>
+            <meta
+                name="description"
+                content="Software and AI engineer portfolio..."
+            />
+            <meta
+                property="og:title"
+                content="Jack Labbe - Software / AI Engineer"
+            />
+            <meta
+                property="og:description"
+                content="Software and AI engineer portfolio..."
+            />
+            <meta
+                property="og:image"
+                content="https://jacklabbe.com/og-image.png"
+            />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="https://jacklabbe.com" />
+            <meta name="twitter:card" content="summary_large_image" />
+            {/* ... rest of app */}
+        </>
+    );
 }
 ```
 
 **CRITICAL CAVEAT for SPAs:** Social media crawlers (Facebook, Twitter, LinkedIn) do NOT execute JavaScript. React 19's metadata hoisting works for browsers but not for crawlers. For OG tags to work, they MUST also exist as static HTML in `index.html`. Place the essential OG tags in both locations:
+
 1. Static in `index.html` `<head>` for crawlers
 2. In React JSX for runtime completeness
 
@@ -517,13 +550,13 @@ function App() {
 
 ## Don't Hand-Roll
 
-| Problem | Don't Build | Use Instead | Why |
-|---------|-------------|-------------|-----|
-| Font hosting/loading | Custom @font-face declarations | `@fontsource-variable/inter`, `@fontsource-variable/jetbrains-mono` | Fontsource handles subsetting, WOFF2 generation, font-display, and provides variable font in single import |
-| CSS reset | Full custom reset | Minimal 20-line reset targeting only what matters | Full resets (normalize.css) are overkill for a controlled design system. A few rules suffice: box-sizing, margin/padding reset, img/svg defaults |
-| Icon library for 4 icons | npm install react-icons or lucide-react | Inline SVG components (4 small components) | Lucide deprecated brand icons. react-icons pulls in entire icon sets. For exactly 4 social icons, inline SVG is smaller and has zero dependencies |
-| Document metadata library | react-helmet-async, @dr.pogodin/react-helmet | React 19 native `<title>`, `<meta>`, `<link>` in JSX | React 19 natively hoists these tags to `<head>`. No library needed. Static fallbacks in `index.html` for crawlers |
-| Animation library | framer-motion, react-spring | CSS @keyframes + animation-delay | The only animations are sequential fade-ins and a shimmer effect. CSS handles this in ~20 lines. No need for a 30KB+ animation library |
+| Problem                   | Don't Build                                  | Use Instead                                                         | Why                                                                                                                                               |
+| ------------------------- | -------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Font hosting/loading      | Custom @font-face declarations               | `@fontsource-variable/inter`, `@fontsource-variable/jetbrains-mono` | Fontsource handles subsetting, WOFF2 generation, font-display, and provides variable font in single import                                        |
+| CSS reset                 | Full custom reset                            | Minimal 20-line reset targeting only what matters                   | Full resets (normalize.css) are overkill for a controlled design system. A few rules suffice: box-sizing, margin/padding reset, img/svg defaults  |
+| Icon library for 4 icons  | npm install react-icons or lucide-react      | Inline SVG components (4 small components)                          | Lucide deprecated brand icons. react-icons pulls in entire icon sets. For exactly 4 social icons, inline SVG is smaller and has zero dependencies |
+| Document metadata library | react-helmet-async, @dr.pogodin/react-helmet | React 19 native `<title>`, `<meta>`, `<link>` in JSX                | React 19 natively hoists these tags to `<head>`. No library needed. Static fallbacks in `index.html` for crawlers                                 |
+| Animation library         | framer-motion, react-spring                  | CSS @keyframes + animation-delay                                    | The only animations are sequential fade-ins and a shimmer effect. CSS handles this in ~20 lines. No need for a 30KB+ animation library            |
 
 **Key insight:** This phase needs minimal dependencies because the locked decisions (CSS Modules, CSS custom properties, no frameworks) align with native browser and React 19 capabilities. The two font packages are the only new dependencies.
 
@@ -548,10 +581,11 @@ function App() {
 **What goes wrong:** Accessibility audit flags insufficient contrast on text using `--text-dim: #6e7a8a`.
 **Why it happens:** `#6e7a8a` on `#040d21` achieves 4.44:1 -- just below the 4.5:1 WCAG AA threshold for normal-sized text. On `#0a1628` (surface) it drops to 4.16:1.
 **How to avoid:** Only use `--text-dim` for:
-  - Large text: >=18.66px bold or >=24px regular (AA large text threshold is 3:1)
-  - Non-essential decorative text (section labels like "// projects" that are supplementary)
-  - Never for body copy, interactive elements, or essential information at normal text sizes
-**Warning signs:** Lighthouse or axe-core flags contrast issues on dim-colored text.
+
+- Large text: >=18.66px bold or >=24px regular (AA large text threshold is 3:1)
+- Non-essential decorative text (section labels like "// projects" that are supplementary)
+- Never for body copy, interactive elements, or essential information at normal text sizes
+  **Warning signs:** Lighthouse or axe-core flags contrast issues on dim-colored text.
 
 ### Pitfall 4: Button Text Contrast on Accent Background
 
@@ -592,23 +626,24 @@ function App() {
 
 All contrast ratios calculated using WCAG 2.0 relative luminance formula:
 
-| Foreground | Background | Ratio | AA Normal (4.5:1) | AA Large (3:1) |
-|-----------|-----------|-------|-------------------|----------------|
-| `--text` (#c9d1d9) | `--bg` (#040d21) | 12.54:1 | PASS | PASS |
-| `--text-dim` (#6e7a8a) | `--bg` (#040d21) | 4.44:1 | **FAIL** | PASS |
-| `--text-bright` (#f0f6fc) | `--bg` (#040d21) | 17.79:1 | PASS | PASS |
-| `--accent` (#4F7DF5) | `--bg` (#040d21) | 5.15:1 | PASS | PASS |
-| `--accent-secondary` (#6B9CFF) | `--bg` (#040d21) | 7.21:1 | PASS | PASS |
-| `--text` (#c9d1d9) | `--surface` (#0a1628) | 11.75:1 | PASS | PASS |
-| `--text-dim` (#6e7a8a) | `--surface` (#0a1628) | 4.16:1 | **FAIL** | PASS |
-| `--text-bright` (#f0f6fc) | `--surface` (#0a1628) | 16.66:1 | PASS | PASS |
-| `--text` (#c9d1d9) | `--surface-2` (#111d33) | 10.91:1 | PASS | PASS |
-| `--text-dim` (#6e7a8a) | `--surface-2` (#111d33) | 3.86:1 | **FAIL** | PASS |
-| `--accent` (#4F7DF5) | `--surface-2` (#111d33) | 4.48:1 | **FAIL** (barely) | PASS |
-| White (#ffffff) | `--accent` (#4F7DF5) | 3.76:1 | **FAIL** | PASS |
-| `--bg` (#040d21) | `--accent` (#4F7DF5) | 5.15:1 | PASS | PASS |
+| Foreground                     | Background              | Ratio   | AA Normal (4.5:1) | AA Large (3:1) |
+| ------------------------------ | ----------------------- | ------- | ----------------- | -------------- |
+| `--text` (#c9d1d9)             | `--bg` (#040d21)        | 12.54:1 | PASS              | PASS           |
+| `--text-dim` (#6e7a8a)         | `--bg` (#040d21)        | 4.44:1  | **FAIL**          | PASS           |
+| `--text-bright` (#f0f6fc)      | `--bg` (#040d21)        | 17.79:1 | PASS              | PASS           |
+| `--accent` (#4F7DF5)           | `--bg` (#040d21)        | 5.15:1  | PASS              | PASS           |
+| `--accent-secondary` (#6B9CFF) | `--bg` (#040d21)        | 7.21:1  | PASS              | PASS           |
+| `--text` (#c9d1d9)             | `--surface` (#0a1628)   | 11.75:1 | PASS              | PASS           |
+| `--text-dim` (#6e7a8a)         | `--surface` (#0a1628)   | 4.16:1  | **FAIL**          | PASS           |
+| `--text-bright` (#f0f6fc)      | `--surface` (#0a1628)   | 16.66:1 | PASS              | PASS           |
+| `--text` (#c9d1d9)             | `--surface-2` (#111d33) | 10.91:1 | PASS              | PASS           |
+| `--text-dim` (#6e7a8a)         | `--surface-2` (#111d33) | 3.86:1  | **FAIL**          | PASS           |
+| `--accent` (#4F7DF5)           | `--surface-2` (#111d33) | 4.48:1  | **FAIL** (barely) | PASS           |
+| White (#ffffff)                | `--accent` (#4F7DF5)    | 3.76:1  | **FAIL**          | PASS           |
+| `--bg` (#040d21)               | `--accent` (#4F7DF5)    | 5.15:1  | PASS              | PASS           |
 
 **Actionable rules from this audit:**
+
 1. Button text on `--accent` background: Use `--bg` (dark), not white
 2. `--text-dim` on any background: Large text only (>=18.66px bold or >=24px regular), or decorative/non-essential text
 3. `--accent` on `--surface-2`: Only for large text (4.48:1 is close but fails AA normal)
@@ -617,43 +652,56 @@ All contrast ratios calculated using WCAG 2.0 relative luminance formula:
 ## Discretion Recommendations
 
 ### Photo Shape and Sizing
+
 **Recommendation:** Rounded rectangle with `border-radius: var(--radius)` (8px), not a circle. Circles crop unpredictably on different headshot compositions. Size the photo at approximately 280-320px in the hero split, constrained by `max-width: 50%` of the container. Use `object-fit: cover` with a fixed aspect ratio (e.g., 4:5 portrait).
 
 ### Navbar Bottom Border
+
 **Recommendation:** A 1px border using `border-bottom: 1px solid var(--border)`. This provides subtle visual separation consistent with the Linear.app aesthetic without being heavy. The border only appears when the navbar is "stuck" (i.e., user has scrolled), to avoid a visible line at the top of the page.
 
 ### Link/Interactive Text Color
+
 **Recommendation:** Use `--accent-secondary: #6B9CFF` for links and interactive text. It achieves 7.21:1 contrast on `--bg`, which comfortably passes WCAG AA, and is lighter than the primary accent, making it stand out as clickable. This follows the convention of links being slightly lighter/brighter than surrounding text.
 
 ### Semantic Accent Colors
+
 **Recommendation:**
+
 - `--success: #3fb950` (GitHub-style green, 5.08:1 on --bg)
 - `--warning: #d29922` (amber, 7.00:1 on --bg)
 - `--error: #f85149` (GitHub-style red, 5.72:1 on --bg)
-These won't be heavily used in Phase 2 but should be defined in tokens for Phase 3.
+  These won't be heavily used in Phase 2 but should be defined in tokens for Phase 3.
 
 ### Divider Line Style
+
 **Recommendation:** Gradient fade -- a 1px line that fades from transparent at the edges to `var(--border)` in the center. This matches the Linear.app aesthetic (subtle, not harsh). Implementation: `background: linear-gradient(to right, transparent, var(--border), transparent); height: 1px;` within the max-width container.
 
 ### Crosshatch Grid Scope
+
 **Recommendation:** Apply to the entire page body, not just the hero. At 3-5% opacity it provides subtle texture without competing with content. Control via `--grid-visible` CSS variable. Implementation: A subtle SVG crosshatch pattern as `background-image` on `body`, with `opacity: var(--grid-visible)` on a `::before` pseudo-element.
 
 ### Footer Icon Style
+
 **Recommendation:** Outline/stroke style icons (not filled) at 20px. This matches the Linear.app minimal aesthetic -- filled icons feel heavier and more "app-like." The outline style is also consistent with the 1px structural line language of the design system.
 
 ### Error State Design
+
 **Recommendation:** A centered, minimal error card with: icon (a simple warning triangle or circle-x), error message in `--text`, a "Retry" button styled like the contact button but with `--error` background, and a "Data unavailable" subtitle in `--text-dim`. No page-level error -- the hero and layout still render, only the data-dependent content shows the error state.
 
 ### Data Caching Strategy
+
 **Recommendation:** Cache-first with `stale-while-revalidate` semantics. On load, check `sessionStorage` for cached R2 data. If present and less than 1 hour old, render immediately (no skeleton) while refetching in the background. If absent or stale, show skeleton and fetch. R2 already sets `Cache-Control: public, max-age=3600` (from Phase 1 r2.ts), so browser HTTP cache also helps. This is lightweight (no service worker needed) and improves repeat visits.
 
 ### OG Image Method
+
 **Recommendation:** Static PNG file committed to `public/og-image.png`. For a portfolio site with fixed content (name, tagline), there's no dynamic data to generate. Design it to match the site: dark navy background (#040d21), "Jack Labbe" in Inter Bold, "Software / AI Engineer" below, accent blue accent elements, 1200x630px. Create once in a design tool (Figma, or even a simple HTML-to-PNG script during development).
 
 ### Skip-to-Content Link Target
+
 **Recommendation:** Target the `<main>` element containing the hero section. Use `id="main-content"` on the `<main>` tag. The skip link should be the first focusable element in the DOM, visually hidden until focused.
 
 ### Exact Spacing and Typography Scale
+
 **Recommendation:** Use the scale defined in the tokens pattern above. It follows a standard 4px base grid (common in design systems like GitHub Primer and Linear). Typography scale uses a modular progression. The hero name should be `--text-5xl` (4rem/64px) on desktop, `--text-4xl` (3rem/48px) on mobile.
 
 ## Code Examples
@@ -662,16 +710,16 @@ These won't be heavily used in Phase 2 but should be defined in tokens for Phase
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  plugins: [react()],
-  css: {
-    modules: {
-      localsConvention: 'camelCaseOnly',
+    plugins: [react()],
+    css: {
+        modules: {
+            localsConvention: "camelCaseOnly",
+        },
     },
-  },
 });
 ```
 
@@ -706,43 +754,46 @@ createRoot(document.getElementById('root')!).render(
 
 ```css
 /* reset.css */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 body {
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-  color: var(--text);
-  background-color: var(--bg);
-  line-height: 1.6;
-  min-height: 100vh;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--text);
+    background-color: var(--bg);
+    line-height: 1.6;
+    min-height: 100vh;
 }
 
-img, svg {
-  display: block;
-  max-width: 100%;
+img,
+svg {
+    display: block;
+    max-width: 100%;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 button {
-  font: inherit;
-  color: inherit;
-  background: none;
-  border: none;
-  cursor: pointer;
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 ```
 
@@ -751,15 +802,15 @@ button {
 ```css
 /* global.css -- crosshatch grid overlay */
 body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: calc(var(--grid-visible) * 0.04);
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M0 40L40 0M-10 10L10 -10M30 50L50 30' stroke='%23c9d1d9' stroke-width='0.5'/%3E%3C/svg%3E");
-  background-size: 40px 40px;
-  transition: opacity var(--transition-base);
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: calc(var(--grid-visible) * 0.04);
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M0 40L40 0M-10 10L10 -10M30 50L50 30' stroke='%23c9d1d9' stroke-width='0.5'/%3E%3C/svg%3E");
+    background-size: 40px 40px;
+    transition: opacity var(--transition-base);
 }
 ```
 
@@ -768,28 +819,28 @@ body::before {
 ```css
 /* Navbar.module.css */
 .navbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(4, 13, 33, 0.8);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--transition-base);
-  padding: var(--space-4) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(4, 13, 33, 0.8);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition-base);
+    padding: var(--space-4) 0;
 }
 
 .navbar[data-scrolled="true"] {
-  border-bottom-color: var(--border);
+    border-bottom-color: var(--border);
 }
 
 .inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 var(--space-6);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 ```
 
@@ -797,34 +848,34 @@ body::before {
 
 ```tsx
 // SkipToContent.tsx
-import styles from './SkipToContent.module.css';
+import styles from "./SkipToContent.module.css";
 
 export function SkipToContent() {
-  return (
-    <a href="#main-content" className={styles.skipLink}>
-      Skip to content
-    </a>
-  );
+    return (
+        <a href="#main-content" className={styles.skipLink}>
+            Skip to content
+        </a>
+    );
 }
 ```
 
 ```css
 /* SkipToContent.module.css */
 .skipLink {
-  position: absolute;
-  top: -100%;
-  left: var(--space-4);
-  z-index: 999;
-  padding: var(--space-3) var(--space-5);
-  background: var(--accent);
-  color: var(--bg);
-  border-radius: var(--radius);
-  font-weight: 600;
-  transition: top var(--transition-fast);
+    position: absolute;
+    top: -100%;
+    left: var(--space-4);
+    z-index: 999;
+    padding: var(--space-3) var(--space-5);
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: var(--radius);
+    font-weight: 600;
+    transition: top var(--transition-fast);
 }
 
 .skipLink:focus {
-  top: var(--space-4);
+    top: var(--space-4);
 }
 ```
 
@@ -833,13 +884,13 @@ export function SkipToContent() {
 ```typescript
 // Hook to detect when fonts are loaded
 export function useFontsReady(): boolean {
-  const [ready, setReady] = useState(false);
+    const [ready, setReady] = useState(false);
 
-  useEffect(() => {
-    document.fonts.ready.then(() => setReady(true));
-  }, []);
+    useEffect(() => {
+        document.fonts.ready.then(() => setReady(true));
+    }, []);
 
-  return ready;
+    return ready;
 }
 ```
 
@@ -850,52 +901,88 @@ export function useFontsReady(): boolean {
 // Simple inline SVG components -- no icon library dependency
 
 interface IconProps {
-  size?: number;
-  className?: string;
+    size?: number;
+    className?: string;
 }
 
 export function GitHubIcon({ size = 20, className }: IconProps) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-         strokeLinejoin="round" className={className} aria-hidden="true">
-      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-    </svg>
-  );
+    return (
+        <svg
+            width={size}
+            height={size}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+            aria-hidden="true"
+        >
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+        </svg>
+    );
 }
 
 export function LinkedInIcon({ size = 20, className }: IconProps) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-         strokeLinejoin="round" className={className} aria-hidden="true">
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect x="2" y="9" width="4" height="12" />
-      <circle cx="4" cy="4" r="2" />
-    </svg>
-  );
+    return (
+        <svg
+            width={size}
+            height={size}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+            aria-hidden="true"
+        >
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+            <rect x="2" y="9" width="4" height="12" />
+            <circle cx="4" cy="4" r="2" />
+        </svg>
+    );
 }
 
 export function MailIcon({ size = 20, className }: IconProps) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-         strokeLinejoin="round" className={className} aria-hidden="true">
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-    </svg>
-  );
+    return (
+        <svg
+            width={size}
+            height={size}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+            aria-hidden="true"
+        >
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+        </svg>
+    );
 }
 
 export function XIcon({ size = 20, className }: IconProps) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-         strokeLinejoin="round" className={className} aria-hidden="true">
-      <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
-      <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
-    </svg>
-  );
+    return (
+        <svg
+            width={size}
+            height={size}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+            aria-hidden="true"
+        >
+            <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+            <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+        </svg>
+    );
 }
 ```
 
@@ -904,35 +991,62 @@ export function XIcon({ size = 20, className }: IconProps) {
 ```html
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jack Labbe - Software / AI Engineer</title>
-    <meta name="description" content="Software and AI engineer. View my live commit activity, projects, and contributions." />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Jack Labbe - Software / AI Engineer</title>
+        <meta
+            name="description"
+            content="Software and AI engineer. View my live commit activity, projects, and contributions."
+        />
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Jack Labbe - Software / AI Engineer" />
-    <meta property="og:description" content="Software and AI engineer. View my live commit activity, projects, and contributions." />
-    <meta property="og:image" content="https://jacklabbe.com/og-image.png" />
-    <meta property="og:url" content="https://jacklabbe.com" />
-    <meta property="og:type" content="website" />
+        <!-- Open Graph -->
+        <meta
+            property="og:title"
+            content="Jack Labbe - Software / AI Engineer"
+        />
+        <meta
+            property="og:description"
+            content="Software and AI engineer. View my live commit activity, projects, and contributions."
+        />
+        <meta
+            property="og:image"
+            content="https://jacklabbe.com/og-image.png"
+        />
+        <meta property="og:url" content="https://jacklabbe.com" />
+        <meta property="og:type" content="website" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Jack Labbe - Software / AI Engineer" />
-    <meta name="twitter:description" content="Software and AI engineer. View my live commit activity, projects, and contributions." />
-    <meta name="twitter:image" content="https://jacklabbe.com/og-image.png" />
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+            name="twitter:title"
+            content="Jack Labbe - Software / AI Engineer"
+        />
+        <meta
+            name="twitter:description"
+            content="Software and AI engineer. View my live commit activity, projects, and contributions."
+        />
+        <meta
+            name="twitter:image"
+            content="https://jacklabbe.com/og-image.png"
+        />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+        <!-- Preload critical fonts -->
+        <link
+            rel="preload"
+            href="/fonts/inter-variable.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        />
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/main.tsx"></script>
+    </body>
 </html>
 ```
 
@@ -962,20 +1076,20 @@ Before deploying, update `cors.json` to include the `.pages.dev` origin:
 
 ```json
 {
-  "rules": [
-    {
-      "allowed": {
-        "origins": [
-          "https://jacklabbe.com",
-          "https://jacklabbe.pages.dev",
-          "http://localhost:5173"
-        ],
-        "methods": ["GET", "HEAD"],
-        "headers": ["content-type"]
-      },
-      "maxAgeSeconds": 86400
-    }
-  ]
+    "rules": [
+        {
+            "allowed": {
+                "origins": [
+                    "https://jacklabbe.com",
+                    "https://jacklabbe.pages.dev",
+                    "http://localhost:5173"
+                ],
+                "methods": ["GET", "HEAD"],
+                "headers": ["content-type"]
+            },
+            "maxAgeSeconds": 86400
+        }
+    ]
 }
 ```
 
@@ -997,25 +1111,26 @@ Type declaration in `vite-env.d.ts`:
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  readonly VITE_R2_BASE_URL: string;
+    readonly VITE_R2_BASE_URL: string;
 }
 
 interface ImportMeta {
-  readonly env: ImportMetaEnv;
+    readonly env: ImportMetaEnv;
 }
 ```
 
 ## State of the Art
 
-| Old Approach | Current Approach | When Changed | Impact |
-|--------------|------------------|--------------|--------|
-| react-helmet-async for `<head>` management | React 19 native `<title>`, `<meta>`, `<link>` in JSX | React 19 (Dec 2024) | No library needed for simple metadata. Still need static `index.html` fallback for crawlers |
-| Google Fonts CDN `<link>` tag | Self-hosted via @fontsource-variable | 2023+ industry trend | Better performance (no third-party DNS/connection), privacy (no Google tracking), reliability |
-| normalize.css / reset.css | Minimal targeted reset (~20 lines) | 2023+ | Modern browsers need fewer resets. Tailwind/Primer approach |
-| Styled-components / CSS-in-JS | CSS Modules + CSS custom properties | 2024+ trend reversal | Zero-runtime CSS, better performance, native browser features |
-| Framer Motion for all animations | CSS @keyframes for simple animations, Framer for complex | Ongoing | CSS animations are zero-bundle-cost and sufficient for entrance/shimmer |
+| Old Approach                               | Current Approach                                         | When Changed         | Impact                                                                                        |
+| ------------------------------------------ | -------------------------------------------------------- | -------------------- | --------------------------------------------------------------------------------------------- |
+| react-helmet-async for `<head>` management | React 19 native `<title>`, `<meta>`, `<link>` in JSX     | React 19 (Dec 2024)  | No library needed for simple metadata. Still need static `index.html` fallback for crawlers   |
+| Google Fonts CDN `<link>` tag              | Self-hosted via @fontsource-variable                     | 2023+ industry trend | Better performance (no third-party DNS/connection), privacy (no Google tracking), reliability |
+| normalize.css / reset.css                  | Minimal targeted reset (~20 lines)                       | 2023+                | Modern browsers need fewer resets. Tailwind/Primer approach                                   |
+| Styled-components / CSS-in-JS              | CSS Modules + CSS custom properties                      | 2024+ trend reversal | Zero-runtime CSS, better performance, native browser features                                 |
+| Framer Motion for all animations           | CSS @keyframes for simple animations, Framer for complex | Ongoing              | CSS animations are zero-bundle-cost and sufficient for entrance/shimmer                       |
 
 **Deprecated/outdated:**
+
 - `react-helmet`: Unmaintained since 2020. `react-helmet-async` fork exists but unnecessary with React 19
 - Google Fonts CDN: Self-hosting is the modern standard for performance-conscious sites
 - `backdrop-filter` without `-webkit-` prefix: Safari still requires the prefix as of 2025
@@ -1023,23 +1138,24 @@ interface ImportMeta {
 ## Open Questions
 
 1. **R2 Public URL**
-   - What we know: The bucket is `jacklabbe-data`. CORS is configured. The architecture doc planned `data.jacklabbe.com` as custom domain.
-   - What's unclear: Whether the custom domain has actually been configured in Cloudflare dashboard, or if we should use the r2.dev public development URL. Need to verify which URL works.
-   - Recommendation: Check if `data.jacklabbe.com` resolves. If not, use the r2.dev public URL for development and configure the custom domain as part of this phase's deployment tasks. Set the URL via `VITE_R2_BASE_URL` environment variable so it can be changed without code changes.
+    - What we know: The bucket is `jacklabbe-data`. CORS is configured. The architecture doc planned `data.jacklabbe.com` as custom domain.
+    - What's unclear: Whether the custom domain has actually been configured in Cloudflare dashboard, or if we should use the r2.dev public development URL. Need to verify which URL works.
+    - Recommendation: Check if `data.jacklabbe.com` resolves. If not, use the r2.dev public URL for development and configure the custom domain as part of this phase's deployment tasks. Set the URL via `VITE_R2_BASE_URL` environment variable so it can be changed without code changes.
 
 2. **Headshot Photo Asset**
-   - What we know: The hero needs a professional headshot photo.
-   - What's unclear: Whether the user has a photo file ready, what format/size it is.
-   - Recommendation: Use WebP format for the photo (best compression for photographic content). Provide a placeholder during development. The photo should be placed in `site/public/headshot.webp`.
+    - What we know: The hero needs a professional headshot photo.
+    - What's unclear: Whether the user has a photo file ready, what format/size it is.
+    - Recommendation: Use WebP format for the photo (best compression for photographic content). Provide a placeholder during development. The photo should be placed in `site/public/headshot.webp`.
 
 3. **Cloudflare Pages Project Name**
-   - What we know: Deployment is via `wrangler pages deploy`.
-   - What's unclear: Whether a Pages project already exists in the Cloudflare dashboard.
-   - Recommendation: Create the project during the first deployment: `wrangler pages project create jacklabbe`. The CLI will prompt for setup. Subsequent deploys use `wrangler pages deploy dist --project-name=jacklabbe`.
+    - What we know: Deployment is via `wrangler pages deploy`.
+    - What's unclear: Whether a Pages project already exists in the Cloudflare dashboard.
+    - Recommendation: Create the project during the first deployment: `wrangler pages project create jacklabbe`. The CLI will prompt for setup. Subsequent deploys use `wrangler pages deploy dist --project-name=jacklabbe`.
 
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - React 19 release blog (react.dev) - Native document metadata support, verified code examples
 - Vite 7.3.1 official docs (vite.dev) - CSS Modules built-in support, localsConvention config, environment variables
 - Fontsource (fontsource.org) - Inter and JetBrains Mono variable font installation, npm packages
@@ -1048,17 +1164,20 @@ interface ImportMeta {
 - WCAG 2.0 contrast requirements (w3.org) - 4.5:1 AA normal, 3:1 AA large text thresholds
 
 ### Secondary (MEDIUM confidence)
+
 - CSS-Tricks staggered animation article - CSS animation-delay patterns, verified by MDN
 - Fontsource npm weekly downloads (npmjs.com) - 221K+ for Inter variable, confirms community standard
 - Lucide GitHub issue #2792 - Brand icon deprecation confirmed, motivates inline SVG approach
 - Cloudflare Workers SPA routing docs - `not_found_handling: "single-page-application"` config
 
 ### Tertiary (LOW confidence)
+
 - Font preload path in Vite output - Exact paths in `dist/assets/` depend on Vite build hashing. Verify after first build.
 
 ## Metadata
 
 **Confidence breakdown:**
+
 - Standard stack: HIGH - Versions verified from installed packages, APIs verified from official docs
 - Architecture: HIGH - Patterns verified from Vite docs, React 19 docs, and established CSS Module practices
 - Pitfalls: HIGH - Contrast ratios calculated programmatically, CORS issue verified from existing config, OG crawler limitation well-documented

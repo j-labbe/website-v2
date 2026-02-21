@@ -1,4 +1,4 @@
 packages:
-  - 'site'
-  - 'worker'
-  - 'shared'
+    - "site"
+    - "worker"
+    - "shared"

@@ -1,22 +1,24 @@
 {
-  "name": "jacklabbe.com",
-  "private": true,
-  "scripts": {
-    "build": "pnpm -r build",
-    "dev:worker": "cd worker && wrangler dev --test-scheduled",
-    "dev:site": "cd site && vite dev",
-    "test": "pnpm -r test",
-    "typecheck": "pnpm -r typecheck"
-  },
-  "packageManager": "pnpm@10.20.0",
-  "devDependencies": {
-    "typescript": "^5.9"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp",
-      "workerd"
-    ]
-  }
+    "name": "jacklabbe.com",
+    "private": true,
+    "scripts": {
+        "build": "pnpm -r build",
+        "dev:worker": "cd worker && wrangler dev --test-scheduled",
+        "dev:site": "cd site && vite dev",
+        "test": "pnpm -r test",
+        "typecheck": "pnpm -r typecheck",
+        "prettier": "prettier --write ."
+    },
+    "packageManager": "pnpm@10.20.0",
+    "devDependencies": {
+        "prettier": "^3.8.1",
+        "typescript": "^5.9"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild",
+            "sharp",
+            "workerd"
+        ]
+    }
 }

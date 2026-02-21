@@ -70,8 +70,9 @@ completed: 2026-02-19
 - **Files modified:** 16
 
 ## Accomplishments
+
 - Created @jacklabbe/site package with Vite 7 + React 19 skeleton that builds and typechecks
-- Created @jacklabbe/worker package with Wrangler 4, cron trigger (0 6 * * *), R2 bucket binding, and stub scheduled/fetch handlers
+- Created @jacklabbe/worker package with Wrangler 4, cron trigger (0 6 \* \* \*), R2 bucket binding, and stub scheduled/fetch handlers
 - Verified cross-package type imports work in both directions (site->shared, worker->shared) via PipelineMeta import
 - All three workspace packages build successfully with `pnpm build` and `pnpm typecheck`
 
@@ -82,6 +83,7 @@ Each task was committed atomically:
 1. **Task 1: Create site skeleton (Vite + React) and worker skeleton (Wrangler) with shared type imports** - `62f2294` (feat)
 
 ## Files Created/Modified
+
 - `site/package.json` - @jacklabbe/site package with Vite, React, and shared type dependency
 - `site/tsconfig.json` - Extends base config with react-jsx, project reference to shared
 - `site/vite.config.ts` - Standard Vite + React plugin config
@@ -99,9 +101,10 @@ Each task was committed atomically:
 - `.gitignore` - Added shared package build artifact exclusions
 
 ## Decisions Made
+
 - Worker Env interface defines R2_BUCKET (R2Bucket), GITHUB_TOKEN (string), REFRESH_SECRET (string) matching the research pattern
 - Worker fetch handler checks Authorization header against Bearer env.REFRESH_SECRET, returns 401 or 202 (stub)
-- Added .gitignore rules for shared/src/**/*.js, *.d.ts, *.d.ts.map to keep build artifacts out of git (live types pattern means source is canonical)
+- Added .gitignore rules for shared/src/\*_/_.js, _.d.ts, _.d.ts.map to keep build artifacts out of git (live types pattern means source is canonical)
 - Added pnpm onlyBuiltDependencies config for esbuild/sharp/workerd native addons
 
 ## Deviations from Plan
@@ -109,14 +112,16 @@ Each task was committed atomically:
 ### Auto-fixed Issues
 
 **1. [Rule 3 - Blocking] Added .gitignore rules for shared package build artifacts**
+
 - **Found during:** Task 1 (after pnpm build)
 - **Issue:** `tsc -b` (project references build) generated .js, .d.ts, and .map files in shared/src/ which would pollute git
-- **Fix:** Added gitignore patterns for shared/src/**/*.js, *.js.map, *.d.ts, *.d.ts.map
+- **Fix:** Added gitignore patterns for shared/src/\*_/_.js, _.js.map, _.d.ts, \*.d.ts.map
 - **Files modified:** .gitignore
 - **Verification:** `git status` no longer shows shared build artifacts
 - **Committed in:** 62f2294 (Task 1 commit)
 
 **2. [Rule 3 - Blocking] Added .npmrc and pnpm build dependency approvals**
+
 - **Found during:** Task 1 (pnpm install warning)
 - **Issue:** pnpm v10 blocks native addon build scripts (esbuild, sharp, workerd) by default, showing warning
 - **Fix:** Added pnpm.onlyBuiltDependencies to package.json for esbuild, sharp, workerd
@@ -130,12 +135,15 @@ Each task was committed atomically:
 **Impact on plan:** Both auto-fixes necessary for clean builds and git hygiene. No scope creep.
 
 ## Issues Encountered
+
 None.
 
 ## User Setup Required
+
 None - no external service configuration required.
 
 ## Next Phase Readiness
+
 - Site and worker skeletons ready for Plan 03 (GitHub GraphQL integration) and Plan 04 (REST + transform pipeline)
 - Worker Env interface defines all bindings that subsequent plans will use
 - Cross-package type imports proven working; future plans can freely import from @jacklabbe/shared
@@ -146,5 +154,6 @@ None - no external service configuration required.
 All 16 files verified present. Commit 62f2294 verified in git log.
 
 ---
-*Phase: 01-foundation-and-data-pipeline*
-*Completed: 2026-02-19*
+
+_Phase: 01-foundation-and-data-pipeline_
+_Completed: 2026-02-19_

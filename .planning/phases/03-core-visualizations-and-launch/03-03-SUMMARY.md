@@ -6,10 +6,10 @@ tags: [integration, layout, hover-states, r2-data, visual-verification]
 
 # Dependency graph
 requires:
-  - phase: 03-01
-    provides: CommitGraph component
-  - phase: 03-02
-    provides: Timeline component, DateSpine, useScrollSpy
+    - phase: 03-01
+      provides: CommitGraph component
+    - phase: 03-02
+      provides: Timeline component, DateSpine, useScrollSpy
 enables: []
 ---
 
@@ -19,29 +19,31 @@ Integrated CommitGraph and Timeline into App.tsx with live R2 data, applied glob
 
 ## Tasks Completed
 
-| # | Task | Commit(s) | Status |
-|---|------|-----------|--------|
-| 1 | Integrate visualizations + global hover states | `b951c42` | done |
-| 2 | Visual verification (human-verify checkpoint) | — | approved |
+| #   | Task                                           | Commit(s) | Status   |
+| --- | ---------------------------------------------- | --------- | -------- |
+| 1   | Integrate visualizations + global hover states | `b951c42` | done     |
+| 2   | Visual verification (human-verify checkpoint)  | —         | approved |
 
 ## Additional Changes (during verification)
 
-| Change | Commit |
-|--------|--------|
-| Hardcode R2 base URL to data.jacklabbe.com | `dbfdf6d` |
-| Constrain layout to hero max-width (1200px) | `04cf9a2` |
-| Redesign DateSpine as Time Machine with dock magnification | `04cf9a2`, `3b0eb05`, `c3954ec`, `d93e925`, `a4f6737` |
-| Fix spine hover flicker, year labels as stack items, width shrink | `c3954ec` |
-| Fix sticky positioning with fixed-width flex column | `979f122` |
-| Click commit graph cell to scroll to month in timeline | `0cd0437` |
-| Remove full-width navbar background | `15e3bc0` |
+| Change                                                            | Commit                                                |
+| ----------------------------------------------------------------- | ----------------------------------------------------- |
+| Hardcode R2 base URL to data.jacklabbe.com                        | `dbfdf6d`                                             |
+| Constrain layout to hero max-width (1200px)                       | `04cf9a2`                                             |
+| Redesign DateSpine as Time Machine with dock magnification        | `04cf9a2`, `3b0eb05`, `c3954ec`, `d93e925`, `a4f6737` |
+| Fix spine hover flicker, year labels as stack items, width shrink | `c3954ec`                                             |
+| Fix sticky positioning with fixed-width flex column               | `979f122`                                             |
+| Click commit graph cell to scroll to month in timeline            | `0cd0437`                                             |
+| Remove full-width navbar background                               | `15e3bc0`                                             |
 
 ## Key Files
 
 ### Created
-*(none — this plan modified existing files)*
+
+_(none — this plan modified existing files)_
 
 ### Modified
+
 - `site/src/App.tsx` — Full page composition with CommitGraph + Timeline + R2 data
 - `site/src/hooks/useR2Data.ts` — Hardcoded R2 URL to data.jacklabbe.com
 - `site/src/components/CommitGraph/CommitGraph.tsx` — Added click-to-scroll

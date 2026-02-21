@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export function useFontsReady(): boolean {
-  const [ready, setReady] = useState(false);
+    const [ready, setReady] = useState(false);
 
-  useEffect(() => {
-    document.fonts.ready.then(() => setReady(true));
-  }, []);
+    useEffect(() => {
+        document.fonts.ready.then(() => setReady(true));
+    }, []);
 
-  return ready;
+    return ready;
 }

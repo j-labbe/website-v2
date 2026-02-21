@@ -20,6 +20,7 @@ The top risks are: (1) private repo data leaking through indirect API fields (co
 The stack is deliberately lean. Vite 6 builds the SPA with zero configuration for CSS Modules and TypeScript. React 19 provides the UI framework. pnpm workspaces manage the monorepo (site, worker, shared types). On the Cloudflare side, Wrangler handles Worker deployment and cron configuration; @octokit/graphql fetches the contribution calendar in one call; @octokit/rest handles repo enumeration. The SPA has exactly two runtime dependencies: react and react-dom. The Worker bundles @octokit/graphql and @octokit/rest via Wrangler's built-in esbuild.
 
 **Core technologies:**
+
 - **Vite 6 + React 19 + TypeScript 5.7**: SPA build pipeline — fastest DX for static React, native ESM, Cloudflare Pages static upload; Next.js and Astro rejected as unnecessary for a static SPA
 - **CSS Modules + CSS custom properties**: Styling — zero runtime cost, full control over dark theme and custom SVG; Tailwind rejected because custom SVG and timeline need custom CSS regardless, adding config overhead for minimal utility
 - **@octokit/graphql**: GitHub commit graph — single GraphQL call returns full 12-month contribution calendar; REST cannot do this without per-repo pagination across all repos
@@ -35,6 +36,7 @@ The stack is deliberately lean. Vite 6 builds the SPA with zero configuration fo
 ### Expected Features
 
 **Must have (table stakes):**
+
 - Hero/identity section — name, role, contact; visitors need orientation in under 3 seconds
 - Contact mechanism — mailto link styled as a button; no contact form (spam magnet, requires backend)
 - Project showcase — repo name, language badge, last active date, commit count
@@ -46,6 +48,7 @@ The stack is deliberately lean. Vite 6 builds the SPA with zero configuration fo
 - Open Graph / social meta tags — URL preview cards when shared on Slack, LinkedIn, Twitter
 
 **Should have (differentiators):**
+
 - Auto-updating commit graph (GitHub-style, 12-month rolling, blue-tinted) — living proof of activity; the signature feature
 - Time Machine project timeline with scroll-synced date spine — communicates growth narrative over time; distinguishes from flat card grids
 - Private repo handling — shows professional/corporate work without leaking confidential project details
@@ -55,6 +58,7 @@ The stack is deliberately lean. Vite 6 builds the SPA with zero configuration fo
 - Commit count badges on projects — raw numbers are more credible than vague contributor labels
 
 **Defer (v2+):**
+
 - Commit message display — data worth collecting now but UI needs curation logic to avoid showing "wip", "fix", "asdf"
 - Diff stats (lines added/removed) — noisy without context; collect in pipeline but don't surface in v1
 - About/bio section — only if v1 feedback creates demand
@@ -68,12 +72,14 @@ Contact form, blog section, skills self-assessment bars, testimonials, light mod
 The system has two runtimes connected only by R2 storage — they share nothing at runtime. The Worker is the write path (cron, GitHub API, transform, sanitize, R2 write) and the SPA is the read path (R2 fetch on mount, render). The Worker pre-computes everything so the browser renders data directly with zero client-side aggregation. Shared TypeScript types in `packages/shared` enforce the JSON contract at build time. R2 public bucket with custom domain `data.jacklabbe.com` is the recommended read path — simpler than a Worker proxy for read-only public data. CORS configuration on the R2 custom domain is the primary infrastructure complexity and must be verified before deploying the SPA.
 
 **Major components:**
+
 1. **packages/worker** (Cloudflare Worker) — GitHub API fetching (GraphQL contributionsCollection + REST repos), data transformation, private repo sanitization with field allowlist, R2 writes on daily cron at 6 AM UTC; all computation and aggregation lives here
 2. **packages/site** (React SPA on Cloudflare Pages) — fetch R2 JSON on mount via useGitHubData hook, render Hero, CommitGraph (inline SVG), Timeline, DateSpine; zero data processing in the browser; CSS Modules with dark theme custom properties
 3. **packages/shared** (TypeScript types only) — R2 JSON schema interfaces (DataMeta, RepoMetadata, CommitData, DailyCommit, WeeklyCommit); compile-time contract between Worker and SPA; no runtime dependencies
 4. **Cloudflare R2 bucket** — three JSON files: graph.json (daily commit heatmap, ~5KB), projects.json (repo metadata, ~20KB for 100 repos), meta.json (pipeline health, last updated timestamp)
 
 **Key patterns:**
+
 - Pre-compute everything in the Worker; R2 JSON must be render-ready (no client-side aggregation)
 - Idempotent Worker runs: fetch complete dataset, write all files after all fetches succeed
 - Graceful data loading: loading / ready / error states in useGitHubData; never crash on R2 unavailability
@@ -171,12 +177,12 @@ Phases with standard patterns (research can be skipped):
 
 ## Confidence Assessment
 
-| Area | Confidence | Notes |
-|------|------------|-------|
-| Stack | MEDIUM | Architectural choices are well-reasoned and consistent across all four research files. Exact version numbers unverified — run `npm info` before installing. The hybrid GraphQL+REST approach is strongly motivated by the rate limit pitfalls research. CSS Modules over Tailwind is clearly justified for this specific project. |
-| Features | MEDIUM-HIGH | Table stakes and anti-features reflect mature developer portfolio conventions that change slowly. The differentiator set (commit graph, timeline, private repo handling) is well-scoped and internally consistent. Lower confidence only for "latest trends" not core feature decisions. |
-| Architecture | MEDIUM | The two-runtime pipeline pattern (Worker -> R2 -> static SPA) is well-established and the right fit. Cloudflare-specific details (R2 public access configuration, Pages direct upload CLI flags, Worker subrequest limits for cron) need verification against current 2026 Cloudflare documentation. |
-| Pitfalls | MEDIUM-HIGH | 15 pitfalls identified across all phases. GitHub API limitations (Events API 90-day cap, rate limits, "contributed to" enumeration) are well-documented and high confidence. R2 consistency model and Cloudflare plan-specific limits are rated MEDIUM and need current doc verification. |
+| Area         | Confidence  | Notes                                                                                                                                                                                                                                                                                                                             |
+| ------------ | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Stack        | MEDIUM      | Architectural choices are well-reasoned and consistent across all four research files. Exact version numbers unverified — run `npm info` before installing. The hybrid GraphQL+REST approach is strongly motivated by the rate limit pitfalls research. CSS Modules over Tailwind is clearly justified for this specific project. |
+| Features     | MEDIUM-HIGH | Table stakes and anti-features reflect mature developer portfolio conventions that change slowly. The differentiator set (commit graph, timeline, private repo handling) is well-scoped and internally consistent. Lower confidence only for "latest trends" not core feature decisions.                                          |
+| Architecture | MEDIUM      | The two-runtime pipeline pattern (Worker -> R2 -> static SPA) is well-established and the right fit. Cloudflare-specific details (R2 public access configuration, Pages direct upload CLI flags, Worker subrequest limits for cron) need verification against current 2026 Cloudflare documentation.                              |
+| Pitfalls     | MEDIUM-HIGH | 15 pitfalls identified across all phases. GitHub API limitations (Events API 90-day cap, rate limits, "contributed to" enumeration) are well-documented and high confidence. R2 consistency model and Cloudflare plan-specific limits are rated MEDIUM and need current doc verification.                                         |
 
 **Overall confidence:** MEDIUM
 
@@ -192,6 +198,7 @@ Phases with standard patterns (research can be skipped):
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - CSS Modules built into Vite — well-established Vite feature, unchanged across versions
 - GitHub Events API 90-day / 300-event limit — documented GitHub REST API constraint
 - React.memo and Intersection Observer patterns — standard React performance patterns
@@ -199,6 +206,7 @@ Phases with standard patterns (research can be skipped):
 - pnpm workspaces monorepo pattern — well-documented, stable tooling
 
 ### Secondary (MEDIUM confidence)
+
 - React 19 stable (Dec 2024) — training data, widely reported; verify current latest
 - Vite 6 as current major — training data; Vite 7 may exist, verify
 - Wrangler 3.x as current major — training data; v4 may have shipped, verify
@@ -208,10 +216,12 @@ Phases with standard patterns (research can be skipped):
 - R2 public access and CORS configuration steps — training data; verify against current Cloudflare dashboard
 
 ### Tertiary (LOW confidence)
+
 - @octokit/graphql ~5KB bundle size — training data estimate; verify actual bundle size before committing to approach
 - R2 eventual consistency model for overwrites — training data; verify current Cloudflare R2 consistency guarantees
 - Fine-grained PAT support scope for organization private repos — training data; behavior may vary by org configuration
 
 ---
-*Research completed: 2026-02-19*
-*Ready for roadmap: yes*
+
+_Research completed: 2026-02-19_
+_Ready for roadmap: yes_

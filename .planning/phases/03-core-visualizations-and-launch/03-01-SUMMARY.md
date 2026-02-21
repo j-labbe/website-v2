@@ -6,37 +6,38 @@ tags: [svg, heatmap, react, visualization, css-animation]
 
 # Dependency graph
 requires:
-  - phase: 01-foundation
-    provides: GraphData and ContributionDay types in @jacklabbe/shared
-  - phase: 02-site-shell
-    provides: Design system tokens, Tailwind v4 @theme, main.css animation patterns
+    - phase: 01-foundation
+      provides: GraphData and ContributionDay types in @jacklabbe/shared
+    - phase: 02-site-shell
+      provides: Design system tokens, Tailwind v4 @theme, main.css animation patterns
 provides:
-  - CommitGraph SVG heatmap component with tooltip, legend, wave animation, mobile scroll
-  - commitGraphUtils with grid layout math, color mapping, date formatting
-  - cellFadeIn keyframe and .commit-cell CSS styles
+    - CommitGraph SVG heatmap component with tooltip, legend, wave animation, mobile scroll
+    - commitGraphUtils with grid layout math, color mapping, date formatting
+    - cellFadeIn keyframe and .commit-cell CSS styles
 affects: [03-02, 03-03, app-integration]
 
 # Tech tracking
 tech-stack:
-  added: []
-  patterns: [inline-svg-heatmap, utc-date-handling, svg-transform-box-fill-box]
+    added: []
+    patterns:
+        [inline-svg-heatmap, utc-date-handling, svg-transform-box-fill-box]
 
 key-files:
-  created:
-    - site/src/components/CommitGraph/CommitGraph.tsx
-    - site/src/components/CommitGraph/CommitGraphTooltip.tsx
-    - site/src/components/CommitGraph/commitGraphUtils.ts
-  modified:
-    - site/src/styles/main.css
+    created:
+        - site/src/components/CommitGraph/CommitGraph.tsx
+        - site/src/components/CommitGraph/CommitGraphTooltip.tsx
+        - site/src/components/CommitGraph/commitGraphUtils.ts
+    modified:
+        - site/src/styles/main.css
 
 key-decisions:
-  - "UTC date methods throughout to avoid timezone shifting (getUTCDay, Intl with timeZone UTC)"
-  - "Tooltip positioned via container getBoundingClientRect + SVG-to-DOM coordinate scaling"
-  - "transform-box: fill-box for SVG rect hover scaling from center"
+    - "UTC date methods throughout to avoid timezone shifting (getUTCDay, Intl with timeZone UTC)"
+    - "Tooltip positioned via container getBoundingClientRect + SVG-to-DOM coordinate scaling"
+    - "transform-box: fill-box for SVG rect hover scaling from center"
 
 patterns-established:
-  - "Inline SVG heatmap: pure JSX <rect> grid with CSS animation-delay for wave effect"
-  - "SVG tooltip pattern: absolute-positioned sibling div with DOM coordinate mapping"
+    - "Inline SVG heatmap: pure JSX <rect> grid with CSS animation-delay for wave effect"
+    - "SVG tooltip pattern: absolute-positioned sibling div with DOM coordinate mapping"
 
 requirements-completed: [GRPH-01, GRPH-02, GRPH-03, GRPH-04, GRPH-05]
 
@@ -58,6 +59,7 @@ completed: 2026-02-20
 - **Files modified:** 4
 
 ## Accomplishments
+
 - CommitGraph component renders inline SVG heatmap with 4-level blue color scale and faint empty cells
 - Month labels on top, day-of-week labels on left, Less-More legend in bottom-right
 - Tooltip shows "N commits on Mon DD, YYYY" on hover with proper UTC date formatting
@@ -74,12 +76,14 @@ Each task was committed atomically:
 2. **Task 2: Add heatmap CSS animations and hover states** - `fa15a95` (feat)
 
 ## Files Created/Modified
+
 - `site/src/components/CommitGraph/commitGraphUtils.ts` - Grid layout math, LEVEL_COLORS, UTC date handling, month label computation
 - `site/src/components/CommitGraph/CommitGraphTooltip.tsx` - Absolute-positioned tooltip overlay
 - `site/src/components/CommitGraph/CommitGraph.tsx` - Main SVG heatmap component with tooltip state, legend, labels, wave animation
 - `site/src/styles/main.css` - cellFadeIn keyframe, .commit-cell animation/hover/reduced-motion styles
 
 ## Decisions Made
+
 - Used UTC date methods consistently (getUTCDay, Intl.DateTimeFormat with timeZone: 'UTC') to avoid timezone shifting per research pitfall 2
 - Tooltip uses container getBoundingClientRect + SVG-to-DOM coordinate scaling rather than SVG internal coordinates per research pitfall 1
 - CSS transform-box: fill-box with transform-origin: center for reliable SVG rect hover scaling per research recommendation
@@ -89,6 +93,7 @@ Each task was committed atomically:
 None - plan executed exactly as written.
 
 ## Issues Encountered
+
 - Pre-existing TypeScript error in LqipImage.tsx (missing generated/lqip module) -- not related to this plan, out of scope
 
 ## User Setup Required
@@ -96,6 +101,7 @@ None - plan executed exactly as written.
 None - no external service configuration required.
 
 ## Next Phase Readiness
+
 - CommitGraph component ready to receive GraphData props from useR2Data hook
 - Needs to be integrated into App.tsx (replacing SectionPlaceholder) in a future plan
 - CSS animations and hover states are self-contained and will activate when component mounts
@@ -107,5 +113,6 @@ None - no external service configuration required.
 - TypeScript compilation passes (only pre-existing LqipImage error)
 
 ---
-*Phase: 03-core-visualizations-and-launch*
-*Completed: 2026-02-20*
+
+_Phase: 03-core-visualizations-and-launch_
+_Completed: 2026-02-20_

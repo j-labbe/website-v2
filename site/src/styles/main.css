@@ -1,249 +1,268 @@
 /* Font imports (Fontsource) */
-@import '@fontsource-variable/inter';
-@import '@fontsource-variable/jetbrains-mono';
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
 
 /* Tailwind */
 @import "tailwindcss";
 
 /* Design tokens via @theme */
 @theme {
-  /* Colors — use --color-* convention */
-  --color-bg: #040d21;
-  --color-surface: #0a1628;
-  --color-surface-2: #111d33;
-  --color-border: #1a2844;
-  --color-text: #c9d1d9;
-  --color-text-dim: #6e7a8a;
-  --color-text-bright: #f0f6fc;
-  --color-accent: #4F7DF5;
-  --color-accent-secondary: #6B9CFF;
-  --color-accent-glow: rgba(79, 125, 245, 0.15);
-  --color-success: #3fb950;
-  --color-warning: #d29922;
-  --color-error: #f85149;
+    /* Colors — use --color-* convention */
+    --color-bg: #040d21;
+    --color-surface: #0a1628;
+    --color-surface-2: #111d33;
+    --color-border: #1a2844;
+    --color-text: #c9d1d9;
+    --color-text-dim: #6e7a8a;
+    --color-text-bright: #f0f6fc;
+    --color-accent: #4f7df5;
+    --color-accent-secondary: #6b9cff;
+    --color-accent-glow: rgba(79, 125, 245, 0.15);
+    --color-success: #3fb950;
+    --color-warning: #d29922;
+    --color-error: #f85149;
 
-  /* Typography */
-  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'Fira Code', monospace;
+    /* Typography */
+    --font-sans:
+        "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
+    --font-mono:
+        "JetBrains Mono Variable", "JetBrains Mono", "Fira Code", monospace;
 
-  /* Animations */
-  --animate-shimmer: shimmer 1.5s ease-in-out infinite;
-  --animate-fade-in-up: fadeInUp 400ms ease-out forwards;
+    /* Animations */
+    --animate-shimmer: shimmer 1.5s ease-in-out infinite;
+    --animate-fade-in-up: fadeInUp 400ms ease-out forwards;
 }
 
 /* Custom keyframes */
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes cellFadeIn {
-  from { opacity: 0; transform: scale(0.5); }
-  to { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 /* Base layer: reset + body defaults + crosshatch grid */
 @layer base {
-  *, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-  html {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-  }
+    html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
 
-  body {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    color: var(--color-text);
-    background-color: var(--color-bg);
-    line-height: 1.6;
-    min-height: 100vh;
-    position: relative;
-  }
+    body {
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        color: var(--color-text);
+        background-color: var(--color-bg);
+        line-height: 1.6;
+        min-height: 100vh;
+        position: relative;
+    }
 
-  img, svg {
-    display: block;
-    max-width: 100%;
-  }
+    img,
+    svg {
+        display: block;
+        max-width: 100%;
+    }
 
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
 
-  button {
-    font: inherit;
-    color: inherit;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
+    button {
+        font: inherit;
+        color: inherit;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
 
-  /* Crosshatch grid overlay (toggleable) */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: calc(var(--grid-visible, 0) * 0.04);
-    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M0 40L40 0M-10 10L10 -10M30 50L50 30' stroke='%23c9d1d9' stroke-width='0.5'/%3E%3C/svg%3E");
-    background-size: 40px 40px;
-    transition: opacity 250ms ease;
-  }
+    /* Crosshatch grid overlay (toggleable) */
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        opacity: calc(var(--grid-visible, 0) * 0.04);
+        background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M0 40L40 0M-10 10L10 -10M30 50L50 30' stroke='%23c9d1d9' stroke-width='0.5'/%3E%3C/svg%3E");
+        background-size: 40px 40px;
+        transition: opacity 250ms ease;
+    }
 }
 
 /* Component layer: reusable animation classes + navbar scroll state */
 @layer components {
-  .skeleton {
-    background: linear-gradient(
-      100deg,
-      var(--color-border) 40%,
-      var(--color-surface-2) 50%,
-      var(--color-border) 60%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 1.5s ease-in-out infinite;
-    border-radius: 8px;
-  }
+    .skeleton {
+        background: linear-gradient(
+            100deg,
+            var(--color-border) 40%,
+            var(--color-surface-2) 50%,
+            var(--color-border) 60%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.5s ease-in-out infinite;
+        border-radius: 8px;
+    }
 
-  .stagger-item {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 400ms, transform 400ms;
-  }
+    .stagger-item {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+            opacity 400ms,
+            transform 400ms;
+    }
 
-  .stagger-item.visible {
-    opacity: 1;
-    transform: none;
-  }
+    .stagger-item.visible {
+        opacity: 1;
+        transform: none;
+    }
 
-  nav[data-scrolled="true"] {
-    border-bottom-color: var(--color-border);
-  }
+    nav[data-scrolled="true"] {
+        border-bottom-color: var(--color-border);
+    }
 
-  /* LQIP (Low Quality Image Placeholder) blur-in transition */
-  .lqip-container {
-    position: relative;
-    overflow: hidden;
-  }
+    /* LQIP (Low Quality Image Placeholder) blur-in transition */
+    .lqip-container {
+        position: relative;
+        overflow: hidden;
+    }
 
-  .lqip-placeholder {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: blur(20px);
-    transform: scale(1.1);
-  }
+    .lqip-placeholder {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: blur(20px);
+        transform: scale(1.1);
+    }
 
-  .lqip-full {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 500ms ease;
-  }
+    .lqip-full {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 500ms ease;
+    }
 
-  .lqip-full.loaded {
-    opacity: 1;
-  }
+    .lqip-full.loaded {
+        opacity: 1;
+    }
 
-  /* Commit graph cell wave animation + hover */
-  .commit-cell {
-    opacity: 0;
-    animation: cellFadeIn 300ms ease-out forwards;
-    transform-box: fill-box;
-    transform-origin: center;
-    transition: transform 120ms ease;
-    cursor: pointer;
-  }
-  .commit-cell:hover {
-    transform: scale(1.8);
-  }
+    /* Commit graph cell wave animation + hover */
+    .commit-cell {
+        opacity: 0;
+        animation: cellFadeIn 300ms ease-out forwards;
+        transform-box: fill-box;
+        transform-origin: center;
+        transition: transform 120ms ease;
+        cursor: pointer;
+    }
+    .commit-cell:hover {
+        transform: scale(1.8);
+    }
 
-  /* Timeline card hover: Linear-style lift + background shift */
-  .timeline-card {
-    transition: transform 120ms ease, background-color 120ms ease, box-shadow 120ms ease;
-  }
-  .timeline-card:hover {
-    transform: translateY(-2px);
-    background-color: var(--color-surface-2);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
+    /* Timeline card hover: Linear-style lift + background shift */
+    .timeline-card {
+        transition:
+            transform 120ms ease,
+            background-color 120ms ease,
+            box-shadow 120ms ease;
+    }
+    .timeline-card:hover {
+        transform: translateY(-2px);
+        background-color: var(--color-surface-2);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
 
-  /* Link hover: color brighten + underline slide in */
-  .link-hover {
-    position: relative;
-    transition: color 120ms ease;
-  }
-  .link-hover::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--color-accent);
-    transition: width 120ms ease;
-  }
-  .link-hover:hover {
-    color: var(--color-accent);
-  }
-  .link-hover:hover::after {
-    width: 100%;
-  }
-
+    /* Link hover: color brighten + underline slide in */
+    .link-hover {
+        position: relative;
+        transition: color 120ms ease;
+    }
+    .link-hover::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--color-accent);
+        transition: width 120ms ease;
+    }
+    .link-hover:hover {
+        color: var(--color-accent);
+    }
+    .link-hover:hover::after {
+        width: 100%;
+    }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .skeleton {
-    animation: none;
-  }
+    .skeleton {
+        animation: none;
+    }
 
-  .stagger-item {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+    .stagger-item {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
 
-  .lqip-full {
-    opacity: 1;
-    transition: none;
-  }
+    .lqip-full {
+        opacity: 1;
+        transition: none;
+    }
 
-  .commit-cell {
-    animation: none !important;
-    opacity: 1;
-  }
-  .commit-cell:hover {
-    transform: none;
-  }
+    .commit-cell {
+        animation: none !important;
+        opacity: 1;
+    }
+    .commit-cell:hover {
+        transform: none;
+    }
 
-  .timeline-card,
-  .link-hover,
-  .link-hover::after {
-    transition: none;
-  }
-  .timeline-card:hover {
-    transform: none;
-  }
+    .timeline-card,
+    .link-hover,
+    .link-hover::after {
+        transition: none;
+    }
+    .timeline-card:hover {
+        transform: none;
+    }
 }

@@ -95,80 +95,82 @@ Deferred to future release. Tracked but not in current roadmap.
 
 Explicitly excluded. Documented to prevent scope creep.
 
-| Feature | Reason |
-|---------|--------|
-| Contact form | Requires backend, spam filtering. mailto link is simpler and more professional |
-| Blog / writing section | Different content type, different update cadence. Commit data IS the content |
-| Skills self-assessment | Subjective skill bars are mocked. Let language badges from real data speak |
-| Light mode toggle | Doubles design surface for no audience benefit. Developer audience prefers dark |
-| Real-time updates / WebSockets | Massive complexity for zero value. Daily pipeline is sufficient |
-| Animation-heavy landing | Three.js, particles, parallax -- impressive for 5s, annoying after. Hurts perf and a11y |
-| GitHub OAuth / login | Read-only public site. No user-facing auth needed |
-| Manual featured projects | Defeats auto-updating purpose. Recency and commit count are the curation signal |
-| Search / filtering | Over-engineering for dozens of projects. Chronological timeline with month nav IS filtering |
-| RSS feed / API endpoints | No audience. R2 JSON is technically accessible if needed |
-| Multi-page navigation | Breaks single-scroll narrative. One page is right for this scope |
-| Mobile app | Web only |
+| Feature                        | Reason                                                                                      |
+| ------------------------------ | ------------------------------------------------------------------------------------------- |
+| Contact form                   | Requires backend, spam filtering. mailto link is simpler and more professional              |
+| Blog / writing section         | Different content type, different update cadence. Commit data IS the content                |
+| Skills self-assessment         | Subjective skill bars are mocked. Let language badges from real data speak                  |
+| Light mode toggle              | Doubles design surface for no audience benefit. Developer audience prefers dark             |
+| Real-time updates / WebSockets | Massive complexity for zero value. Daily pipeline is sufficient                             |
+| Animation-heavy landing        | Three.js, particles, parallax -- impressive for 5s, annoying after. Hurts perf and a11y     |
+| GitHub OAuth / login           | Read-only public site. No user-facing auth needed                                           |
+| Manual featured projects       | Defeats auto-updating purpose. Recency and commit count are the curation signal             |
+| Search / filtering             | Over-engineering for dozens of projects. Chronological timeline with month nav IS filtering |
+| RSS feed / API endpoints       | No audience. R2 JSON is technically accessible if needed                                    |
+| Multi-page navigation          | Breaks single-scroll narrative. One page is right for this scope                            |
+| Mobile app                     | Web only                                                                                    |
 
 ## Traceability
 
 Which phases cover which requirements. Updated during roadmap creation.
 
-| Requirement | Phase | Status |
-|-------------|-------|--------|
-| PIPE-01 | Phase 1 | Pending |
-| PIPE-02 | Phase 1 | Complete |
-| PIPE-03 | Phase 1 | Complete |
-| PIPE-04 | Phase 1 | Complete |
-| PIPE-05 | Phase 1 | Pending |
-| PIPE-06 | Phase 1 | Complete |
-| PIPE-07 | Phase 1 | Complete |
-| PIPE-08 | Phase 1 | Complete |
-| PIPE-09 | Phase 1 | Complete |
-| PIPE-10 | Phase 1 | Complete |
-| HERO-01 | Phase 2 | Complete |
-| HERO-02 | Phase 2 | Complete |
-| HERO-03 | Phase 2 | Complete |
-| HERO-04 | Phase 2 | Complete |
-| GRPH-01 | Phase 3 | Complete |
-| GRPH-02 | Phase 3 | Complete |
-| GRPH-03 | Phase 3 | Complete |
-| GRPH-04 | Phase 3 | Complete |
-| GRPH-05 | Phase 3 | Complete |
-| TIME-01 | Phase 3 | Complete |
-| TIME-02 | Phase 3 | Complete |
-| TIME-03 | Phase 3 | Complete |
-| TIME-04 | Phase 3 | Complete |
-| TIME-05 | Phase 3 | Complete |
-| TIME-06 | Phase 3 | Complete |
-| TIME-07 | Phase 3 | Complete |
-| TIME-08 | Phase 3 | Complete |
-| TIME-09 | Phase 3 | Complete |
-| DSGN-01 | Phase 2 | Complete |
-| DSGN-02 | Phase 2 | Complete |
-| DSGN-03 | Phase 2 | Complete |
-| DSGN-04 | Phase 2 | Complete |
-| DSGN-05 | Phase 2 | Complete |
-| DSGN-06 | Phase 2 | Complete |
-| DSGN-07 | Phase 3 | Complete |
-| DSGN-08 | Phase 2 | Complete |
-| DSGN-09 | Phase 2 | Complete |
-| DSGN-10 | Phase 2 | Complete |
-| DSGN-11 | Phase 2 | Complete |
-| INFR-01 | Phase 1 | Complete |
-| INFR-02 | Phase 1 | Complete |
-| INFR-03 | Phase 2 | Complete |
-| INFR-04 | Phase 1 | Pending |
-| INFR-05 | Phase 2 | Complete |
-| META-01 | Phase 2 | Complete |
-| META-02 | Phase 2 | Complete |
-| META-03 | Phase 2 | Complete |
+| Requirement | Phase   | Status   |
+| ----------- | ------- | -------- |
+| PIPE-01     | Phase 1 | Pending  |
+| PIPE-02     | Phase 1 | Complete |
+| PIPE-03     | Phase 1 | Complete |
+| PIPE-04     | Phase 1 | Complete |
+| PIPE-05     | Phase 1 | Pending  |
+| PIPE-06     | Phase 1 | Complete |
+| PIPE-07     | Phase 1 | Complete |
+| PIPE-08     | Phase 1 | Complete |
+| PIPE-09     | Phase 1 | Complete |
+| PIPE-10     | Phase 1 | Complete |
+| HERO-01     | Phase 2 | Complete |
+| HERO-02     | Phase 2 | Complete |
+| HERO-03     | Phase 2 | Complete |
+| HERO-04     | Phase 2 | Complete |
+| GRPH-01     | Phase 3 | Complete |
+| GRPH-02     | Phase 3 | Complete |
+| GRPH-03     | Phase 3 | Complete |
+| GRPH-04     | Phase 3 | Complete |
+| GRPH-05     | Phase 3 | Complete |
+| TIME-01     | Phase 3 | Complete |
+| TIME-02     | Phase 3 | Complete |
+| TIME-03     | Phase 3 | Complete |
+| TIME-04     | Phase 3 | Complete |
+| TIME-05     | Phase 3 | Complete |
+| TIME-06     | Phase 3 | Complete |
+| TIME-07     | Phase 3 | Complete |
+| TIME-08     | Phase 3 | Complete |
+| TIME-09     | Phase 3 | Complete |
+| DSGN-01     | Phase 2 | Complete |
+| DSGN-02     | Phase 2 | Complete |
+| DSGN-03     | Phase 2 | Complete |
+| DSGN-04     | Phase 2 | Complete |
+| DSGN-05     | Phase 2 | Complete |
+| DSGN-06     | Phase 2 | Complete |
+| DSGN-07     | Phase 3 | Complete |
+| DSGN-08     | Phase 2 | Complete |
+| DSGN-09     | Phase 2 | Complete |
+| DSGN-10     | Phase 2 | Complete |
+| DSGN-11     | Phase 2 | Complete |
+| INFR-01     | Phase 1 | Complete |
+| INFR-02     | Phase 1 | Complete |
+| INFR-03     | Phase 2 | Complete |
+| INFR-04     | Phase 1 | Pending  |
+| INFR-05     | Phase 2 | Complete |
+| META-01     | Phase 2 | Complete |
+| META-02     | Phase 2 | Complete |
+| META-03     | Phase 2 | Complete |
 
 **Coverage:**
+
 - v1 requirements: 47 total
 - Mapped to phases: 47
 - Unmapped: 0
 
 ---
-*Requirements defined: 2026-02-19*
-*Last updated: 2026-02-19 after roadmap creation*
+
+_Requirements defined: 2026-02-19_
+_Last updated: 2026-02-19 after roadmap creation_

@@ -14,6 +14,7 @@ Monorepo skeleton (site/, worker/, shared/) with pnpm workspaces and a Cloudflar
 ## Implementation Decisions
 
 ### Data scope
+
 - GitHub username: `j-labbe`
 - Include all repos with contributions: owned, org, and forked
 - 24-month rolling window for the project timeline
@@ -21,6 +22,7 @@ Monorepo skeleton (site/, worker/, shared/) with pnpm workspaces and a Cloudflar
 - Filter out repos with fewer than 3 commits (removes drive-by forks, empty inits)
 
 ### Private repo rules
+
 - All private repos labeled "Private Repo" — no category hints, no names, no URLs
 - Language badges shown per private repo (languages don't reveal enough to be a privacy concern)
 - Each private repo appears as its own individual entry (not collapsed)
@@ -33,11 +35,13 @@ Monorepo skeleton (site/, worker/, shared/) with pnpm workspaces and a Cloudflar
 - Forked private repos: store parent info only if the parent repo is public
 
 ### Fork handling
+
 - Public forks marked clearly (e.g., "Forked: repo-name" or fork badge)
 - Store `is_fork` flag + parent repo name and URL for public forks
 - Private forks with public parents: store parent info; private forks with private parents: no parent info
 
 ### JSON data contract
+
 - graph.json: Commit graph heatmap data (Claude's discretion on daily vs weekly granularity)
 - projects.json: Repo entries with metadata, per-month commit counts, language badges, dates
 - meta.json: Minimal — last-updated timestamp and success/failure status
@@ -45,12 +49,14 @@ Monorepo skeleton (site/, worker/, shared/) with pnpm workspaces and a Cloudflar
 - "Last updated" timestamp from meta.json will be displayed on the site (reinforces "living" portfolio)
 
 ### Update & recovery
+
 - Daily cron trigger at ~06:00 UTC
 - Backfill strategy: Claude's discretion (auto-detect vs manual trigger)
 - On pipeline failure: keep existing R2 data + write error marker to meta.json so SPA can show "data may be outdated"
 - HTTP endpoint available for manual refresh (authenticated) — useful after pushing a burst of commits
 
 ### Claude's Discretion
+
 - graph.json granularity (raw daily vs pre-grouped by week)
 - Backfill trigger strategy (auto-detect empty R2 vs manual endpoint)
 - Exact progress bar or logging approach for the Worker
@@ -79,5 +85,5 @@ None — discussion stayed within phase scope
 
 ---
 
-*Phase: 01-foundation-and-data-pipeline*
-*Context gathered: 2026-02-19*
+_Phase: 01-foundation-and-data-pipeline_
+_Context gathered: 2026-02-19_

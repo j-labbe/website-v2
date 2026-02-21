@@ -14,6 +14,7 @@ Build the two signature visualizations (commit heatmap and project timeline with
 ## Implementation Decisions
 
 ### Commit graph style
+
 - Navy-to-bright-blue color scale matching the dark theme — empty cells near-background, high activity vivid blue
 - 4 intensity levels (like GitHub): empty, low, medium, high
 - Rounded square cells (slight border-radius, classic GitHub look)
@@ -28,6 +29,7 @@ Build the two signature visualizations (commit heatmap and project timeline with
 - Animate in on first load: left-to-right wave (columns fill in sequentially oldest to newest)
 
 ### Timeline entry design
+
 - Card-based layout — each project in a distinct card with background, border, shadow
 - Section heading: "Projects" with a divider
 - Card metadata: language badges (GitHub's actual language colors), commit count, date range (first + last active), description
@@ -39,6 +41,7 @@ Build the two signature visualizations (commit heatmap and project timeline with
 - Private repos: different accent (border color or subtle icon) to signal "private" — still shows badges
 
 ### Date spine behavior
+
 - Sticky positioning — fixed in viewport while scrolling through the timeline
 - Current month highlighted with bold weight + blue accent color
 - Click-to-jump uses smooth scroll animation
@@ -46,6 +49,7 @@ Build the two signature visualizations (commit heatmap and project timeline with
 - Spine months have subtle hover effect (text brightens) to signal clickability
 
 ### Hover & interaction feel
+
 - Commit graph cells: scale up (1.5-2x) on hover
 - Project cards: Linear-style hover — slight lift + background shift
 - Links (repo names, nav, footer): color brightens to blue + underline slides in
@@ -53,6 +57,7 @@ Build the two signature visualizations (commit heatmap and project timeline with
 - All hover transitions: snappy 100-150ms timing
 
 ### Claude's Discretion
+
 - Month grouping header style (bold label with divider, sticky, etc.)
 - Timeline card scroll animation style (fade-up, stagger, etc.)
 - Exact cell sizing and gap spacing for the heatmap grid
@@ -81,5 +86,5 @@ None — discussion stayed within phase scope
 
 ---
 
-*Phase: 03-core-visualizations-and-launch*
-*Context gathered: 2026-02-20*
+_Phase: 03-core-visualizations-and-launch_
+_Context gathered: 2026-02-20_

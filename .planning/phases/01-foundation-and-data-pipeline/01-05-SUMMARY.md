@@ -6,50 +6,50 @@ tags: [pipeline-orchestration, r2, github-actions, deployment, cors]
 
 # Dependency graph
 requires:
-  - phase: 01-03
-    provides: Transform layer (graph, projects, sanitize, backfill)
-  - phase: 01-04
-    provides: GitHub API clients (GraphQL calendar, REST repos/commits/languages)
+    - phase: 01-03
+      provides: Transform layer (graph, projects, sanitize, backfill)
+    - phase: 01-04
+      provides: GitHub API clients (GraphQL calendar, REST repos/commits/languages)
 provides:
-  - Pipeline orchestrator wiring fetch -> transform -> write
-  - R2 read/write operations with atomic writes and error recovery
-  - Worker handlers (scheduled cron + authenticated HTTP refresh)
-  - GitHub Actions workflow for daily pipeline execution and R2 upload
-  - R2 CORS policy for browser access
+    - Pipeline orchestrator wiring fetch -> transform -> write
+    - R2 read/write operations with atomic writes and error recovery
+    - Worker handlers (scheduled cron + authenticated HTTP refresh)
+    - GitHub Actions workflow for daily pipeline execution and R2 upload
+    - R2 CORS policy for browser access
 affects: [phase-02]
 
 # Tech tracking
 tech-stack:
-  added: [github-actions, tsx]
-  patterns: [github-actions-pipeline, wrangler-r2-upload, bearer-auth-graphql]
+    added: [github-actions, tsx]
+    patterns: [github-actions-pipeline, wrangler-r2-upload, bearer-auth-graphql]
 
 key-files:
-  created:
-    - worker/src/pipeline.ts
-    - worker/src/r2.ts
-    - worker/scripts/run-pipeline.ts
-    - .github/workflows/pipeline.yml
-    - pipeline.config.json
-    - cors.json
-  modified:
-    - worker/src/index.ts
-    - worker/src/github/rest.ts
-    - worker/src/github/graphql.ts
-    - worker/wrangler.toml
+    created:
+        - worker/src/pipeline.ts
+        - worker/src/r2.ts
+        - worker/scripts/run-pipeline.ts
+        - .github/workflows/pipeline.yml
+        - pipeline.config.json
+        - cors.json
+    modified:
+        - worker/src/index.ts
+        - worker/src/github/rest.ts
+        - worker/src/github/graphql.ts
+        - worker/wrangler.toml
 
 key-decisions:
-  - "Pivoted from Cloudflare Worker cron execution to GitHub Actions -- Workers hit 1000 subrequest limit with large repo counts"
-  - "Pipeline runs as standalone Node.js script via tsx in GH Actions, uploads JSON to R2 via wrangler CLI"
-  - "Private repo names redacted from CI logs via safeRepoId() helper -- returns '[private]' for private repos"
-  - "Org repos fetched per-org via listForOrg with deduplication, configurable via pipeline.config.json"
-  - "GH_PAT env var used instead of GITHUB_TOKEN to avoid GitHub Actions auto-injection conflict"
-  - "GraphQL auth uses bearer prefix (GitHub's recommended format for GraphQL API)"
-  - "Cloudflare account_id added to wrangler.toml to skip /memberships API lookup in CI"
+    - "Pivoted from Cloudflare Worker cron execution to GitHub Actions -- Workers hit 1000 subrequest limit with large repo counts"
+    - "Pipeline runs as standalone Node.js script via tsx in GH Actions, uploads JSON to R2 via wrangler CLI"
+    - "Private repo names redacted from CI logs via safeRepoId() helper -- returns '[private]' for private repos"
+    - "Org repos fetched per-org via listForOrg with deduplication, configurable via pipeline.config.json"
+    - "GH_PAT env var used instead of GITHUB_TOKEN to avoid GitHub Actions auto-injection conflict"
+    - "GraphQL auth uses bearer prefix (GitHub's recommended format for GraphQL API)"
+    - "Cloudflare account_id added to wrangler.toml to skip /memberships API lookup in CI"
 
 patterns-established:
-  - "GitHub Actions pipeline: checkout -> pnpm setup -> install -> run script -> upload artifacts"
-  - "Pipeline config: external JSON file at repo root for username/orgs configuration"
-  - "R2 upload via wrangler CLI in CI rather than programmatic R2 API calls"
+    - "GitHub Actions pipeline: checkout -> pnpm setup -> install -> run script -> upload artifacts"
+    - "Pipeline config: external JSON file at repo root for username/orgs configuration"
+    - "R2 upload via wrangler CLI in CI rather than programmatic R2 API calls"
 
 requirements-completed: [PIPE-01, PIPE-05, INFR-04]
 
@@ -88,7 +88,7 @@ completed: 2026-02-20
 
 The original plan called for pipeline execution inside the Cloudflare Worker via cron trigger. During deployment testing, the pipeline hit Cloudflare's 1000 subrequest limit (each repo requires 2+ API calls, plus commit detail fetches).
 
-**Resolution:** Pipeline execution moved to GitHub Actions as a standalone Node.js script. The script reuses all existing modules (github/graphql, github/rest, transform/*) and writes JSON to disk. A subsequent GH Actions step uploads the files to R2 via wrangler CLI. The Worker still exists with its handlers for potential future use.
+**Resolution:** Pipeline execution moved to GitHub Actions as a standalone Node.js script. The script reuses all existing modules (github/graphql, github/rest, transform/\*) and writes JSON to disk. A subsequent GH Actions step uploads the files to R2 via wrangler CLI. The Worker still exists with its handlers for potential future use.
 
 ## Task Commits
 
@@ -115,11 +115,13 @@ Key commits across the plan (iterative debugging required multiple fixes):
 ## Deviations from Plan
 
 ### Major: Pipeline execution moved from Worker to GitHub Actions
+
 - **Reason:** Cloudflare Workers 1000 subrequest limit insufficient for pipeline's API call volume
 - **Impact:** New files (run-pipeline.ts, pipeline.yml), Worker handlers remain as backup
 - **Resolution:** Fully working GH Actions pipeline with daily cron and wrangler R2 uploads
 
 ### Auto-fixed Issues
+
 - CORS config format (S3-style → Cloudflare rules format)
 - GraphQL auth prefix (token → bearer for GitHub GraphQL API)
 - pnpm version in GH Actions (added packageManager field)
@@ -133,6 +135,7 @@ Key commits across the plan (iterative debugging required multiple fixes):
 ## User Setup Required
 
 Completed during verification:
+
 - GitHub secret `PIPELINE_GITHUB_TOKEN` (classic PAT with repo, read:org, read:user)
 - GitHub secret `CLOUDFLARE_API_TOKEN` (API token with R2 Storage: Edit)
 - R2 bucket `jacklabbe-data` created
@@ -143,5 +146,6 @@ Completed during verification:
 Pipeline runs successfully via GitHub Actions. Data flows from GitHub API → transform → R2 upload.
 
 ---
-*Phase: 01-foundation-and-data-pipeline*
-*Completed: 2026-02-20*
+
+_Phase: 01-foundation-and-data-pipeline_
+_Completed: 2026-02-20_

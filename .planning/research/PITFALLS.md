@@ -22,6 +22,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Consequences:** Employer NDAs violated, proprietary project names exposed to anyone inspecting network requests, potential legal liability.
 
 **Prevention:**
+
 1. Define an explicit allowlist of fields to extract per repo visibility level. Never store raw API responses.
 2. For private repos, construct a new sanitized object containing ONLY: `{ commitCount, languages, dates, isPrivate: true }`. No repo name, no URL, no commit messages, no branch names, no owner info.
 3. For public repos, even though rich data is collected, still construct explicit objects rather than spreading API responses.
@@ -45,10 +46,11 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Consequences:** The 12-month commit graph -- the centerpiece visual -- shows mostly empty squares. The portfolio looks inactive despite heavy coding.
 
 **Prevention:**
+
 1. Do NOT rely on the Events API for historical commit data.
 2. Use a two-pronged approach:
-   - **Initial backfill:** Use the Repository Commits API (`GET /repos/{owner}/{repo}/commits`) with `since` and `until` parameters to fetch the full 12 months of history for each repo. This endpoint has no 90-day limit.
-   - **Daily incremental:** The cron Worker fetches only the last day's commits (or since last successful run) and merges into the existing JSON.
+    - **Initial backfill:** Use the Repository Commits API (`GET /repos/{owner}/{repo}/commits`) with `since` and `until` parameters to fetch the full 12 months of history for each repo. This endpoint has no 90-day limit.
+    - **Daily incremental:** The cron Worker fetches only the last day's commits (or since last successful run) and merges into the existing JSON.
 3. First, enumerate all repos via `GET /user/repos?affiliation=owner,collaborator,organization_member&per_page=100` (paginate through all). Then fetch commits per repo.
 4. For forked repos where you contributed, you need to check commits where the author matches your username specifically.
 
@@ -69,6 +71,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Consequences:** Incomplete data, missing repos, empty graph sections. If the Worker retries aggressively, it can get the PAT temporarily blocked.
 
 **Prevention:**
+
 1. **Separate backfill from daily cron.** The backfill is a one-time operation that may need to be run manually or split across multiple invocations. Do not try to backfill 12 months on the first cron trigger.
 2. **Implement rate limit awareness.** Check `X-RateLimit-Remaining` and `X-RateLimit-Reset` headers after each call. If remaining drops below 100, stop and persist progress. Resume on next invocation.
 3. **Use conditional requests.** Send `If-None-Match` with ETags from previous responses. 304 responses do not count against rate limits.
@@ -92,6 +95,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Consequences:** Worker silently terminates mid-execution. Some repos updated, others stale. No error visible unless you check logs. Data inconsistency in R2.
 
 **Prevention:**
+
 1. **Use Paid plan.** Free tier limits (50 subrequests, 10ms CPU) are completely insufficient for this use case. Paid plan gives 1,000 subrequests and 15-minute cron execution.
 2. **Minimize API calls per run.** Daily incremental updates should only need: 1 call to list repos (or check for new ones), 1 call per repo for recent commits (most will be 1 page), 1 R2 write. For 80 repos, that is roughly 160-250 subrequests -- well within 1,000.
 3. **Batch strategy:** If you have 200+ repos, split updates across multiple cron invocations (e.g., repos A-M on even hours, N-Z on odd hours). Or use a queue: write repo list to R2, process N repos per cron run, track position.
@@ -115,10 +119,11 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Consequences:** Slow page loads (defeats the "fast, minimal" design goal). High R2 egress (though R2 has free egress, large files still hurt user experience). Mobile users on slow connections see a loading spinner for seconds.
 
 **Prevention:**
+
 1. **Split the JSON into layers:**
-   - `graph.json`: Just the commit graph data (date + count per day, 365 entries). Tiny (under 5 KB). Fetched immediately.
-   - `projects.json`: Project list with metadata (name, languages, last active, commit count). Small (under 20 KB for 100 repos). Fetched immediately.
-   - `commits/{repo-slug}.json`: Per-repo detailed commit data (messages, diffs). Fetched on demand only if/when the UI needs it (v2+). Not fetched at all in v1.
+    - `graph.json`: Just the commit graph data (date + count per day, 365 entries). Tiny (under 5 KB). Fetched immediately.
+    - `projects.json`: Project list with metadata (name, languages, last active, commit count). Small (under 20 KB for 100 repos). Fetched immediately.
+    - `commits/{repo-slug}.json`: Per-repo detailed commit data (messages, diffs). Fetched on demand only if/when the UI needs it (v2+). Not fetched at all in v1.
 2. **Rolling window:** The Worker should trim data older than 13 months (keep an extra month buffer for the 12-month graph). Never keep unbounded history.
 3. **Gzip/Brotli compression:** R2 does not automatically compress responses. Either pre-compress the JSON in the Worker (write `.json.gz` and serve with correct Content-Encoding), or put a Cloudflare Pages function / Worker in front of R2 that handles compression. Cloudflare CDN will compress if responses go through the CDN with proper cache headers.
 4. **Cache headers:** Set `Cache-Control: public, max-age=3600` (1 hour) on the R2 objects. The data only updates daily, so aggressive caching is safe.
@@ -142,6 +147,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Why it happens:** The commit graph looks simple (it is just colored squares) so developers use the simplest approach (mapped divs). It works in development but may stutter on lower-powered devices or when other parts of the page trigger re-renders.
 
 **Prevention:**
+
 1. **Use CSS Grid with a single container.** Render the grid as a CSS Grid with `grid-template-columns: repeat(53, 1fr)` and 7 rows. Each cell is a small div, but the layout is handled by CSS, not JavaScript.
 2. **Memoize aggressively.** Wrap the commit graph component in `React.memo()` and ensure the data prop is referentially stable (not recreated on every render). The graph data changes at most once per day.
 3. **Canvas is overkill for this scale.** 365 cells is not enough to warrant Canvas. DOM/SVG is fine if properly memoized. Canvas makes tooltips and accessibility harder.
@@ -164,6 +170,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Consequences:** The portfolio's core value prop (showing active development) is undermined. Ironically, the developer may be coding heavily but the portfolio says otherwise.
 
 **Prevention:**
+
 1. **Include a `lastUpdated` timestamp in the JSON.** The SPA should display "Last updated: X hours ago" somewhere subtle. If the timestamp is more than 48 hours old, show a visual indicator that data may be stale.
 2. **Implement a dead man's switch.** The Worker writes a `heartbeat.json` to R2 on every successful run with `{ "timestamp": "...", "reposProcessed": N, "status": "ok" }`. A separate lightweight Worker or Pages function can check this and alert (e.g., send a webhook to Discord/email) if heartbeat is older than 36 hours.
 3. **Graceful degradation.** If the SPA cannot fetch R2 JSON at all (R2 outage, CORS issue), show the last cached version from service worker or show a minimal fallback ("Check my GitHub directly") rather than a blank page.
@@ -186,6 +193,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Consequences:** Launch blocker. The SPA cannot load any data.
 
 **Prevention:**
+
 1. **Recommended approach: Cloudflare Pages Function as proxy.** Since the SPA is on Cloudflare Pages, add a Pages Function at `/api/data.json` (or similar) that reads from R2 (via binding) and returns the response with proper headers. This keeps everything on the same origin -- no CORS needed at all.
 2. **Alternative: R2 public bucket with custom domain.** Enable public access on the R2 bucket, attach a custom domain (e.g., `data.jacklabbe.com`), and configure CORS rules in the R2 bucket settings. This adds DNS complexity.
 3. **Avoid: Making the R2 bucket fully public without CORS rules.** Even with public access, cross-origin fetches from a different domain need CORS headers.
@@ -208,6 +216,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Consequences:** Open-source contributions are missing from the portfolio. Developers who actively contribute to popular projects look less active than they are.
 
 **Prevention:**
+
 1. **For the commit graph (counts per day):** Use the GraphQL `contributionsCollection` API. It includes ALL contributions (commits, PRs, issues, reviews) across all repos, including repos you do not own. This is what GitHub uses for its own profile graph. One query gives you the full year.
 2. **For the project list:** Use `/user/repos?affiliation=owner,collaborator,organization_member&per_page=100` for repos you have direct access to. This covers owned repos, org repos, and repos where you are an explicit collaborator.
 3. **Accept the gap:** Repos you contributed to via PRs (without being a collaborator) are hard to enumerate comprehensively via API. The GraphQL contributions calendar captures the commit counts, but associating them with specific repos is limited to what the Events API shows (90 days) or what the user manually configures.
@@ -230,6 +239,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Consequences:** The commit graph does not match GitHub's profile graph. Users notice the discrepancy. Days appear to have wrong counts.
 
 **Prevention:**
+
 1. **If using GraphQL `contributionCalendar`:** The API returns contribution counts per date already bucketed by day in the user's timezone (as set in GitHub settings). Trust these dates directly. Do not re-bucket.
 2. **If using REST commit endpoints:** Commits have `author.date` with timezone offset (e.g., `2026-02-19T23:30:00-05:00`). Use the offset to determine the local date, not UTC conversion.
 3. **Store dates as date strings (`YYYY-MM-DD`), not timestamps.** The graph only needs day granularity. Storing `"2026-02-19"` avoids timezone bugs downstream.
@@ -252,6 +262,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Consequences:** Full write access to all repositories if token leaks. Attacker can push malicious code, delete branches, or access sensitive code.
 
 **Prevention:**
+
 1. **Use a Fine-Grained Personal Access Token (not classic).** Fine-grained PATs allow: specific repository access (or all repos), read-only permissions per category, expiration dates. Set permissions to: `Contents: Read-only`, `Metadata: Read-only`. No write access needed.
 2. **Store as a Cloudflare Worker secret** (via `wrangler secret put GITHUB_TOKEN`). Never hardcode in wrangler.toml or source code.
 3. **Set token expiration.** Fine-grained PATs support expiration. Set to 90 days and create a calendar reminder to rotate.
@@ -277,6 +288,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Why it happens:** GitHub's linguist library excludes some vendored paths but not all. The API reflects what linguist detects.
 
 **Prevention:**
+
 1. **Use language stats for badges, not as primary metadata.** Show "TypeScript, Python, Go" without percentages.
 2. **Consider using the primary language (`repo.language` field)** from the repos endpoint rather than the detailed breakdown. It is usually more accurate for categorization.
 3. **Do not over-invest in language accuracy for v1.** This is a cosmetic issue. Users will not deeply analyze language percentages on a portfolio.
@@ -296,6 +308,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Why it happens:** `scroll` events fire at 60+ Hz. If each event triggers DOM reads (getBoundingClientRect) and writes (updating the active state), the browser cannot keep up.
 
 **Prevention:**
+
 1. **Use Intersection Observer.** Place invisible sentinel elements at each month boundary. When a sentinel enters/leaves the viewport, update the active month. Zero scroll event listeners needed.
 2. **Fallback: Use `requestAnimationFrame` throttling.** If Intersection Observer does not give enough granularity, throttle scroll handlers to once per frame via rAF.
 3. **CSS `scroll-snap` for click-to-month navigation.** When a user clicks a month on the date spine, use `scrollIntoView({ behavior: 'smooth' })` rather than manual scroll animation.
@@ -316,6 +329,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Why it happens:** Two separate deployment pipelines (Pages via git push or wrangler, Worker via wrangler) with no coordination mechanism.
 
 **Prevention:**
+
 1. **Version the JSON schema.** Include a `version` field in the R2 JSON (e.g., `"schemaVersion": 1`). The SPA checks the version and handles unknown versions gracefully (show stale cached data or fallback).
 2. **Deploy Worker first, then Pages.** The Worker writes data; the SPA reads it. If the Worker writes a superset of data (additive changes only), old SPAs can still parse it. New SPAs may need new fields, so deploy Worker first.
 3. **Keep the JSON schema additive-only.** Never remove or rename fields. Only add new ones. This makes deployments order-independent for most changes.
@@ -338,6 +352,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 **Consequences:** Confusion during development and testing. Not a real user-facing issue since data updates daily and CDN TTL can be set to 1 hour.
 
 **Prevention:**
+
 1. **Set appropriate Cache-Control headers.** For daily-updating data, `Cache-Control: public, max-age=3600, s-maxage=3600` (1 hour) is reasonable. Visitors get fresh data within an hour of pipeline run.
 2. **For development/testing:** Add a cache-busting query parameter (e.g., `?v=timestamp`) or use `Cache-Control: no-cache` temporarily.
 3. **If using a Pages Function as proxy:** The function can add `Cache-Control` headers explicitly, giving you full control.
@@ -353,21 +368,21 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 
 ## Phase-Specific Warnings
 
-| Phase Topic | Likely Pitfall | Mitigation |
-|-------------|---------------|------------|
-| **Infrastructure setup** | PAT token with excessive scopes (Pitfall 11) | Use fine-grained PAT with read-only permissions |
-| **Infrastructure setup** | R2 not accessible from SPA (Pitfall 8) | Use Pages Function proxy from day one |
-| **Pipeline design** | Using Events API instead of proper endpoints (Pitfall 2) | Use GraphQL contributionsCollection + REST repos/commits |
-| **Pipeline design** | Rate limit exhaustion on backfill (Pitfall 3) | Separate backfill from daily cron; use GraphQL for graph data |
-| **Pipeline design** | Worker subrequest limits (Pitfall 4) | Ensure paid plan; keep daily updates lightweight |
-| **Pipeline implementation** | Private repo data leakage (Pitfall 1) | Allowlist-based field extraction; never store raw API responses |
-| **Data model design** | Unbounded JSON growth (Pitfall 5) | Split into graph.json + projects.json; rolling 13-month window |
-| **Data model design** | Timezone day-boundary bugs (Pitfall 10) | Store dates as YYYY-MM-DD strings; trust GraphQL calendar dates |
-| **Frontend - commit graph** | DOM re-render jank (Pitfall 6) | React.memo, CSS data-attributes for levels, stable props |
-| **Frontend - timeline** | Scroll listener performance (Pitfall 13) | Intersection Observer for month tracking |
-| **Frontend - data loading** | No indication of stale data (Pitfall 7) | lastUpdated timestamp in JSON; display in UI |
-| **Deployment** | Schema mismatch between Worker and SPA (Pitfall 14) | Schema versioning; shared TypeScript types; deploy Worker first |
-| **Ongoing operations** | Silent pipeline failures (Pitfall 7) | Heartbeat file in R2; dead man's switch alerting |
+| Phase Topic                 | Likely Pitfall                                           | Mitigation                                                      |
+| --------------------------- | -------------------------------------------------------- | --------------------------------------------------------------- |
+| **Infrastructure setup**    | PAT token with excessive scopes (Pitfall 11)             | Use fine-grained PAT with read-only permissions                 |
+| **Infrastructure setup**    | R2 not accessible from SPA (Pitfall 8)                   | Use Pages Function proxy from day one                           |
+| **Pipeline design**         | Using Events API instead of proper endpoints (Pitfall 2) | Use GraphQL contributionsCollection + REST repos/commits        |
+| **Pipeline design**         | Rate limit exhaustion on backfill (Pitfall 3)            | Separate backfill from daily cron; use GraphQL for graph data   |
+| **Pipeline design**         | Worker subrequest limits (Pitfall 4)                     | Ensure paid plan; keep daily updates lightweight                |
+| **Pipeline implementation** | Private repo data leakage (Pitfall 1)                    | Allowlist-based field extraction; never store raw API responses |
+| **Data model design**       | Unbounded JSON growth (Pitfall 5)                        | Split into graph.json + projects.json; rolling 13-month window  |
+| **Data model design**       | Timezone day-boundary bugs (Pitfall 10)                  | Store dates as YYYY-MM-DD strings; trust GraphQL calendar dates |
+| **Frontend - commit graph** | DOM re-render jank (Pitfall 6)                           | React.memo, CSS data-attributes for levels, stable props        |
+| **Frontend - timeline**     | Scroll listener performance (Pitfall 13)                 | Intersection Observer for month tracking                        |
+| **Frontend - data loading** | No indication of stale data (Pitfall 7)                  | lastUpdated timestamp in JSON; display in UI                    |
+| **Deployment**              | Schema mismatch between Worker and SPA (Pitfall 14)      | Schema versioning; shared TypeScript types; deploy Worker first |
+| **Ongoing operations**      | Silent pipeline failures (Pitfall 7)                     | Heartbeat file in R2; dead man's switch alerting                |
 
 ---
 
@@ -380,6 +395,7 @@ Mistakes that cause rewrites, data leaks, or broken production behavior.
 - React performance patterns (memo, Intersection Observer, scroll handling) -- training data
 
 **NOTE:** Web search and official documentation fetch were unavailable during this research session. All findings are based on training data (cutoff ~May 2025). Key items to verify against current docs before implementation:
+
 - Cloudflare Worker subrequest limits for cron triggers (Pitfall 4)
 - R2 consistency model for overwrites (Pitfall 15)
 - Fine-grained PAT availability for organization repos (Pitfall 11)

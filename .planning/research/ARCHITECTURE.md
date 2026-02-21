@@ -43,12 +43,12 @@ The system is two distinct runtime components sharing a monorepo, connected by a
 
 ### Component Boundaries
 
-| Component | Responsibility | Communicates With | Runtime |
-|-----------|---------------|-------------------|---------|
-| **Worker (data pipeline)** | Fetch GitHub data on cron, normalize it, write JSON to R2 | GitHub API (outbound HTTPS), R2 (write) | Cloudflare Worker runtime |
-| **Site (React SPA)** | Render portfolio UI, visualize commit data | R2 (read via public URL or Worker proxy) | Browser (static files served by CF Pages) |
-| **R2 Bucket** | Store pre-computed JSON blobs | Written by Worker, read by Site | Cloudflare storage |
-| **Shared types** | TypeScript interfaces for R2 JSON schema | Imported at build time by Worker and Site | Build-time only |
+| Component                  | Responsibility                                            | Communicates With                         | Runtime                                   |
+| -------------------------- | --------------------------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| **Worker (data pipeline)** | Fetch GitHub data on cron, normalize it, write JSON to R2 | GitHub API (outbound HTTPS), R2 (write)   | Cloudflare Worker runtime                 |
+| **Site (React SPA)**       | Render portfolio UI, visualize commit data                | R2 (read via public URL or Worker proxy)  | Browser (static files served by CF Pages) |
+| **R2 Bucket**              | Store pre-computed JSON blobs                             | Written by Worker, read by Site           | Cloudflare storage                        |
+| **Shared types**           | TypeScript interfaces for R2 JSON schema                  | Imported at build time by Worker and Site | Build-time only                           |
 
 ## Data Flow
 
@@ -96,12 +96,14 @@ There are two viable approaches. I recommend **Option A: R2 Public Bucket with C
 **How:** Enable R2 public access, attach a custom domain (e.g., `data.jacklabbe.com`). The SPA fetches JSON directly from this URL.
 
 **Pros:**
+
 - Simplest architecture. No extra Worker to maintain for reads.
 - Cloudflare handles caching, TLS, and CDN automatically on the custom domain.
 - Zero compute cost for reads (R2 public access is just storage egress).
 - CORS headers configurable via R2 bucket settings or a Transform Rule.
 
 **Cons:**
+
 - Entire bucket is public (mitigate by only storing public-safe data).
 - Less control over response headers without an intermediary.
 
@@ -112,11 +114,13 @@ There are two viable approaches. I recommend **Option A: R2 Public Bucket with C
 **How:** A second Worker (or the same Worker on a different route) handles `GET /github-data/*`, reads from R2, and returns the JSON with custom headers.
 
 **Pros:**
+
 - Full control over caching headers, CORS, and response shaping.
 - Could add authentication or rate limiting.
 - Could transform data per-request.
 
 **Cons:**
+
 - Extra Worker to maintain, deploy, and monitor.
 - Adds latency (Worker invocation) to every data fetch.
 - Worker invocation costs (though free tier is generous).
@@ -178,14 +182,14 @@ jacklabbe.com/
 
 ```typescript
 interface DataMeta {
-  lastUpdated: string;        // ISO 8601 timestamp
-  generatedBy: string;        // "jacklabbe-worker/1.0"
-  repoCount: number;          // Total repos processed
-  publicRepoCount: number;
-  privateRepoCount: number;
-  commitCountTotal: number;   // Aggregate across all repos
-  oldestCommitDate: string;   // ISO 8601
-  newestCommitDate: string;   // ISO 8601
+    lastUpdated: string; // ISO 8601 timestamp
+    generatedBy: string; // "jacklabbe-worker/1.0"
+    repoCount: number; // Total repos processed
+    publicRepoCount: number;
+    privateRepoCount: number;
+    commitCountTotal: number; // Aggregate across all repos
+    oldestCommitDate: string; // ISO 8601
+    newestCommitDate: string; // ISO 8601
 }
 ```
 
@@ -193,20 +197,20 @@ interface DataMeta {
 
 ```typescript
 interface RepoData {
-  repos: RepoMetadata[];
+    repos: RepoMetadata[];
 }
 
 interface RepoMetadata {
-  id: string;                  // Stable ID (use GitHub repo ID, hashed for private)
-  name: string;                // Full name for public, "Private Project N" for private
-  isPrivate: boolean;
-  language: string | null;     // Primary language
-  description: string | null;  // null for private repos
-  url: string | null;          // GitHub URL for public, null for private
-  createdAt: string;           // ISO 8601
-  lastCommitAt: string;        // ISO 8601
-  commitCount: number;         // Total commits by user
-  topics: string[];            // GitHub topics (empty for private)
+    id: string; // Stable ID (use GitHub repo ID, hashed for private)
+    name: string; // Full name for public, "Private Project N" for private
+    isPrivate: boolean;
+    language: string | null; // Primary language
+    description: string | null; // null for private repos
+    url: string | null; // GitHub URL for public, null for private
+    createdAt: string; // ISO 8601
+    lastCommitAt: string; // ISO 8601
+    commitCount: number; // Total commits by user
+    topics: string[]; // GitHub topics (empty for private)
 }
 ```
 
@@ -214,28 +218,29 @@ interface RepoMetadata {
 
 ```typescript
 interface CommitData {
-  // For the commit graph (GitHub-contribution-graph style)
-  dailyActivity: DailyCommit[];
+    // For the commit graph (GitHub-contribution-graph style)
+    dailyActivity: DailyCommit[];
 
-  // For the timeline view
-  weeklyActivity: WeeklyCommit[];
+    // For the timeline view
+    weeklyActivity: WeeklyCommit[];
 }
 
 interface DailyCommit {
-  date: string;       // "2025-01-15" (YYYY-MM-DD)
-  count: number;      // Total commits across all repos
-  publicCount: number;
-  privateCount: number;
+    date: string; // "2025-01-15" (YYYY-MM-DD)
+    count: number; // Total commits across all repos
+    publicCount: number;
+    privateCount: number;
 }
 
 interface WeeklyCommit {
-  weekStart: string;  // "2025-01-13" (Monday)
-  count: number;
-  repos: string[];    // Repo IDs active this week
+    weekStart: string; // "2025-01-13" (Monday)
+    count: number;
+    repos: string[]; // Repo IDs active this week
 }
 ```
 
 **Design rationale:**
+
 - Pre-aggregated by day and week so the SPA does zero data processing. The Worker does the work once; the browser just renders.
 - Public/private split in DailyCommit allows the graph to show "I was active" for private repos without leaking what the work was.
 - Repo IDs in WeeklyCommit let the timeline link weeks to projects.
@@ -252,10 +257,14 @@ interface WeeklyCommit {
 **Why:** The Worker runs once daily on a server. The SPA runs on every visitor's browser. Compute cost belongs in the Worker, not the client.
 
 **Example:**
+
 ```typescript
 // GOOD: Worker pre-computes daily totals
 const dailyActivity: DailyCommit[] = computeDailyTotals(allCommits);
-await r2.put("github-data/commits.json", JSON.stringify({ dailyActivity, weeklyActivity }));
+await r2.put(
+    "github-data/commits.json",
+    JSON.stringify({ dailyActivity, weeklyActivity }),
+);
 
 // BAD: Dumping raw GitHub API responses into R2 for the SPA to process
 await r2.put("github-data/raw-commits.json", JSON.stringify(rawGitHubResponse));
@@ -272,16 +281,25 @@ await r2.put("github-data/raw-commits.json", JSON.stringify(rawGitHubResponse));
 ```typescript
 // GOOD: Fetch everything, write everything
 export default {
-  async scheduled(event: ScheduledEvent, env: Env) {
-    const repos = await fetchAllRepos(env.GITHUB_PAT);
-    const commits = await fetchAllCommitActivity(repos, env.GITHUB_PAT);
-    const transformed = transformData(repos, commits);
+    async scheduled(event: ScheduledEvent, env: Env) {
+        const repos = await fetchAllRepos(env.GITHUB_PAT);
+        const commits = await fetchAllCommitActivity(repos, env.GITHUB_PAT);
+        const transformed = transformData(repos, commits);
 
-    // Atomic-ish: write new data only after all fetches succeed
-    await env.R2_BUCKET.put("github-data/repos.json", JSON.stringify(transformed.repos));
-    await env.R2_BUCKET.put("github-data/commits.json", JSON.stringify(transformed.commits));
-    await env.R2_BUCKET.put("github-data/meta.json", JSON.stringify(transformed.meta));
-  }
+        // Atomic-ish: write new data only after all fetches succeed
+        await env.R2_BUCKET.put(
+            "github-data/repos.json",
+            JSON.stringify(transformed.repos),
+        );
+        await env.R2_BUCKET.put(
+            "github-data/commits.json",
+            JSON.stringify(transformed.commits),
+        );
+        await env.R2_BUCKET.put(
+            "github-data/meta.json",
+            JSON.stringify(transformed.meta),
+        );
+    },
 };
 ```
 
@@ -296,27 +314,35 @@ export default {
 ```typescript
 // useGitHubData.ts
 function useGitHubData() {
-  const [data, setData] = useState<GitHubData | null>(null);
-  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+    const [data, setData] = useState<GitHubData | null>(null);
+    const [status, setStatus] = useState<"loading" | "ready" | "error">(
+        "loading",
+    );
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const [commits, repos, meta] = await Promise.all([
-          fetch(`${DATA_BASE_URL}/github-data/commits.json`).then(r => r.json()),
-          fetch(`${DATA_BASE_URL}/github-data/repos.json`).then(r => r.json()),
-          fetch(`${DATA_BASE_URL}/github-data/meta.json`).then(r => r.json()),
-        ]);
-        setData({ commits, repos, meta });
-        setStatus("ready");
-      } catch {
-        setStatus("error");
-      }
-    }
-    load();
-  }, []);
+    useEffect(() => {
+        async function load() {
+            try {
+                const [commits, repos, meta] = await Promise.all([
+                    fetch(`${DATA_BASE_URL}/github-data/commits.json`).then(
+                        (r) => r.json(),
+                    ),
+                    fetch(`${DATA_BASE_URL}/github-data/repos.json`).then((r) =>
+                        r.json(),
+                    ),
+                    fetch(`${DATA_BASE_URL}/github-data/meta.json`).then((r) =>
+                        r.json(),
+                    ),
+                ]);
+                setData({ commits, repos, meta });
+                setStatus("ready");
+            } catch {
+                setStatus("error");
+            }
+        }
+        load();
+    }, []);
 
-  return { data, status };
+    return { data, status };
 }
 ```
 
@@ -330,22 +356,24 @@ function useGitHubData() {
 
 ```typescript
 function sanitizeRepo(repo: GitHubRepo): RepoMetadata {
-  if (repo.private) {
+    if (repo.private) {
+        return {
+            id: hashString(repo.full_name), // Deterministic but opaque
+            name: `Private Project`, // Assign number later based on sort
+            isPrivate: true,
+            language: repo.language, // Language is OK to expose
+            description: null, // Strip description
+            url: null, // Strip URL
+            createdAt: repo.created_at,
+            lastCommitAt: repo.pushed_at,
+            commitCount: 0, // Filled in later
+            topics: [], // Strip topics
+        };
+    }
+    // Public repos: include everything
     return {
-      id: hashString(repo.full_name),   // Deterministic but opaque
-      name: `Private Project`,          // Assign number later based on sort
-      isPrivate: true,
-      language: repo.language,           // Language is OK to expose
-      description: null,                 // Strip description
-      url: null,                         // Strip URL
-      createdAt: repo.created_at,
-      lastCommitAt: repo.pushed_at,
-      commitCount: 0,                    // Filled in later
-      topics: [],                        // Strip topics
+        /* ... full data ... */
     };
-  }
-  // Public repos: include everything
-  return { /* ... full data ... */ };
 }
 ```
 
@@ -419,6 +447,7 @@ Phase 5: Deploy Pipeline
 ```
 
 **Why this order:**
+
 1. **Shared types first** because both Worker and Site depend on them. Defining the JSON schema early prevents integration mismatches.
 2. **Worker before Site** because the Site needs real data to develop against. You cannot build the commit graph component without commit data. Building the Worker first means you have real JSON in R2 before writing any frontend code.
 3. **Hero before visualizations** because the hero section is simpler (just display numbers from meta.json), proving the data fetch pipeline works before tackling complex SVG/canvas rendering.
@@ -456,14 +485,14 @@ Cloudflare Pages with direct upload (not git integration) is recommended for a m
 
 ## Scalability Considerations
 
-| Concern | Current (1 user, portfolio) | If Data Grows (years of commits) | If Traffic Spikes (HN front page) |
-|---------|----------------------------|----------------------------------|-----------------------------------|
-| **R2 storage** | < 1 MB JSON | < 10 MB JSON (years of daily data) | No change (static files) |
-| **R2 reads** | ~100/day | ~100/day | Free tier: 10M reads/month. CDN cache handles spikes. |
-| **Worker invocations** | 1/day (cron) | 1/day | 1/day (cron is not user-triggered) |
-| **GitHub API rate limit** | ~50 requests/run (well under 5000/hr) | ~200 requests/run if many repos | No change (cron, not user-triggered) |
-| **Page load size** | ~50 KB JSON total | ~500 KB JSON (consider splitting by year) | CDN-cached, no origin load |
-| **Build time** | < 30s | < 30s | No change |
+| Concern                   | Current (1 user, portfolio)           | If Data Grows (years of commits)          | If Traffic Spikes (HN front page)                     |
+| ------------------------- | ------------------------------------- | ----------------------------------------- | ----------------------------------------------------- |
+| **R2 storage**            | < 1 MB JSON                           | < 10 MB JSON (years of daily data)        | No change (static files)                              |
+| **R2 reads**              | ~100/day                              | ~100/day                                  | Free tier: 10M reads/month. CDN cache handles spikes. |
+| **Worker invocations**    | 1/day (cron)                          | 1/day                                     | 1/day (cron is not user-triggered)                    |
+| **GitHub API rate limit** | ~50 requests/run (well under 5000/hr) | ~200 requests/run if many repos           | No change (cron, not user-triggered)                  |
+| **Page load size**        | ~50 KB JSON total                     | ~500 KB JSON (consider splitting by year) | CDN-cached, no origin load                            |
+| **Build time**            | < 30s                                 | < 30s                                     | No change                                             |
 
 **Key insight:** Because the Worker runs on a fixed schedule (not per-request) and R2 is CDN-backed, this architecture handles traffic spikes with zero changes. The Worker's GitHub API usage is completely decoupled from visitor traffic.
 

@@ -19,23 +19,25 @@ Progress: [██████████] 100% (Phase 3)
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 12
 - Average duration: ~8 min
 - Total execution time: ~1.6 hours
 
 **By Phase:**
 
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 01-foundation | 5/5 | ~75 min | ~15 min |
-| 02-site-shell | 5/5 | ~31 min | ~6 min |
-| 03-core-vis   | 3/3 | ~12 min | ~4 min |
+| Phase         | Plans | Total   | Avg/Plan |
+| ------------- | ----- | ------- | -------- |
+| 01-foundation | 5/5   | ~75 min | ~15 min  |
+| 02-site-shell | 5/5   | ~31 min | ~6 min   |
+| 03-core-vis   | 3/3   | ~12 min | ~4 min   |
 
 **Recent Trend:**
+
 - Last 5 plans: 02-04 (3 min), 02-05 (~8 min), 03-01 (2 min), 03-02 (~3 min)
 - Trend: Phase 3 executing efficiently
 
-*Updated after each plan completion*
+_Updated after each plan completion_
 
 ## Accumulated Context
 
@@ -67,7 +69,7 @@ Recent decisions affecting current work:
 - [02-02]: Navbar contact button uses text-sm (slightly smaller than hero text-base) for visual hierarchy
 - [02-03]: Static OG tags in index.html for social crawlers plus React 19 runtime metadata
 - [02-03]: CORS config expanded to include jacklabbe.pages.dev origin for R2 data fetching
-- [02-04]: Tailwind @theme for design tokens: --color-* convention maps to bg-*, text-*, border-* utilities
+- [02-04]: Tailwind @theme for design tokens: --color-_ convention maps to bg-_, text-_, border-_ utilities
 - [02-04]: Navbar scroll-state handled via CSS rule in @layer components rather than React state
 - [02-04]: Renamed staggerItem to stagger-item for kebab-case consistency with Tailwind conventions
 - [02-05]: Replaced squircle clip-path with rounded-2xl per user feedback during visual verification

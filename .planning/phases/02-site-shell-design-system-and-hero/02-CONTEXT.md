@@ -14,6 +14,7 @@ Deliver a polished dark-themed React SPA with the full design system (tokens, ty
 ## Implementation Decisions
 
 ### Hero composition
+
 - Right-aligned split layout: photo on left, text (name + tagline + contact button) on right
 - Even ~50/50 split ratio between photo and text
 - Professional headshot photo
@@ -28,6 +29,7 @@ Deliver a polished dark-themed React SPA with the full design system (tokens, ty
 - Max-width container (~1200px) centered on page
 
 ### Navbar
+
 - Contact button only — no name, no branding, no logo
 - Sticky (stays visible on scroll)
 - Glass / backdrop blur effect (semi-transparent background)
@@ -35,20 +37,24 @@ Deliver a polished dark-themed React SPA with the full design system (tokens, ty
 - Nav border: Claude's discretion
 
 ### Page layout
+
 - Single-scroll: hero → commit graph → divider → timeline → footer
 - Phase 2 placeholder: empty sections with monospace labels (e.g., `// commit graph`, `// projects`) to prove layout structure
 - Deploy to .pages.dev subdomain first, switch to jacklabbe.com later
 
 ### Footer
+
 - Compact single row: copyright + social icon links
 - Icons only (no text labels): GitHub, LinkedIn, email, X (Twitter)
 - Icon style: Claude's discretion
 
 ### Design system reference
+
 - Primary design reference: Linear.app — crisp, high-contrast, polished engineering aesthetic
 - Also informed by Stripe.com — professional, precise, dark gradients
 
 ### Color palette (locked tokens)
+
 - `--bg: #040d21` (page background)
 - `--surface: #0a1628` (elevated surfaces)
 - `--surface-2: #111d33` (secondary surfaces)
@@ -62,12 +68,14 @@ Deliver a polished dark-themed React SPA with the full design system (tokens, ty
 - Additional semantic colors (success, warning, error): Claude's discretion, add as needed
 
 ### Typography
+
 - Headings: Inter (bold weight), font-display: swap
 - Accent/code text: JetBrains Mono
 - Tagline: Inter (lighter weight), NOT monospace
 - Font loading: font-display: swap, with skeleton loading state masking the font swap flash
 
 ### Decorative elements
+
 - Crosshatch grid pattern: very subtle (~3-5% opacity), scope at Claude's discretion
 - Grid toggle: CSS variable only (`--grid-visible`), not user-facing
 - Monospace section labels (e.g., `// projects`): dimmed text color (#6e7a8a), left-aligned
@@ -75,6 +83,7 @@ Deliver a polished dark-themed React SPA with the full design system (tokens, ty
 - Button border radius: pill shape for buttons (fully rounded), consistent base radius (~8px) for all other elements (cards, badges, etc.)
 
 ### Loading experience
+
 - Skeleton placeholders with gradient sweep shimmer (Linear/Stripe style)
 - Content-shaped skeletons: mirror real layout (circle for photo, text-width bars, button shapes)
 - Hero shows skeleton too — unified experience, everything reveals together
@@ -85,15 +94,18 @@ Deliver a polished dark-themed React SPA with the full design system (tokens, ty
 - Data caching strategy: Claude's discretion
 
 ### SEO / Open Graph
+
 - OG preview card: matches site design (dark navy, name, tagline, accent blue)
 - OG image method: Claude's discretion (static PNG or build-time generated)
 
 ### Accessibility
+
 - Skip-to-content link target: Claude's discretion
 - WCAG AA contrast ratios on all text (per requirements)
 - Keyboard navigable
 
 ### Claude's Discretion
+
 - Photo shape and sizing (fits the split layout)
 - Navbar bottom border treatment
 - Link/interactive text color choice (based on contrast ratios)
@@ -129,5 +141,5 @@ None — discussion stayed within phase scope
 
 ---
 
-*Phase: 02-site-shell-design-system-and-hero*
-*Context gathered: 2026-02-20*
+_Phase: 02-site-shell-design-system-and-hero_
+_Context gathered: 2026-02-20_

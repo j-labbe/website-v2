@@ -4,41 +4,41 @@ verified: 2026-02-20T21:15:00Z
 status: human_needed
 score: 25/25 must-haves verified
 re_verification:
-  previous_status: human_needed
-  previous_score: 19/19
-  gaps_closed:
-    - "Tailwind CSS v4 migration (Plans 04 and 05 executed since previous verification)"
-    - "LQIP blur-in photo loading replacing skeleton shimmer for photo area"
-    - "Build-time LQIP generation via sharp from actual headshot.webp"
-    - "3D tilt hover effect on hero photo"
-    - "rounded-2xl photo shape (user-approved replacement for squircle per visual verification)"
-  gaps_remaining: []
-  regressions: []
+    previous_status: human_needed
+    previous_score: 19/19
+    gaps_closed:
+        - "Tailwind CSS v4 migration (Plans 04 and 05 executed since previous verification)"
+        - "LQIP blur-in photo loading replacing skeleton shimmer for photo area"
+        - "Build-time LQIP generation via sharp from actual headshot.webp"
+        - "3D tilt hover effect on hero photo"
+        - "rounded-2xl photo shape (user-approved replacement for squircle per visual verification)"
+    gaps_remaining: []
+    regressions: []
 human_verification:
-  - test: "Visit the deployed site at https://jacklabbe.pages.dev and visually inspect the hero section"
-    expected: "Photo on left with rounded-2xl corners and 3D tilt hover effect, 'Jack Labbe' in large bold Inter font, 'Software / AI Engineer' tagline, blue 'Contact' pill button. Dark navy background #040d21 with subtle radial gradient accent glow in the hero area."
-    why_human: "Visual appearance and polish cannot be verified programmatically. Photo asset (headshot.webp) must be present in public/ for full LQIP effect."
-  - test: "Observe the LQIP loading sequence on first visit (clear sessionStorage first)"
-    expected: "A blurred version of the photo (20x20px placeholder generated from actual headshot) fades smoothly into the full-resolution image. No skeleton shimmer rectangle for the photo area. Text/button areas still show skeleton shimmers while loading."
-    why_human: "LQIP blur-to-sharp transition timing and smoothness are runtime behaviors requiring visual observation."
-  - test: "Hover over the hero photo"
-    expected: "Photo tracks mouse position with a 3D perspective tilt effect (up to +/-17deg on X and Y axes), scales up to 1.05x. On mouse leave, returns to flat. Grayscale filter applies on hover."
-    why_human: "3D tilt hover interaction requires mouse-tracking in a browser."
-  - test: "Scroll down on the deployed page"
-    expected: "Navbar sticks to top with glass blur effect. A 1px bottom border appears on the navbar once the page is scrolled past the top (driven by IntersectionObserver + CSS rule nav[data-scrolled='true'])."
-    why_human: "IntersectionObserver-driven scroll detection and backdrop-filter blur quality require browser observation."
-  - test: "Resize the browser to mobile width (~375px)"
-    expected: "Hero photo restacks above the text content (column layout). Photo max-width reduces. rounded-2xl shape still applies."
-    why_human: "Responsive layout behavior requires visual inspection at target breakpoint."
-  - test: "Tab through the page with keyboard only"
-    expected: "First Tab press reveals the skip-to-content link at top-left. Second Tab reaches the Navbar contact button. Skip link navigates focus to #main-content when activated."
-    why_human: "Keyboard navigation flow and focus ring visibility require interactive testing."
-  - test: "Check browser DevTools Network tab for R2 data fetch"
-    expected: "Three fetch requests to the R2 base URL: graph.json, projects.json, meta.json. Requests may fail (CORS or 404) if R2 bucket has no data yet -- that is acceptable. Hero renders regardless."
-    why_human: "Network request behavior and CORS headers require browser DevTools inspection."
-  - test: "Paste https://jacklabbe.pages.dev into a social sharing preview tool (e.g., https://www.opengraph.xyz)"
-    expected: "Preview card shows title 'Jack Labbe - Software / AI Engineer', description text, and the og-image (currently a placeholder PNG)."
-    why_human: "OG tag rendering by social crawlers requires external tool or actual social share test."
+    - test: "Visit the deployed site at https://jacklabbe.pages.dev and visually inspect the hero section"
+      expected: "Photo on left with rounded-2xl corners and 3D tilt hover effect, 'Jack Labbe' in large bold Inter font, 'Software / AI Engineer' tagline, blue 'Contact' pill button. Dark navy background #040d21 with subtle radial gradient accent glow in the hero area."
+      why_human: "Visual appearance and polish cannot be verified programmatically. Photo asset (headshot.webp) must be present in public/ for full LQIP effect."
+    - test: "Observe the LQIP loading sequence on first visit (clear sessionStorage first)"
+      expected: "A blurred version of the photo (20x20px placeholder generated from actual headshot) fades smoothly into the full-resolution image. No skeleton shimmer rectangle for the photo area. Text/button areas still show skeleton shimmers while loading."
+      why_human: "LQIP blur-to-sharp transition timing and smoothness are runtime behaviors requiring visual observation."
+    - test: "Hover over the hero photo"
+      expected: "Photo tracks mouse position with a 3D perspective tilt effect (up to +/-17deg on X and Y axes), scales up to 1.05x. On mouse leave, returns to flat. Grayscale filter applies on hover."
+      why_human: "3D tilt hover interaction requires mouse-tracking in a browser."
+    - test: "Scroll down on the deployed page"
+      expected: "Navbar sticks to top with glass blur effect. A 1px bottom border appears on the navbar once the page is scrolled past the top (driven by IntersectionObserver + CSS rule nav[data-scrolled='true'])."
+      why_human: "IntersectionObserver-driven scroll detection and backdrop-filter blur quality require browser observation."
+    - test: "Resize the browser to mobile width (~375px)"
+      expected: "Hero photo restacks above the text content (column layout). Photo max-width reduces. rounded-2xl shape still applies."
+      why_human: "Responsive layout behavior requires visual inspection at target breakpoint."
+    - test: "Tab through the page with keyboard only"
+      expected: "First Tab press reveals the skip-to-content link at top-left. Second Tab reaches the Navbar contact button. Skip link navigates focus to #main-content when activated."
+      why_human: "Keyboard navigation flow and focus ring visibility require interactive testing."
+    - test: "Check browser DevTools Network tab for R2 data fetch"
+      expected: "Three fetch requests to the R2 base URL: graph.json, projects.json, meta.json. Requests may fail (CORS or 404) if R2 bucket has no data yet -- that is acceptable. Hero renders regardless."
+      why_human: "Network request behavior and CORS headers require browser DevTools inspection."
+    - test: "Paste https://jacklabbe.pages.dev into a social sharing preview tool (e.g., https://www.opengraph.xyz)"
+      expected: "Preview card shows title 'Jack Labbe - Software / AI Engineer', description text, and the og-image (currently a placeholder PNG)."
+      why_human: "OG tag rendering by social crawlers requires external tool or actual social share test."
 ---
 
 # Phase 02: Site Shell -- Design System and Hero Verification Report
@@ -66,33 +66,33 @@ Two additional plans executed after the initial verification:
 
 Truths 1-19 carry over from the initial verification (all previously VERIFIED). Truths 20-25 cover Plans 04 and 05.
 
-| #  | Truth                                                                                                                       | Status     | Evidence                                                                                                   |
-|----|-----------------------------------------------------------------------------------------------------------------------------|------------|-----------------------------------------------------------------------------------------------------------|
-| 1  | All design tokens (colors, spacing, typography) are defined in a single CSS entry point                                     | VERIFIED  | `main.css` has `@theme` block with 13 color tokens, 2 font stacks, 2 animation tokens |
-| 2  | Inter and JetBrains Mono variable fonts are self-hosted via Fontsource and available throughout the site                    | VERIFIED  | `main.css` imports `@fontsource-variable/inter` and `@fontsource-variable/jetbrains-mono`; WOFF2 assets in build output |
-| 3  | The R2 data fetching hook loads graph.json, projects.json, and meta.json in parallel with 5s timeout                       | VERIFIED  | `useR2Data.ts` uses `Promise.all` with `fetchWithTimeout(url, 5_000)` and `AbortController` |
-| 4  | The crosshatch grid pattern is rendered at low opacity and toggleable via --grid-visible CSS variable                       | VERIFIED  | `main.css` `@layer base` `body::before` with `opacity: calc(var(--grid-visible, 0) * 0.04)` |
-| 5  | CSS architecture: no CSS Modules, Tailwind v4 via @tailwindcss/vite                                                        | VERIFIED  | `vite.config.ts` has `tailwindcss()` plugin, no CSS modules config; zero .module.css files found |
-| 6  | Hero section displays photo (left), name, tagline, and contact button with staggered entrance animation                     | VERIFIED  | `Hero.tsx` renders split layout; `stagger-item` global class with `--stagger-index` 0-3 on 4 elements |
-| 7  | Hero has radial gradient background and responsive mobile restack at 768px                                                  | VERIFIED  | `Hero.tsx` `bg-[radial-gradient(ellipse_at_70%_50%,...)]`; `max-md:flex-col max-md:text-center` classes |
-| 8  | Navbar is sticky with glass/backdrop-blur effect and scroll-aware border                                                    | VERIFIED  | `Navbar.tsx` `backdrop-blur-[12px]`, `border-b border-transparent`; `main.css` `nav[data-scrolled="true"]` CSS rule |
-| 9  | Skip-to-content link is visually hidden until focused and targets #main-content                                             | VERIFIED  | `SkipToContent.tsx` `href="#main-content"`, `absolute -top-full`, `focus:top-4` |
-| 10 | HeroSkeleton renders placeholders matching real hero layout                                                                 | VERIFIED  | `HeroSkeleton.tsx`: LQIP blur placeholder for photo area, 3 skeleton shimmers (name, tagline, button) |
-| 11 | Page has single-scroll layout: hero -> commit graph placeholder -> divider -> projects placeholder -> footer                | VERIFIED  | `App.tsx` renders full composition in correct order |
-| 12 | Footer displays copyright and 4 social icon links                                                                          | VERIFIED  | `Footer.tsx` copyright plus 4 social links using GitHubIcon, LinkedInIcon, MailIcon, XIcon |
-| 13 | Monospace section labels appear at placeholder sections                                                                     | VERIFIED  | `SectionPlaceholder.tsx` `font-mono text-text-dim text-sm tracking-wider` |
-| 14 | 1px structural gradient-fade divider lines separate sections                                                                | VERIFIED  | `Divider.tsx` `h-px bg-[linear-gradient(to_right,transparent,var(--color-border),transparent)]` |
-| 15 | Open Graph meta tags present for social sharing                                                                             | VERIFIED  | `index.html` has og:title, og:description, og:image, og:url, og:type, all Twitter Card tags |
-| 16 | Loading orchestration: skeleton until fonts + R2 data ready, then staggered reveal                                         | VERIFIED  | `App.tsx` `isReady = fontsReady && (r2State.status === 'loaded' \|\| r2State.status === 'error')`, passes `isLoading={!isReady}` to Hero |
-| 17 | prefers-reduced-motion respected in all animations                                                                          | VERIFIED  | `main.css` `@media (prefers-reduced-motion: reduce)` disables `.skeleton`, `.stagger-item`, and `.lqip-full` transitions |
-| 18 | CORS config updated for .pages.dev origin                                                                                   | VERIFIED  | `cors.json` contains `https://jacklabbe.pages.dev` (commit `444e62b`) |
-| 19 | Site deployed to Cloudflare Pages                                                                                           | VERIFIED  | SUMMARY.md documents deployment; CORS update confirms deployment occurred |
-| 20 | All components use Tailwind utility classes instead of CSS Modules                                                         | VERIFIED  | `find site/src -name "*.module.css"` returns zero results; `grep -r "from.*module\.css" site/src/` returns zero results |
-| 21 | Single CSS entry point (main.css) with @import "tailwindcss" and @theme design tokens                                      | VERIFIED  | `main.css` line 6: `@import "tailwindcss"`; lines 9-32: `@theme` block with all color/font/animation tokens |
-| 22 | Hero photo loading uses LQIP blur-in pattern, not skeleton shimmer                                                         | VERIFIED  | `Hero.tsx` imports `LQIP_DATA_URI` from `../../generated/lqip`; renders `lqip-placeholder` + `lqip-full` with `imageLoaded` state and `onLoad` handler |
-| 23 | LQIP generation is build-time from actual headshot.webp (not hardcoded placeholder)                                        | VERIFIED  | `scripts/generate-lqip.mjs` uses `sharp` to resize headshot to 20x20px WebP; `package.json` build script runs LQIP generation before tsc and vite build |
-| 24 | HeroSkeleton photo area shows LQIP blur placeholder (not skeleton shimmer rectangle)                                       | VERIFIED  | `HeroSkeleton.tsx` renders `lqip-container` with `lqip-placeholder` img; text/button areas retain `.skeleton` class |
-| 25 | prefers-reduced-motion disables LQIP fade transition                                                                        | VERIFIED  | `main.css` lines 172-174: `@media (prefers-reduced-motion: reduce) { .lqip-full { opacity: 1; transition: none; } }` |
+| #   | Truth                                                                                                        | Status   | Evidence                                                                                                                                                |
+| --- | ------------------------------------------------------------------------------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | All design tokens (colors, spacing, typography) are defined in a single CSS entry point                      | VERIFIED | `main.css` has `@theme` block with 13 color tokens, 2 font stacks, 2 animation tokens                                                                   |
+| 2   | Inter and JetBrains Mono variable fonts are self-hosted via Fontsource and available throughout the site     | VERIFIED | `main.css` imports `@fontsource-variable/inter` and `@fontsource-variable/jetbrains-mono`; WOFF2 assets in build output                                 |
+| 3   | The R2 data fetching hook loads graph.json, projects.json, and meta.json in parallel with 5s timeout         | VERIFIED | `useR2Data.ts` uses `Promise.all` with `fetchWithTimeout(url, 5_000)` and `AbortController`                                                             |
+| 4   | The crosshatch grid pattern is rendered at low opacity and toggleable via --grid-visible CSS variable        | VERIFIED | `main.css` `@layer base` `body::before` with `opacity: calc(var(--grid-visible, 0) * 0.04)`                                                             |
+| 5   | CSS architecture: no CSS Modules, Tailwind v4 via @tailwindcss/vite                                          | VERIFIED | `vite.config.ts` has `tailwindcss()` plugin, no CSS modules config; zero .module.css files found                                                        |
+| 6   | Hero section displays photo (left), name, tagline, and contact button with staggered entrance animation      | VERIFIED | `Hero.tsx` renders split layout; `stagger-item` global class with `--stagger-index` 0-3 on 4 elements                                                   |
+| 7   | Hero has radial gradient background and responsive mobile restack at 768px                                   | VERIFIED | `Hero.tsx` `bg-[radial-gradient(ellipse_at_70%_50%,...)]`; `max-md:flex-col max-md:text-center` classes                                                 |
+| 8   | Navbar is sticky with glass/backdrop-blur effect and scroll-aware border                                     | VERIFIED | `Navbar.tsx` `backdrop-blur-[12px]`, `border-b border-transparent`; `main.css` `nav[data-scrolled="true"]` CSS rule                                     |
+| 9   | Skip-to-content link is visually hidden until focused and targets #main-content                              | VERIFIED | `SkipToContent.tsx` `href="#main-content"`, `absolute -top-full`, `focus:top-4`                                                                         |
+| 10  | HeroSkeleton renders placeholders matching real hero layout                                                  | VERIFIED | `HeroSkeleton.tsx`: LQIP blur placeholder for photo area, 3 skeleton shimmers (name, tagline, button)                                                   |
+| 11  | Page has single-scroll layout: hero -> commit graph placeholder -> divider -> projects placeholder -> footer | VERIFIED | `App.tsx` renders full composition in correct order                                                                                                     |
+| 12  | Footer displays copyright and 4 social icon links                                                            | VERIFIED | `Footer.tsx` copyright plus 4 social links using GitHubIcon, LinkedInIcon, MailIcon, XIcon                                                              |
+| 13  | Monospace section labels appear at placeholder sections                                                      | VERIFIED | `SectionPlaceholder.tsx` `font-mono text-text-dim text-sm tracking-wider`                                                                               |
+| 14  | 1px structural gradient-fade divider lines separate sections                                                 | VERIFIED | `Divider.tsx` `h-px bg-[linear-gradient(to_right,transparent,var(--color-border),transparent)]`                                                         |
+| 15  | Open Graph meta tags present for social sharing                                                              | VERIFIED | `index.html` has og:title, og:description, og:image, og:url, og:type, all Twitter Card tags                                                             |
+| 16  | Loading orchestration: skeleton until fonts + R2 data ready, then staggered reveal                           | VERIFIED | `App.tsx` `isReady = fontsReady && (r2State.status === 'loaded' \|\| r2State.status === 'error')`, passes `isLoading={!isReady}` to Hero                |
+| 17  | prefers-reduced-motion respected in all animations                                                           | VERIFIED | `main.css` `@media (prefers-reduced-motion: reduce)` disables `.skeleton`, `.stagger-item`, and `.lqip-full` transitions                                |
+| 18  | CORS config updated for .pages.dev origin                                                                    | VERIFIED | `cors.json` contains `https://jacklabbe.pages.dev` (commit `444e62b`)                                                                                   |
+| 19  | Site deployed to Cloudflare Pages                                                                            | VERIFIED | SUMMARY.md documents deployment; CORS update confirms deployment occurred                                                                               |
+| 20  | All components use Tailwind utility classes instead of CSS Modules                                           | VERIFIED | `find site/src -name "*.module.css"` returns zero results; `grep -r "from.*module\.css" site/src/` returns zero results                                 |
+| 21  | Single CSS entry point (main.css) with @import "tailwindcss" and @theme design tokens                        | VERIFIED | `main.css` line 6: `@import "tailwindcss"`; lines 9-32: `@theme` block with all color/font/animation tokens                                             |
+| 22  | Hero photo loading uses LQIP blur-in pattern, not skeleton shimmer                                           | VERIFIED | `Hero.tsx` imports `LQIP_DATA_URI` from `../../generated/lqip`; renders `lqip-placeholder` + `lqip-full` with `imageLoaded` state and `onLoad` handler  |
+| 23  | LQIP generation is build-time from actual headshot.webp (not hardcoded placeholder)                          | VERIFIED | `scripts/generate-lqip.mjs` uses `sharp` to resize headshot to 20x20px WebP; `package.json` build script runs LQIP generation before tsc and vite build |
+| 24  | HeroSkeleton photo area shows LQIP blur placeholder (not skeleton shimmer rectangle)                         | VERIFIED | `HeroSkeleton.tsx` renders `lqip-container` with `lqip-placeholder` img; text/button areas retain `.skeleton` class                                     |
+| 25  | prefers-reduced-motion disables LQIP fade transition                                                         | VERIFIED | `main.css` lines 172-174: `@media (prefers-reduced-motion: reduce) { .lqip-full { opacity: 1; transition: none; } }`                                    |
 
 **Score:** 25/25 truths verified (automated)
 
@@ -102,72 +102,72 @@ Truths 1-19 carry over from the initial verification (all previously VERIFIED). 
 
 ## Required Artifacts
 
-| Artifact                                                          | Expected                                                          | Status     | Details                                                                                                                 |
-|-------------------------------------------------------------------|-------------------------------------------------------------------|------------|-------------------------------------------------------------------------------------------------------------------------|
-| `site/src/styles/main.css`                                        | Single Tailwind CSS entry with @theme tokens, @layer base/comp    | VERIFIED  | 177 lines; @import tailwindcss, @theme block, @layer base (reset, body, grid), @layer components (skeleton, stagger-item, nav scroll, LQIP classes), reduced-motion block |
-| `site/vite.config.ts`                                             | Vite config with @tailwindcss/vite plugin, no CSS modules config  | VERIFIED  | 7 lines; `import tailwindcss from '@tailwindcss/vite'`; `plugins: [tailwindcss(), react()]`; no `css.modules` property |
-| `site/src/main.tsx`                                               | Single CSS import (main.css only)                                 | VERIFIED  | Line 1: `import './styles/main.css'` -- only CSS import, no legacy individual file imports |
-| `site/src/App.tsx`                                                | Root component composing all sections                             | VERIFIED  | 63 lines; full composition, loading orchestration, OG tags, no CSS module import |
-| `site/src/components/Hero/Hero.tsx`                               | Hero component using Tailwind classes, LQIP, 3D tilt              | VERIFIED  | 85 lines; LQIP_DATA_URI import, imageLoaded state, lqip-container/placeholder/full classes, mouseMove 3D tilt, stagger-item animation |
-| `site/src/components/Hero/HeroSkeleton.tsx`                       | Skeleton with LQIP photo placeholder, skeleton for text/button    | VERIFIED  | 25 lines; LQIP_DATA_URI import, lqip-placeholder for photo, .skeleton for name/tagline/button areas |
-| `site/src/components/Navbar/Navbar.tsx`                           | Sticky navbar with contact button and IntersectionObserver scroll  | VERIFIED  | 53 lines; backdrop-blur-[12px], data-scrolled attribute, IntersectionObserver sentinel pattern |
-| `site/src/components/Footer/Footer.tsx`                           | Footer with copyright and social icon links                       | VERIFIED  | 32 lines; 4 social links with aria-label attributes |
-| `site/src/components/SectionPlaceholder/SectionPlaceholder.tsx`   | Placeholder sections with mono font labels                        | VERIFIED  | 13 lines; font-mono text-text-dim |
-| `site/src/components/Divider/Divider.tsx`                         | 1px gradient-fade divider                                         | VERIFIED  | 7 lines; role="separator" aria-hidden="true", gradient line |
-| `site/src/components/SkipToContent/SkipToContent.tsx`             | Accessible skip-to-content link                                   | VERIFIED  | 10 lines; href="#main-content", -top-full until focus:top-4 |
-| `site/src/components/icons/SocialIcons.tsx`                       | Inline SVG social icon components                                 | VERIFIED  | 4 icons (GitHub, LinkedIn, Mail, X) with aria-hidden="true" |
-| `site/src/hooks/useR2Data.ts`                                     | R2 data fetching with parallel fetch and timeout                  | VERIFIED  | 109 lines; Promise.all, 5s AbortController timeout, sessionStorage caching |
-| `site/src/hooks/useFontsReady.ts`                                 | Font loading detection                                            | VERIFIED  | 11 lines; document.fonts.ready.then() |
-| `site/src/generated/lqip.ts`                                      | Build-time generated LQIP data URI                                | VERIFIED  | 3 lines; exports `LQIP_DATA_URI` as base64 WebP data URI; auto-generated by scripts/generate-lqip.mjs at build |
-| `site/scripts/generate-lqip.mjs`                                  | Build-time LQIP generation script using sharp                     | VERIFIED  | Resizes headshot.webp to 20x20px WebP quality 20; writes to src/generated/lqip.ts; graceful fallback if headshot missing |
-| `site/index.html`                                                 | Static OG meta tags                                               | VERIFIED  | 29 lines; og:title, og:description, og:image, og:url, og:type, all Twitter Card tags |
+| Artifact                                                        | Expected                                                          | Status   | Details                                                                                                                                                                   |
+| --------------------------------------------------------------- | ----------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `site/src/styles/main.css`                                      | Single Tailwind CSS entry with @theme tokens, @layer base/comp    | VERIFIED | 177 lines; @import tailwindcss, @theme block, @layer base (reset, body, grid), @layer components (skeleton, stagger-item, nav scroll, LQIP classes), reduced-motion block |
+| `site/vite.config.ts`                                           | Vite config with @tailwindcss/vite plugin, no CSS modules config  | VERIFIED | 7 lines; `import tailwindcss from '@tailwindcss/vite'`; `plugins: [tailwindcss(), react()]`; no `css.modules` property                                                    |
+| `site/src/main.tsx`                                             | Single CSS import (main.css only)                                 | VERIFIED | Line 1: `import './styles/main.css'` -- only CSS import, no legacy individual file imports                                                                                |
+| `site/src/App.tsx`                                              | Root component composing all sections                             | VERIFIED | 63 lines; full composition, loading orchestration, OG tags, no CSS module import                                                                                          |
+| `site/src/components/Hero/Hero.tsx`                             | Hero component using Tailwind classes, LQIP, 3D tilt              | VERIFIED | 85 lines; LQIP_DATA_URI import, imageLoaded state, lqip-container/placeholder/full classes, mouseMove 3D tilt, stagger-item animation                                     |
+| `site/src/components/Hero/HeroSkeleton.tsx`                     | Skeleton with LQIP photo placeholder, skeleton for text/button    | VERIFIED | 25 lines; LQIP_DATA_URI import, lqip-placeholder for photo, .skeleton for name/tagline/button areas                                                                       |
+| `site/src/components/Navbar/Navbar.tsx`                         | Sticky navbar with contact button and IntersectionObserver scroll | VERIFIED | 53 lines; backdrop-blur-[12px], data-scrolled attribute, IntersectionObserver sentinel pattern                                                                            |
+| `site/src/components/Footer/Footer.tsx`                         | Footer with copyright and social icon links                       | VERIFIED | 32 lines; 4 social links with aria-label attributes                                                                                                                       |
+| `site/src/components/SectionPlaceholder/SectionPlaceholder.tsx` | Placeholder sections with mono font labels                        | VERIFIED | 13 lines; font-mono text-text-dim                                                                                                                                         |
+| `site/src/components/Divider/Divider.tsx`                       | 1px gradient-fade divider                                         | VERIFIED | 7 lines; role="separator" aria-hidden="true", gradient line                                                                                                               |
+| `site/src/components/SkipToContent/SkipToContent.tsx`           | Accessible skip-to-content link                                   | VERIFIED | 10 lines; href="#main-content", -top-full until focus:top-4                                                                                                               |
+| `site/src/components/icons/SocialIcons.tsx`                     | Inline SVG social icon components                                 | VERIFIED | 4 icons (GitHub, LinkedIn, Mail, X) with aria-hidden="true"                                                                                                               |
+| `site/src/hooks/useR2Data.ts`                                   | R2 data fetching with parallel fetch and timeout                  | VERIFIED | 109 lines; Promise.all, 5s AbortController timeout, sessionStorage caching                                                                                                |
+| `site/src/hooks/useFontsReady.ts`                               | Font loading detection                                            | VERIFIED | 11 lines; document.fonts.ready.then()                                                                                                                                     |
+| `site/src/generated/lqip.ts`                                    | Build-time generated LQIP data URI                                | VERIFIED | 3 lines; exports `LQIP_DATA_URI` as base64 WebP data URI; auto-generated by scripts/generate-lqip.mjs at build                                                            |
+| `site/scripts/generate-lqip.mjs`                                | Build-time LQIP generation script using sharp                     | VERIFIED | Resizes headshot.webp to 20x20px WebP quality 20; writes to src/generated/lqip.ts; graceful fallback if headshot missing                                                  |
+| `site/index.html`                                               | Static OG meta tags                                               | VERIFIED | 29 lines; og:title, og:description, og:image, og:url, og:type, all Twitter Card tags                                                                                      |
 
 ---
 
 ## Key Link Verification
 
-| From                                  | To                              | Via                                                   | Status     | Details                                                                                       |
-|---------------------------------------|---------------------------------|-------------------------------------------------------|------------|-----------------------------------------------------------------------------------------------|
-| `site/src/main.tsx`                   | `site/src/styles/main.css`      | Single CSS import                                     | WIRED     | Line 1: `import './styles/main.css'` -- only CSS import present                              |
-| `site/src/styles/main.css`            | `tailwindcss`                   | @import directive                                     | WIRED     | Line 6: `@import "tailwindcss"`                                                              |
-| `site/vite.config.ts`                 | `@tailwindcss/vite`             | Vite plugin registration                              | WIRED     | Line 2: `import tailwindcss from '@tailwindcss/vite'`; Line 6: `tailwindcss()` in plugins   |
-| `site/src/App.tsx`                    | `useR2Data.ts`                  | Hook call with result consumed                        | WIRED     | Import line 7; `const r2State = useR2Data()` with status checked in `isReady`               |
-| `site/src/App.tsx`                    | `useFontsReady.ts`              | Hook call with result consumed                        | WIRED     | Import line 8; `const fontsReady = useFontsReady()` with result in `isReady`                |
-| `site/src/App.tsx`                    | `Hero.tsx`                      | Component composition with meaningful prop            | WIRED     | `<Hero isLoading={!isReady} />` -- isLoading computed from both hooks                       |
-| `Hero.tsx`                            | `generated/lqip.ts`             | LQIP_DATA_URI import used in both img elements        | WIRED     | Line 2: `import { LQIP_DATA_URI } from "../../generated/lqip"`; used at lines 48 and 53     |
-| `HeroSkeleton.tsx`                    | `generated/lqip.ts`             | LQIP_DATA_URI import used in photo placeholder img    | WIRED     | Line 1: `import { LQIP_DATA_URI } from '../../generated/lqip'`; used at line 10             |
-| `Hero.tsx`                            | `main.css` LQIP classes         | Global CSS classes applied to DOM elements            | WIRED     | `lqip-container`, `lqip-placeholder`, `lqip-full`, `lqip-full.loaded` applied via className  |
-| `package.json` build script           | `scripts/generate-lqip.mjs`     | Prebuild step in build command                        | WIRED     | `"build": "node scripts/generate-lqip.mjs && tsc -b && vite build"`                        |
-| `scripts/generate-lqip.mjs`           | `site/public/headshot.webp`     | sharp reads headshot to generate LQIP                 | WIRED     | Script reads HEADSHOT path, writes LQIP_DATA_URI to `src/generated/lqip.ts`; graceful fallback if missing |
-| `main.css nav[data-scrolled="true"]`  | `Navbar.tsx` IntersectionObserver | Data attribute state drives CSS rule                 | WIRED     | CSS rule in @layer components; Navbar.tsx sets attribute via observer callback               |
-| `site/src/hooks/useR2Data.ts`         | `@jacklabbe/shared`             | Type imports for R2 data shapes                       | WIRED     | Line 2: `import type { GraphData, ProjectsFile, PipelineMeta } from '@jacklabbe/shared'`    |
-| `site/src/hooks/useR2Data.ts`         | `VITE_R2_BASE_URL`              | Runtime env variable for R2 endpoint                  | WIRED     | Line 15: `const R2_BASE = import.meta.env.VITE_R2_BASE_URL` used in all 3 fetch calls       |
+| From                                 | To                                | Via                                                | Status | Details                                                                                                   |
+| ------------------------------------ | --------------------------------- | -------------------------------------------------- | ------ | --------------------------------------------------------------------------------------------------------- |
+| `site/src/main.tsx`                  | `site/src/styles/main.css`        | Single CSS import                                  | WIRED  | Line 1: `import './styles/main.css'` -- only CSS import present                                           |
+| `site/src/styles/main.css`           | `tailwindcss`                     | @import directive                                  | WIRED  | Line 6: `@import "tailwindcss"`                                                                           |
+| `site/vite.config.ts`                | `@tailwindcss/vite`               | Vite plugin registration                           | WIRED  | Line 2: `import tailwindcss from '@tailwindcss/vite'`; Line 6: `tailwindcss()` in plugins                 |
+| `site/src/App.tsx`                   | `useR2Data.ts`                    | Hook call with result consumed                     | WIRED  | Import line 7; `const r2State = useR2Data()` with status checked in `isReady`                             |
+| `site/src/App.tsx`                   | `useFontsReady.ts`                | Hook call with result consumed                     | WIRED  | Import line 8; `const fontsReady = useFontsReady()` with result in `isReady`                              |
+| `site/src/App.tsx`                   | `Hero.tsx`                        | Component composition with meaningful prop         | WIRED  | `<Hero isLoading={!isReady} />` -- isLoading computed from both hooks                                     |
+| `Hero.tsx`                           | `generated/lqip.ts`               | LQIP_DATA_URI import used in both img elements     | WIRED  | Line 2: `import { LQIP_DATA_URI } from "../../generated/lqip"`; used at lines 48 and 53                   |
+| `HeroSkeleton.tsx`                   | `generated/lqip.ts`               | LQIP_DATA_URI import used in photo placeholder img | WIRED  | Line 1: `import { LQIP_DATA_URI } from '../../generated/lqip'`; used at line 10                           |
+| `Hero.tsx`                           | `main.css` LQIP classes           | Global CSS classes applied to DOM elements         | WIRED  | `lqip-container`, `lqip-placeholder`, `lqip-full`, `lqip-full.loaded` applied via className               |
+| `package.json` build script          | `scripts/generate-lqip.mjs`       | Prebuild step in build command                     | WIRED  | `"build": "node scripts/generate-lqip.mjs && tsc -b && vite build"`                                       |
+| `scripts/generate-lqip.mjs`          | `site/public/headshot.webp`       | sharp reads headshot to generate LQIP              | WIRED  | Script reads HEADSHOT path, writes LQIP_DATA_URI to `src/generated/lqip.ts`; graceful fallback if missing |
+| `main.css nav[data-scrolled="true"]` | `Navbar.tsx` IntersectionObserver | Data attribute state drives CSS rule               | WIRED  | CSS rule in @layer components; Navbar.tsx sets attribute via observer callback                            |
+| `site/src/hooks/useR2Data.ts`        | `@jacklabbe/shared`               | Type imports for R2 data shapes                    | WIRED  | Line 2: `import type { GraphData, ProjectsFile, PipelineMeta } from '@jacklabbe/shared'`                  |
+| `site/src/hooks/useR2Data.ts`        | `VITE_R2_BASE_URL`                | Runtime env variable for R2 endpoint               | WIRED  | Line 15: `const R2_BASE = import.meta.env.VITE_R2_BASE_URL` used in all 3 fetch calls                     |
 
 ---
 
 ## Requirements Coverage
 
-| Requirement | Source Plan  | Description                                                          | Status     | Evidence                                                                                      |
-|-------------|--------------|----------------------------------------------------------------------|------------|-----------------------------------------------------------------------------------------------|
-| INFR-03     | 02-03        | Deployed to Cloudflare Pages                                         | SATISFIED | Deployment documented in SUMMARY.md; CORS update commit `444e62b` confirms live deployment   |
-| INFR-05     | 02-01        | Site fetches R2 JSON on visit (not full SSG)                         | SATISFIED | `useR2Data.ts` runtime fetches via `Promise.all(fetchWithTimeout(...))` in useEffect          |
-| HERO-01     | 02-02, 02-05 | Hero section displays photo, name, tagline                           | SATISFIED | `Hero.tsx` renders LQIP-backed photo, `<h1>Jack Labbe</h1>`, `<p>Software / AI Engineer</p>` |
-| HERO-02     | 02-02, 02-05 | Contact button in hero section (mailto link, no contact form)        | SATISFIED | `<a href="mailto:contact@jacklabbe.com">Contact</a>` in Hero.tsx                             |
-| HERO-03     | 02-02        | Minimal navbar with only a contact button                            | SATISFIED | `Navbar.tsx` renders single `<a href="mailto:...">Contact</a>` link only, no other content   |
-| HERO-04     | 02-02, 02-05 | Spacious hero layout with generous whitespace                        | SATISFIED | `Hero.tsx` `py-20` (5rem top/bottom); `max-w-[1200px] mx-auto px-8` container               |
-| DSGN-01     | 02-01, 02-04 | Dark theme with `#040d21` navy background                            | SATISFIED | `main.css` `@theme` `--color-bg: #040d21`; `@layer base` body `background-color: var(--color-bg)` |
-| DSGN-02     | 02-01, 02-04 | Inter/system sans-serif for headings (bold weight)                   | SATISFIED | `main.css` `--font-sans: 'Inter Variable', ...`; Hero `font-sans font-bold text-[4rem]`     |
-| DSGN-03     | 02-01, 02-04 | Monospace font for accent text (tagline, section labels)             | SATISFIED | `main.css` `--font-mono: 'JetBrains Mono Variable', ...`; SectionPlaceholder `font-mono`    |
-| DSGN-04     | 02-02, 02-04 | Decorative structural 1px divider lines between sections             | SATISFIED | `Divider.tsx` `h-px bg-[linear-gradient(to_right,transparent,var(--color-border),transparent)]` |
-| DSGN-05     | 02-02, 02-04 | Monospace section labels (// projects, // commit graph)              | SATISFIED | `SectionPlaceholder` renders "// commit graph" and "// projects" in `font-mono`             |
-| DSGN-06     | 02-01, 02-04 | Toggleable crosshatch grid pattern background (low opacity)          | SATISFIED | `main.css` `@layer base` `body::before` with `--grid-visible` toggle; default 0             |
-| DSGN-08     | 02-03, 02-04 | Single-scroll page layout                                            | SATISFIED | `App.tsx`: hero -> divider -> commit graph placeholder -> divider -> projects -> footer      |
-| DSGN-09     | 02-01, 02-04 | Responsive layout, mobile-first, works on all viewports              | SATISFIED | Hero `max-md:flex-col max-md:text-center max-md:max-w-[200px]`; HeroSkeleton same           |
-| DSGN-10     | 02-01, 02-04 | WCAG AA contrast ratios on all text                                  | SATISFIED | @theme documents color semantics; accent button uses `text-bg` (dark text on blue, satisfactory contrast) |
-| DSGN-11     | 02-01, 02-04 | Tailwind CSS v4 with @theme design tokens (migrated from CSS Modules) | SATISFIED | Full Tailwind v4 migration confirmed; zero .module.css files; all tokens in @theme           |
-| META-01     | 02-03        | Open Graph tags for social sharing preview                           | SATISFIED | `index.html` and `App.tsx` both have og:title, og:description, og:image, og:url, og:type   |
-| META-02     | 02-02        | Semantic HTML structure (nav, main, section, footer elements)        | SATISFIED | `<nav>` (Navbar), `<main id="main-content">` (App), `<section>` (Hero, SectionPlaceholder), `<footer>` (Footer) |
-| META-03     | 02-02        | Keyboard navigable, skip-to-content link                             | SATISFIED | `SkipToContent.tsx` `href="#main-content"` with `focus:top-4` reveal; all links have `focus-visible:outline-2` |
+| Requirement | Source Plan  | Description                                                           | Status    | Evidence                                                                                                        |
+| ----------- | ------------ | --------------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------- |
+| INFR-03     | 02-03        | Deployed to Cloudflare Pages                                          | SATISFIED | Deployment documented in SUMMARY.md; CORS update commit `444e62b` confirms live deployment                      |
+| INFR-05     | 02-01        | Site fetches R2 JSON on visit (not full SSG)                          | SATISFIED | `useR2Data.ts` runtime fetches via `Promise.all(fetchWithTimeout(...))` in useEffect                            |
+| HERO-01     | 02-02, 02-05 | Hero section displays photo, name, tagline                            | SATISFIED | `Hero.tsx` renders LQIP-backed photo, `<h1>Jack Labbe</h1>`, `<p>Software / AI Engineer</p>`                    |
+| HERO-02     | 02-02, 02-05 | Contact button in hero section (mailto link, no contact form)         | SATISFIED | `<a href="mailto:contact@jacklabbe.com">Contact</a>` in Hero.tsx                                                |
+| HERO-03     | 02-02        | Minimal navbar with only a contact button                             | SATISFIED | `Navbar.tsx` renders single `<a href="mailto:...">Contact</a>` link only, no other content                      |
+| HERO-04     | 02-02, 02-05 | Spacious hero layout with generous whitespace                         | SATISFIED | `Hero.tsx` `py-20` (5rem top/bottom); `max-w-[1200px] mx-auto px-8` container                                   |
+| DSGN-01     | 02-01, 02-04 | Dark theme with `#040d21` navy background                             | SATISFIED | `main.css` `@theme` `--color-bg: #040d21`; `@layer base` body `background-color: var(--color-bg)`               |
+| DSGN-02     | 02-01, 02-04 | Inter/system sans-serif for headings (bold weight)                    | SATISFIED | `main.css` `--font-sans: 'Inter Variable', ...`; Hero `font-sans font-bold text-[4rem]`                         |
+| DSGN-03     | 02-01, 02-04 | Monospace font for accent text (tagline, section labels)              | SATISFIED | `main.css` `--font-mono: 'JetBrains Mono Variable', ...`; SectionPlaceholder `font-mono`                        |
+| DSGN-04     | 02-02, 02-04 | Decorative structural 1px divider lines between sections              | SATISFIED | `Divider.tsx` `h-px bg-[linear-gradient(to_right,transparent,var(--color-border),transparent)]`                 |
+| DSGN-05     | 02-02, 02-04 | Monospace section labels (// projects, // commit graph)               | SATISFIED | `SectionPlaceholder` renders "// commit graph" and "// projects" in `font-mono`                                 |
+| DSGN-06     | 02-01, 02-04 | Toggleable crosshatch grid pattern background (low opacity)           | SATISFIED | `main.css` `@layer base` `body::before` with `--grid-visible` toggle; default 0                                 |
+| DSGN-08     | 02-03, 02-04 | Single-scroll page layout                                             | SATISFIED | `App.tsx`: hero -> divider -> commit graph placeholder -> divider -> projects -> footer                         |
+| DSGN-09     | 02-01, 02-04 | Responsive layout, mobile-first, works on all viewports               | SATISFIED | Hero `max-md:flex-col max-md:text-center max-md:max-w-[200px]`; HeroSkeleton same                               |
+| DSGN-10     | 02-01, 02-04 | WCAG AA contrast ratios on all text                                   | SATISFIED | @theme documents color semantics; accent button uses `text-bg` (dark text on blue, satisfactory contrast)       |
+| DSGN-11     | 02-01, 02-04 | Tailwind CSS v4 with @theme design tokens (migrated from CSS Modules) | SATISFIED | Full Tailwind v4 migration confirmed; zero .module.css files; all tokens in @theme                              |
+| META-01     | 02-03        | Open Graph tags for social sharing preview                            | SATISFIED | `index.html` and `App.tsx` both have og:title, og:description, og:image, og:url, og:type                        |
+| META-02     | 02-02        | Semantic HTML structure (nav, main, section, footer elements)         | SATISFIED | `<nav>` (Navbar), `<main id="main-content">` (App), `<section>` (Hero, SectionPlaceholder), `<footer>` (Footer) |
+| META-03     | 02-02        | Keyboard navigable, skip-to-content link                              | SATISFIED | `SkipToContent.tsx` `href="#main-content"` with `focus:top-4` reveal; all links have `focus-visible:outline-2`  |
 
 **All 19 requirement IDs from phase plans are accounted for. No orphaned requirements detected.**
 

@@ -1,45 +1,45 @@
 name: Update Portfolio Data
 
 on:
-  schedule:
-    - cron: "0 6 * * *"
-  workflow_dispatch:
+    schedule:
+        - cron: "0 6 * * *"
+    workflow_dispatch:
 
 permissions:
-  contents: read
+    contents: read
 
 jobs:
-  pipeline:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+    pipeline:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
+            - uses: pnpm/action-setup@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: "pnpm"
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  cache: "pnpm"
 
-      - run: pnpm install
+            - run: pnpm install
 
-      - name: Run pipeline
-        run: pnpm --filter @jacklabbe/worker exec tsx scripts/run-pipeline.ts
-        env:
-          GH_PAT: ${{ secrets.PIPELINE_GITHUB_TOKEN }}
-          GITHUB_TOKEN: ""
+            - name: Run pipeline
+              run: pnpm --filter @jacklabbe/worker exec tsx scripts/run-pipeline.ts
+              env:
+                  GH_PAT: ${{ secrets.PIPELINE_GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ""
 
-      - name: Upload to R2
-        run: |
-          pnpm --filter @jacklabbe/worker exec wrangler r2 object put jacklabbe-data/graph.json \
-            --file output/graph.json --remote \
-            --content-type application/json
-          pnpm --filter @jacklabbe/worker exec wrangler r2 object put jacklabbe-data/projects.json --remote \
-            --file output/projects.json \
-            --content-type application/json
-          pnpm --filter @jacklabbe/worker exec wrangler r2 object put jacklabbe-data/meta.json \
-            --file output/meta.json \
-            --content-type application/json \
-            --remote
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+            - name: Upload to R2
+              run: |
+                  pnpm --filter @jacklabbe/worker exec wrangler r2 object put jacklabbe-data/graph.json \
+                    --file output/graph.json --remote \
+                    --content-type application/json
+                  pnpm --filter @jacklabbe/worker exec wrangler r2 object put jacklabbe-data/projects.json --remote \
+                    --file output/projects.json \
+                    --content-type application/json
+                  pnpm --filter @jacklabbe/worker exec wrangler r2 object put jacklabbe-data/meta.json \
+                    --file output/meta.json \
+                    --content-type application/json \
+                    --remote
+              env:
+                  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

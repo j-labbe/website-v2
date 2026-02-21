@@ -60,6 +60,7 @@ completed: 2026-02-19
 - **Files modified:** 3
 
 ## Accomplishments
+
 - Built GraphQL client that queries GitHub's contributionsCollection for 12-month contribution calendar with day-level granularity
 - Built REST client with 5 exported functions covering repo enumeration (with owner+collaborator+org affiliation filter), language breakdown, paginated commit listing, and individual commit detail with diff stats
 - Implemented rate limit awareness: checkRateLimit helper logs remaining budgets, fetchCommitDetail skips calls when REST budget < 200 remaining
@@ -73,11 +74,13 @@ Each task was committed atomically:
 2. **Task 2: GitHub REST client for repo enumeration, commits, and languages** - `4259768` (feat)
 
 ## Files Created/Modified
+
 - `worker/src/github/types.ts` - Raw GitHub API response types (GitHubContributionCalendar, GitHubRepo, GitHubCommit, GitHubCommitDetail)
 - `worker/src/github/graphql.ts` - fetchContributionCalendar using @octokit/graphql with 12-month date range
 - `worker/src/github/rest.ts` - createOctokit, fetchAllRepos, fetchRepoLanguages, fetchRepoCommits, fetchCommitDetail with rate limit handling
 
 ## Decisions Made
+
 - fetchCommitDetail returns null instead of throwing when rate limit is low -- allows pipeline to continue with partial commit detail data rather than failing entirely
 - checkRateLimit is called before every individual commit detail fetch (not batched) to ensure the most up-to-date rate limit info before expensive N+1 calls
 - Raw GitHub API types (types.ts) are kept internal to the worker package, not exported to @jacklabbe/shared -- shared types represent the transformed output, not raw API shapes
@@ -87,11 +90,12 @@ Each task was committed atomically:
 ### Auto-fixed Issues
 
 **1. [Rule 1 - Bug] Fixed nullable graphql resource in rate limit response**
+
 - **Found during:** Task 2 (REST client implementation)
 - **Issue:** TypeScript strict null check flagged `data.resources.graphql` as possibly undefined in the @octokit/rest rate limit response type
 - **Fix:** Added null check with fallback to 'unknown' values in the structured log output
 - **Files modified:** worker/src/github/rest.ts
-- **Verification:** Worker typecheck passes for all github/* files
+- **Verification:** Worker typecheck passes for all github/\* files
 - **Committed in:** 4259768 (Task 2 commit)
 
 ---
@@ -100,12 +104,15 @@ Each task was committed atomically:
 **Impact on plan:** Minor type safety fix. No scope creep.
 
 ## Issues Encountered
-- Pre-existing file (transform/sanitize.ts from plan 01-03) has a type error for `node:crypto` module, causing worker-wide typecheck to fail. This is out of scope for plan 01-04 -- all github/* files typecheck cleanly. `pnpm build` still passes (wrangler bundles successfully).
+
+- Pre-existing file (transform/sanitize.ts from plan 01-03) has a type error for `node:crypto` module, causing worker-wide typecheck to fail. This is out of scope for plan 01-04 -- all github/\* files typecheck cleanly. `pnpm build` still passes (wrangler bundles successfully).
 
 ## User Setup Required
+
 None - no external service configuration required.
 
 ## Next Phase Readiness
+
 - GitHub API integration layer is complete and ready for Plan 05 (pipeline orchestration) to wire fetch -> transform -> write
 - Plan 03 (transform layer) can import types from worker/src/github/types.ts for its transformation functions
 - All functions accept token as parameter, ready to receive env.GITHUB_TOKEN from handler context
@@ -115,5 +122,6 @@ None - no external service configuration required.
 All 3 files verified present. Commits 7dcabde and 4259768 verified in git log.
 
 ---
-*Phase: 01-foundation-and-data-pipeline*
-*Completed: 2026-02-19*
+
+_Phase: 01-foundation-and-data-pipeline_
+_Completed: 2026-02-19_

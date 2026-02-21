@@ -6,42 +6,42 @@ const SKELETON_TIMEOUT = 2000;
 const STAGGER_DELAY = 50;
 
 interface StagedRevealResult {
-  phase: Phase;
-  isVisible: (index: number) => boolean;
+    phase: Phase;
+    isVisible: (index: number) => boolean;
 }
 
 export function useStagedReveal(
-  isReady: boolean,
-  itemCount: number,
+    isReady: boolean,
+    itemCount: number,
 ): StagedRevealResult {
-  const [phase, setPhase] = useState<Phase>("blank");
-  const [visibleCount, setVisibleCount] = useState(0);
+    const [phase, setPhase] = useState<Phase>("blank");
+    const [visibleCount, setVisibleCount] = useState(0);
 
-  useEffect(() => {
-    if (isReady) {
-      setPhase("ready");
-      return;
-    }
+    useEffect(() => {
+        if (isReady) {
+            setPhase("ready");
+            return;
+        }
 
-    const timer = setTimeout(() => {
-      setPhase((prev) => (prev === "blank" ? "skeleton" : prev));
-    }, SKELETON_TIMEOUT);
+        const timer = setTimeout(() => {
+            setPhase((prev) => (prev === "blank" ? "skeleton" : prev));
+        }, SKELETON_TIMEOUT);
 
-    return () => clearTimeout(timer);
-  }, [isReady]);
+        return () => clearTimeout(timer);
+    }, [isReady]);
 
-  useEffect(() => {
-    if (phase !== "ready" || visibleCount >= itemCount) return;
+    useEffect(() => {
+        if (phase !== "ready" || visibleCount >= itemCount) return;
 
-    const timer = setTimeout(() => {
-      setVisibleCount((c) => c + 1);
-    }, STAGGER_DELAY);
+        const timer = setTimeout(() => {
+            setVisibleCount((c) => c + 1);
+        }, STAGGER_DELAY);
 
-    return () => clearTimeout(timer);
-  }, [phase, visibleCount, itemCount]);
+        return () => clearTimeout(timer);
+    }, [phase, visibleCount, itemCount]);
 
-  return {
-    phase,
-    isVisible: (index: number) => visibleCount > index,
-  };
+    return {
+        phase,
+        isVisible: (index: number) => visibleCount > index,
+    };
 }

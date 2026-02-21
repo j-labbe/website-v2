@@ -65,6 +65,7 @@ completed: 2026-02-20
 - **Files modified:** 26
 
 ## Accomplishments
+
 - Installed Tailwind CSS v4 with @tailwindcss/vite plugin, replacing CSS Modules architecture
 - Created unified main.css with @theme design tokens (colors, fonts, animations), @layer base (reset, body, crosshatch grid), and @layer components (skeleton shimmer, stagger animation, navbar scroll state)
 - Converted all 8 components (App, SkipToContent, Navbar, Hero, HeroSkeleton, Footer, SectionPlaceholder, Divider) to inline Tailwind utility classes
@@ -78,6 +79,7 @@ Each task was committed atomically:
 2. **Task 2: Convert all components from CSS Modules to Tailwind utility classes** - `082c172` (feat)
 
 ## Files Created/Modified
+
 - `site/src/styles/main.css` - Single Tailwind CSS entry point with @theme tokens, @layer base/components, keyframes, reduced-motion media query
 - `site/vite.config.ts` - Added @tailwindcss/vite plugin, removed CSS modules config
 - `site/src/main.tsx` - Single main.css import replacing 5 individual CSS imports
@@ -93,7 +95,8 @@ Each task was committed atomically:
 **Deleted files:** tokens.css, reset.css, fonts.css, global.css, animations.css, and all 8 .module.css files (13 files total)
 
 ## Decisions Made
-- Tailwind @theme for design tokens: --color-* convention maps to bg-*, text-*, border-* utilities automatically
+
+- Tailwind @theme for design tokens: --color-_ convention maps to bg-_, text-_, border-_ utilities automatically
 - Navbar scroll-state handled via CSS rule `nav[data-scrolled="true"]` in @layer components rather than React className toggling -- keeps IntersectionObserver pattern clean
 - Renamed global staggerItem class to stagger-item for kebab-case consistency with Tailwind/CSS conventions
 
@@ -102,12 +105,15 @@ Each task was committed atomically:
 None - plan executed exactly as written.
 
 ## Issues Encountered
+
 None
 
 ## User Setup Required
+
 None - no external service configuration required.
 
 ## Next Phase Readiness
+
 - Tailwind CSS v4 architecture fully in place for Phase 3 component development
 - All new components should follow utility-first pattern with @theme token classes
 - Design tokens available as Tailwind utilities (bg-bg, text-accent, border-border, font-mono, etc.)
@@ -123,5 +129,6 @@ None - no external service configuration required.
 - Build passes cleanly
 
 ---
-*Phase: 02-site-shell-design-system-and-hero*
-*Completed: 2026-02-20*
+
+_Phase: 02-site-shell-design-system-and-hero_
+_Completed: 2026-02-20_
