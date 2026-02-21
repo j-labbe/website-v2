@@ -92,14 +92,8 @@ export function DateSpine({ months, activeMonth }: DateSpineProps) {
         {items.map((item) => {
           if (item.type === 'year') {
             return (
-              <li key={`year-${item.year}`} className="flex items-center justify-end py-0.5">
-                <span
-                  className="text-[10px] font-mono text-text-dim"
-                  style={{
-                    opacity: spineHovered ? 0 : 1,
-                    transition: 'opacity 150ms ease-out',
-                  }}
-                >
+              <li key={`year-${item.year}`} className="flex items-center justify-end py-0.5 cursor-default">
+                <span className="text-[10px] font-mono text-text-dim">
                   {item.year}
                 </span>
               </li>
