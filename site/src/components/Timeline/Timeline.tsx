@@ -56,7 +56,7 @@ export function Timeline({ projects }: TimelineProps) {
       </div>
 
       {/* Two-column layout: cards flex-1, spine fixed-width shrink-0 */}
-      <div className="flex gap-4 overflow-visible">
+      <div className="flex gap-2 overflow-visible">
         {/* Main content */}
         <div className="flex-1 min-w-0 space-y-10">
           {months.map((month) => (
@@ -80,7 +80,7 @@ export function Timeline({ projects }: TimelineProps) {
         </div>
 
         {/* Date spine — fixed width column, hover content overflows left */}
-        <div className="shrink-0 w-8 overflow-visible">
+        <div className="shrink-0 w-20 overflow-visible">
           <DateSpine
             months={months.map((m) => ({ key: m.key, label: m.label }))}
             activeMonth={activeMonth}
