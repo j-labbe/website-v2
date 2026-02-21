@@ -2,7 +2,8 @@ import { SkipToContent } from "./components/SkipToContent/SkipToContent";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Hero } from "./components/Hero/Hero";
 import { Divider } from "./components/Divider/Divider";
-import { SectionPlaceholder } from "./components/SectionPlaceholder/SectionPlaceholder";
+import { CommitGraph } from "./components/CommitGraph/CommitGraph";
+import { Timeline } from "./components/Timeline/Timeline";
 import { Footer } from "./components/Footer/Footer";
 import { useR2Data } from "./hooks/useR2Data";
 import { useFontsReady } from "./hooks/useFontsReady";
@@ -57,13 +58,25 @@ export default function App() {
           <Divider />
         </div>
         <div className={stagger(isVisible(5))}>
-          <SectionPlaceholder label="// activity" />
+          {r2State.status === "loaded" && r2State.data.graph ? (
+            <CommitGraph data={r2State.data.graph} />
+          ) : r2State.status === "error" ? (
+            <div className="max-w-[1200px] mx-auto px-8 py-4">
+              <p className="text-text-dim font-mono text-sm">Data unavailable</p>
+            </div>
+          ) : null}
         </div>
         <div className={stagger(isVisible(6))}>
           <Divider />
         </div>
         <div className={stagger(isVisible(7))}>
-          <SectionPlaceholder label="// projects" />
+          {r2State.status === "loaded" && r2State.data.projects ? (
+            <Timeline projects={r2State.data.projects} />
+          ) : r2State.status === "error" ? (
+            <div className="max-w-[1200px] mx-auto px-8 py-4">
+              <p className="text-text-dim font-mono text-sm">Data unavailable</p>
+            </div>
+          ) : null}
         </div>
       </main>
       <Footer />

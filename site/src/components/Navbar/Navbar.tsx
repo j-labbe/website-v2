@@ -43,7 +43,7 @@ export function Navbar() {
       <div className="max-w-[1200px] mx-auto px-8 flex justify-end items-center">
         <a
           href="mailto:contact@jacklabbe.com"
-          className="inline-flex items-center justify-center px-6 py-2 bg-accent text-bg rounded-full font-sans font-semibold text-sm no-underline transition-opacity duration-150 hover:opacity-85 focus-visible:outline-2 focus-visible:outline-accent-secondary focus-visible:outline-offset-2"
+          className="inline-flex items-center justify-center px-6 py-2 bg-accent text-bg rounded-full font-sans font-semibold text-sm no-underline transition-opacity duration-[120ms] hover:opacity-85 focus-visible:outline-2 focus-visible:outline-accent-secondary focus-visible:outline-offset-2"
         >
           Contact
         </a>

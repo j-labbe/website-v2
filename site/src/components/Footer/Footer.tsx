@@ -20,7 +20,7 @@ export function Footer() {
               aria-label={label}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-text-dim transition-colors duration-150 flex hover:text-text focus-visible:outline-2 focus-visible:outline-accent-secondary focus-visible:outline-offset-2 focus-visible:rounded-lg"
+              className="text-text-dim transition-colors duration-[120ms] flex hover:text-accent focus-visible:outline-2 focus-visible:outline-accent-secondary focus-visible:outline-offset-2 focus-visible:rounded-lg"
             >
               <Icon />
             </a>
