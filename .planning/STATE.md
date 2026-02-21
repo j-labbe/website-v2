@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 ## Current Position
 
 Phase: 3 of 3 (Core Visualizations and Launch)
-Plan: 2 of 3 in Phase 3 complete
-Status: Executing Phase 3
-Last activity: 2026-02-20 -- Completed 03-02 (Project Timeline)
+Plan: 3 of 3 in Phase 3 complete
+Status: Phase 3 execution complete, pending verification
+Last activity: 2026-02-21 -- Completed 03-03 (Integration & Visual Verification)
 
-Progress: [██████----] 67% (Phase 3)
+Progress: [██████████] 100% (Phase 3)
 
 ## Performance Metrics
 
@@ -29,7 +29,7 @@ Progress: [██████----] 67% (Phase 3)
 |-------|-------|-------|----------|
 | 01-foundation | 5/5 | ~75 min | ~15 min |
 | 02-site-shell | 5/5 | ~31 min | ~6 min |
-| 03-core-vis   | 2/3 | ~5 min  | ~3 min |
+| 03-core-vis   | 3/3 | ~12 min | ~4 min |
 
 **Recent Trend:**
 - Last 5 plans: 02-04 (3 min), 02-05 (~8 min), 03-01 (2 min), 03-02 (~3 min)
@@ -80,6 +80,10 @@ Recent decisions affecting current work:
 - [03-02]: useInViewRef callback pattern co-located in Timeline.tsx for fade-in animation
 - [03-02]: Composite React keys ${monthKey}-${project.id} for multi-month project deduplication
 - [03-02]: DateSpine responsive format via CSS visibility classes (full label desktop, abbreviated mobile)
+- [03-03]: R2 base URL hardcoded to data.jacklabbe.com (no env var dependency)
+- [03-03]: DateSpine redesigned as Time Machine with gaussian dock magnification
+- [03-03]: Spine uses fixed-width flex column (shrink-0 w-20) to preserve card width on hover
+- [03-03]: Commit graph cells click-to-scroll to corresponding timeline month
 
 ### Pending Todos
 
@@ -92,7 +96,7 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-20
-Stopped at: 03-03 Task 1 complete, awaiting human-verify checkpoint (Task 2)
-Resume file: .planning/phases/03-core-visualizations-and-launch/03-03-PLAN.md
-Next action: Continue 03-03 Task 2 (visual verification) after user approval
+Last session: 2026-02-21
+Stopped at: Phase 3 all plans complete, pending verification
+Resume file: .planning/phases/03-core-visualizations-and-launch/
+Next action: Run phase verification
