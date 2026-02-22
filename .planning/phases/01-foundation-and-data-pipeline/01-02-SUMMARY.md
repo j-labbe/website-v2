@@ -10,7 +10,7 @@ requires:
     provides: pnpm monorepo workspace, @jacklabbe/shared types package with live types pattern
 provides:
   - Vite + React site skeleton (@jacklabbe/site) with cross-package shared type imports
-  - Cloudflare Worker skeleton (@jacklabbe/worker) with cron trigger, R2 binding, and stub handlers
+  - Cloudflare Worker skeleton (@jacklabbe/pipeline) with cron trigger, R2 binding, and stub handlers
   - Worker Env interface defining R2_BUCKET, GITHUB_TOKEN, REFRESH_SECRET bindings
   - Buildable workspace where `pnpm build` compiles all 3 packages without errors
 affects: [01-03, 01-04, 01-05, 02-site, 03-visualizations]
@@ -72,7 +72,7 @@ completed: 2026-02-19
 ## Accomplishments
 
 - Created @jacklabbe/site package with Vite 7 + React 19 skeleton that builds and typechecks
-- Created @jacklabbe/worker package with Wrangler 4, cron trigger (0 6 \* \* \*), R2 bucket binding, and stub scheduled/fetch handlers
+- Created @jacklabbe/pipeline package with Wrangler 4, cron trigger (0 6 \* \* \*), R2 bucket binding, and stub scheduled/fetch handlers
 - Verified cross-package type imports work in both directions (site->shared, worker->shared) via PipelineMeta import
 - All three workspace packages build successfully with `pnpm build` and `pnpm typecheck`
 
@@ -91,7 +91,7 @@ Each task was committed atomically:
 - `site/src/main.tsx` - React entry point rendering App into #root
 - `site/src/App.tsx` - Placeholder component importing PipelineMeta from @jacklabbe/shared
 - `site/src/vite-env.d.ts` - Vite client type reference
-- `worker/package.json` - @jacklabbe/worker package with Wrangler, Octokit, and shared dependency
+- `worker/package.json` - @jacklabbe/pipeline package with Wrangler, Octokit, and shared dependency
 - `worker/tsconfig.json` - Extends base config with @cloudflare/workers-types
 - `worker/wrangler.toml` - Worker config with cron trigger and R2 bucket binding
 - `worker/src/index.ts` - Worker entry with stub scheduled and fetch handlers, Env interface
