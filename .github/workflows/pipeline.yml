@@ -24,20 +24,20 @@ jobs:
             - run: pnpm install
 
             - name: Run pipeline
-              run: pnpm --filter @jacklabbe/worker exec tsx scripts/run-pipeline.ts
+              run: pnpm --filter @jacklabbe/pipeline exec tsx src/run.ts
               env:
                   GH_PAT: ${{ secrets.PIPELINE_GITHUB_TOKEN }}
                   GITHUB_TOKEN: ""
 
             - name: Upload to R2
               run: |
-                  pnpm --filter @jacklabbe/worker exec wrangler r2 object put jacklabbe-data/graph.json \
+                  pnpm --filter @jacklabbe/pipeline exec wrangler r2 object put jacklabbe-data/graph.json \
                     --file output/graph.json --remote \
                     --content-type application/json
-                  pnpm --filter @jacklabbe/worker exec wrangler r2 object put jacklabbe-data/projects.json --remote \
+                  pnpm --filter @jacklabbe/pipeline exec wrangler r2 object put jacklabbe-data/projects.json --remote \
                     --file output/projects.json \
                     --content-type application/json
-                  pnpm --filter @jacklabbe/worker exec wrangler r2 object put jacklabbe-data/meta.json \
+                  pnpm --filter @jacklabbe/pipeline exec wrangler r2 object put jacklabbe-data/meta.json \
                     --file output/meta.json \
                     --content-type application/json \
                     --remote
