@@ -1,0 +1,16 @@
+name = "jacklabbe-pipeline"
+account_id = "ef226d71a9cc27a00dfb2f2c9b5cb362"
+main = "src/index.ts"
+compatibility_date = "2026-02-01"
+compatibility_flags = ["nodejs_compat"]
+
+[triggers]
+crons = ["0 6 * * *"]  # Daily at 06:00 UTC
+
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "jacklabbe-data"
+
+# Secrets (set via CLI, NOT in this file):
+# wrangler secret put GITHUB_TOKEN
+# wrangler secret put REFRESH_SECRET
