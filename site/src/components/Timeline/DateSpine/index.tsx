@@ -1,8 +1,7 @@
 import { useState, useMemo } from "react";
+import DateItem from "./DateItem";
 import type { DateSpineProps } from "./types";
 import { buildSpineItems } from "./utils";
-import DateItem from "./DateItem";
-
 
 export function DateSpine({ months, activeMonth }: DateSpineProps) {
     const [hoveredMonthIndex, setHoveredMonthIndex] = useState<number | null>(null);
@@ -10,7 +9,8 @@ export function DateSpine({ months, activeMonth }: DateSpineProps) {
 
     const items = useMemo(() => buildSpineItems(months), [months]);
 
-    const handleClick = (key: string) => document.getElementById("month-" + key)?.scrollIntoView({ behavior: "smooth" });
+    const handleClick = (key: string) =>
+        document.getElementById("month-" + key)?.scrollIntoView({ behavior: "smooth" });
 
     return (
         <nav

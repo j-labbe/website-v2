@@ -31,11 +31,7 @@ const mockLanguages: Record<string, number> = {
 
 describe("sanitizePrivateRepo", () => {
     it("should produce a ProjectEntry with only allowed fields", () => {
-        const result = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
+        const result = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
 
         // Allowed fields must be present
         expect(result).toHaveProperty("id");
@@ -57,98 +53,56 @@ describe("sanitizePrivateRepo", () => {
     });
 
     it('should set name to "Private Repo" regardless of actual name', () => {
-        const result = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
+        const result = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
         expect(result.name).toBe("Private Repo");
     });
 
     it("should set isPrivate to true", () => {
-        const result = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
+        const result = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
         expect(result.isPrivate).toBe(true);
     });
 
     it("should generate id as first 16 hex chars of SHA-256 hash of full_name", () => {
-        const result = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
+        const result = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
         // ID must be 16 hex chars
         expect(result.id).toMatch(/^[0-9a-f]{16}$/);
     });
 
     it("should produce stable hash (same input = same id)", () => {
-        const result1 = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
-        const result2 = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
+        const result1 = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
+        const result2 = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
         expect(result1.id).toBe(result2.id);
     });
 
     it("should NEVER contain the original repo full_name in serialized output", () => {
-        const result = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
+        const result = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
         const serialized = JSON.stringify(result);
         expect(serialized).not.toContain("super-secret-project");
         expect(serialized).not.toContain("j-labbe/super-secret-project");
     });
 
     it("should NEVER contain the original repo html_url in serialized output", () => {
-        const result = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
+        const result = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
         const serialized = JSON.stringify(result);
-        expect(serialized).not.toContain(
-            "https://github.com/j-labbe/super-secret-project",
-        );
+        expect(serialized).not.toContain("https://github.com/j-labbe/super-secret-project");
     });
 
     it("should NEVER contain the original description in serialized output", () => {
-        const result = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
+        const result = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
         const serialized = JSON.stringify(result);
         expect(serialized).not.toContain("A very secret project");
         expect(serialized).not.toContain("confidential");
     });
 
     it("should NEVER contain topics in serialized output", () => {
-        const result = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
+        const result = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
         const serialized = JSON.stringify(result);
         expect(serialized).not.toContain("secret-topic");
         expect(serialized).not.toContain("internal-tool");
     });
 
     it("should include language names only (no byte counts)", () => {
-        const result = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
+        const result = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
         expect(result.languages).toEqual(["TypeScript", "Python", "Shell"]);
         // Ensure no byte counts leak through
         const serialized = JSON.stringify(result);
@@ -157,31 +111,19 @@ describe("sanitizePrivateRepo", () => {
     });
 
     it("should slice dates to YYYY-MM-DD format", () => {
-        const result = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
+        const result = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
         expect(result.createdAt).toBe("2025-06-15");
         expect(result.lastActiveAt).toBe("2026-02-10");
     });
 
     it("should pass through monthlyCommits and compute totalCommits", () => {
-        const result = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
+        const result = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
         expect(result.monthlyCommits).toEqual(mockMonthlyCommits);
         expect(result.totalCommits).toBe(28); // 5 + 12 + 3 + 8
     });
 
     it("should set isFork to false for non-fork repos", () => {
-        const result = sanitizePrivateRepo(
-            mockPrivateRepo,
-            mockMonthlyCommits,
-            mockLanguages,
-        );
+        const result = sanitizePrivateRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages);
         expect(result.isFork).toBe(false);
         expect(result.parentRepo).toBeNull();
     });
@@ -198,11 +140,7 @@ describe("sanitizePrivateRepo", () => {
                 },
             };
 
-            const result = sanitizePrivateRepo(
-                forkedRepo,
-                mockMonthlyCommits,
-                mockLanguages,
-            );
+            const result = sanitizePrivateRepo(forkedRepo, mockMonthlyCommits, mockLanguages);
             expect(result.isFork).toBe(true);
             expect(result.parentRepo).toEqual({
                 name: "public-org/public-repo",
@@ -221,11 +159,7 @@ describe("sanitizePrivateRepo", () => {
                 },
             };
 
-            const result = sanitizePrivateRepo(
-                forkedFromPrivate,
-                mockMonthlyCommits,
-                mockLanguages,
-            );
+            const result = sanitizePrivateRepo(forkedFromPrivate, mockMonthlyCommits, mockLanguages);
             expect(result.isFork).toBe(true);
             expect(result.parentRepo).toBeNull();
             // Verify the private parent info doesn't leak
@@ -240,11 +174,7 @@ describe("sanitizePrivateRepo", () => {
                 parent: null,
             };
 
-            const result = sanitizePrivateRepo(
-                forkNoParent,
-                mockMonthlyCommits,
-                mockLanguages,
-            );
+            const result = sanitizePrivateRepo(forkNoParent, mockMonthlyCommits, mockLanguages);
             expect(result.isFork).toBe(true);
             expect(result.parentRepo).toBeNull();
         });

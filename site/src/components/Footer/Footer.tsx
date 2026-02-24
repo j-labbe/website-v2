@@ -1,9 +1,4 @@
-import {
-    GitHubIcon,
-    LinkedInIcon,
-    MailIcon,
-    XIcon,
-} from "../icons/SocialIcons";
+import { GitHubIcon, LinkedInIcon, MailIcon } from "../icons/SocialIcons";
 
 const socialLinks = [
     { href: "https://github.com/j-labbe", label: "GitHub", Icon: GitHubIcon },
@@ -13,16 +8,13 @@ const socialLinks = [
         Icon: LinkedInIcon,
     },
     { href: "mailto:jack.labbe@icloud.com", label: "Email", Icon: MailIcon },
-    // { href: "https://x.com/jacklabbe", label: "X", Icon: XIcon },
 ] as const;
 
 export function Footer() {
     return (
         <footer className="py-12 border-t border-border">
             <div className="max-w-[1200px] mx-auto px-8 flex justify-between items-center">
-                <span className="text-text-dim text-sm">
-                    &copy; 2026 Jack Labbe
-                </span>
+                <span className="text-text-dim text-sm">&copy; 2026 Jack Labbe</span>
                 <div className="flex gap-4 items-center">
                     {socialLinks.map(({ href, label, Icon }) => (
                         <a

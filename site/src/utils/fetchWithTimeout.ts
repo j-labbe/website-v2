@@ -1,7 +1,4 @@
-export default async function fetchWithTimeout(
-    url: string,
-    timeoutMs: number,
-): Promise<Response> {
+export default async function fetchWithTimeout(url: string, timeoutMs: number): Promise<Response> {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeoutMs);
     try {

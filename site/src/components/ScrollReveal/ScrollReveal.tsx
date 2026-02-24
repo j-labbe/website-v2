@@ -1,6 +1,7 @@
-import { useEffect, useRef, useMemo, ReactNode, RefObject } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { ReactNode, RefObject } from "react";
+import { useEffect, useRef, useMemo } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,10 +51,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
         const el = containerRef.current;
         if (!el) return;
 
-        const scroller =
-            scrollContainerRef && scrollContainerRef.current
-                ? scrollContainerRef.current
-                : window;
+        const scroller = scrollContainerRef && scrollContainerRef.current ? scrollContainerRef.current : window;
 
         const triggers: ScrollTrigger[] = [];
 
@@ -76,21 +74,19 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
         if (rotationTween.scrollTrigger) triggers.push(rotationTween.scrollTrigger);
 
         // In text mode, animate individual words; in element mode, animate the container
-        const targets = isTextMode
-            ? el.querySelectorAll<HTMLElement>(".word")
-            : el;
+        const targets = isTextMode ? el.querySelectorAll<HTMLElement>(".word") : el;
 
         const opacityTween = gsap.fromTo(
             targets,
             {
                 opacity: baseOpacity,
                 willChange: "opacity, filter, transform",
-                ...((!isTextMode && baseTranslateY) ? { y: baseTranslateY } : {}),
+                ...(!isTextMode && baseTranslateY ? { y: baseTranslateY } : {}),
             },
             {
                 ease: "none",
                 opacity: 1,
-                ...((!isTextMode && baseTranslateY) ? { y: 0 } : {}),
+                ...(!isTextMode && baseTranslateY ? { y: 0 } : {}),
                 stagger: isTextMode ? 0.05 : 0,
                 scrollTrigger: {
                     trigger: el,
@@ -140,13 +136,8 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
 
     if (isTextMode) {
         return (
-            <h2
-                ref={containerRef}
-                className={`my-5 ${containerClassName}`}
-            >
-                <p
-                    className={`text-[clamp(1.6rem,4vw,3rem)] leading-[1.5] font-semibold ${textClassName}`}
-                >
+            <h2 ref={containerRef} className={`my-5 ${containerClassName}`}>
+                <p className={`text-[clamp(1.6rem,4vw,3rem)] leading-[1.5] font-semibold ${textClassName}`}>
                     {splitText}
                 </p>
             </h2>

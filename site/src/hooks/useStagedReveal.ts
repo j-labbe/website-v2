@@ -10,15 +10,13 @@ interface StagedRevealResult {
     isVisible: (index: number) => boolean;
 }
 
-export function useStagedReveal(
-    isReady: boolean,
-    itemCount: number,
-): StagedRevealResult {
+export function useStagedReveal(isReady: boolean, itemCount: number): StagedRevealResult {
     const [phase, setPhase] = useState<Phase>("blank");
     const [visibleCount, setVisibleCount] = useState(0);
 
     useEffect(() => {
         if (isReady) {
+            //eslint-disable-next-line react-hooks/set-state-in-effect
             setPhase("ready");
             return;
         }

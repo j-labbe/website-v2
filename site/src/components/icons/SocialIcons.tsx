@@ -1,6 +1,5 @@
-import { IoLogoGithub, IoLogoLinkedin, IoMail } from "react-icons/io5";
 import { FaXTwitter } from "react-icons/fa6";
-
+import { IoLogoGithub, IoLogoLinkedin, IoMail } from "react-icons/io5";
 
 interface IconProps {
     size?: number;

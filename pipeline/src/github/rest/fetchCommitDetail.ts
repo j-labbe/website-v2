@@ -1,6 +1,6 @@
-import { Octokit } from "@octokit/rest";
-import type { GitHubCommitDetail } from "../types";
+import type { Octokit } from "@octokit/rest";
 import { log, safeRepoId } from "../../utils";
+import type { GitHubCommitDetail } from "../types";
 import checkRateLimit from "./checkRateLimit";
 
 /**

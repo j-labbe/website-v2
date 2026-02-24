@@ -1,5 +1,6 @@
 import type { ProjectEntry, CommitDetail } from "@jacklabbe/shared";
-import { RawGitHubRepo, sanitizePrivateRepo } from "../sanitize";
+import type { RawGitHubRepo } from "../sanitize";
+import { sanitizePrivateRepo } from "../sanitize";
 
 /**
  * Transform a raw GitHub repo into a ProjectEntry.
@@ -19,15 +20,9 @@ export default function transformRepo(
     }
 
     // Public repos get the full ProjectEntry with all fields
-    const totalCommits = Object.values(monthlyCommits).reduce(
-        (a, b) => a + b,
-        0,
-    );
+    const totalCommits = Object.values(monthlyCommits).reduce((a, b) => a + b, 0);
 
-    const parentRepo =
-        raw.fork && raw.parent
-            ? { name: raw.parent.full_name, url: raw.parent.html_url }
-            : null;
+    const parentRepo = raw.fork && raw.parent ? { name: raw.parent.full_name, url: raw.parent.html_url } : null;
 
     return {
         id: String(raw.id),

@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
 import type { GraphData, ProjectsFile, PipelineMeta } from "@jacklabbe/shared";
+import { useState, useEffect } from "react";
 import fetchWithTimeout from "../utils/fetchWithTimeout";
 
 export interface R2Data {
@@ -8,10 +8,7 @@ export interface R2Data {
     meta: PipelineMeta | null;
 }
 
-export type R2State =
-    | { status: "loading" }
-    | { status: "loaded"; data: R2Data }
-    | { status: "error"; error: string };
+export type R2State = { status: "loading" } | { status: "loaded"; data: R2Data } | { status: "error"; error: string };
 
 interface CachedData {
     timestamp: number;
@@ -60,16 +57,13 @@ export function useR2Data(): R2State {
 
         async function load() {
             try {
-
                 // goal: try to reduce repeated code
                 // i'm not super happy with how this turned out and the repetition is small so i might refactor this later
                 // it feels like Promise.all is a bit awkward. if you are reading this and have suggestions for improvement, please let me know or submit a PR!
                 const [graph, projects, meta] = (await Promise.all(
                     resources.map((resource) =>
-                        fetchWithTimeout(`${R2_BASE}/${resource}`, TIMEOUT_MS).then((response) =>
-                            response.json()
-                        )
-                    )
+                        fetchWithTimeout(`${R2_BASE}/${resource}`, TIMEOUT_MS).then((response) => response.json()),
+                    ),
                 )) as [GraphData, ProjectsFile, PipelineMeta];
 
                 const data: R2Data = { graph, projects, meta };

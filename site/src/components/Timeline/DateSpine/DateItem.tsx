@@ -1,15 +1,33 @@
-import { getMagnification, lerpColor, shortMonth } from "./utils";
 import { COLOR_ACCENT, COLOR_BRIGHT, COLOR_DIM } from "./constants";
+import { getMagnification, lerpColor, shortMonth } from "./utils";
 
-const DateItem = ({ type, label, itemIndex, hoveredIndex, isActive, timelineHover, onClick, onHover, onLeave }: { type: string; label: string; itemIndex: number; hoveredIndex: number | null; isActive: boolean; timelineHover: boolean; onClick: () => void; onHover: () => void; onLeave: () => void }) => {
+const DateItem = ({
+    type,
+    label,
+    itemIndex,
+    hoveredIndex,
+    isActive,
+    timelineHover,
+    onClick,
+    onHover,
+    onLeave,
+}: {
+    type: string;
+    label: string;
+    itemIndex: number;
+    hoveredIndex: number | null;
+    isActive: boolean;
+    timelineHover: boolean;
+    onClick: () => void;
+    onHover: () => void;
+    onLeave: () => void;
+}) => {
     const isYear = type === "year";
 
     if (isYear) {
         return (
             <li key={`year-${label}`} className="flex items-center justify-end py-0.5 cursor-default">
-                <span className="text-[10px] font-mono text-text-dim">
-                    {label}
-                </span>
+                <span className="text-[10px] font-mono text-text-dim">{label}</span>
             </li>
         );
     }
@@ -59,10 +77,6 @@ const DateItem = ({ type, label, itemIndex, hoveredIndex, isActive, timelineHove
             />
         </li>
     );
-}
+};
 
 export default DateItem;
-
-
-
-

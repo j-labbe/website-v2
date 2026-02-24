@@ -1,9 +1,7 @@
-import yearFromKey from "./fromYearKey";
 import type { SpineItem } from "../types";
+import yearFromKey from "./fromYearKey";
 
-function buildSpineItems(
-    months: { key: string; label: string }[],
-): SpineItem[] {
+function buildSpineItems(months: { key: string; label: string }[]): SpineItem[] {
     const items: SpineItem[] = [];
     let lastYear = "";
     let monthIndex = 0;

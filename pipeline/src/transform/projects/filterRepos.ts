@@ -1,4 +1,4 @@
-import type { ProjectEntry, CommitDetail } from "@jacklabbe/shared";
+import type { ProjectEntry } from "@jacklabbe/shared";
 
 /**
  * Filter out repos with fewer than 3 total commits.

@@ -1,8 +1,7 @@
 import type { ProjectEntry } from "@jacklabbe/shared";
-import { LanguageBadge } from "./LanguageBadge";
-import { formatDateRange } from "../../utils/dateUtils";
 import { IoLockClosed } from "react-icons/io5";
-
+import { formatDateRange } from "../../utils/dateUtils";
+import { LanguageBadge } from "./LanguageBadge";
 
 interface TimelineCardProps {
     project: ProjectEntry;
@@ -24,11 +23,7 @@ export function TimelineCard({ project }: TimelineCardProps) {
                     >
                         {project.name}
                     </a>
-                    {project.description && (
-                        <p className="mt-1 text-sm text-text-dim">
-                            {project.description}
-                        </p>
-                    )}
+                    {project.description && <p className="mt-1 text-sm text-text-dim">{project.description}</p>}
                 </>
             ) : (
                 <span className="font-semibold text-text-dim cursor-default">
@@ -51,9 +46,7 @@ export function TimelineCard({ project }: TimelineCardProps) {
                     {project.totalCommits !== 1 ? "s" : ""}
                 </span>
                 <span aria-hidden="true">&middot;</span>
-                <span>
-                    {formatDateRange(project.createdAt, project.lastActiveAt)}
-                </span>
+                <span>{formatDateRange(project.createdAt, project.lastActiveAt)}</span>
             </div>
         </div>
     );

@@ -23,10 +23,8 @@
     --color-error: #f85149;
 
     /* Typography */
-    --font-sans:
-        "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
-    --font-mono:
-        "JetBrains Mono Variable", "JetBrains Mono", "Fira Code", monospace;
+    --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, sans-serif;
+    --font-mono: "JetBrains Mono Variable", "JetBrains Mono", "Fira Code", monospace;
 
     /* Animations */
     --animate-shimmer: shimmer 1.5s ease-in-out infinite;
@@ -277,19 +275,18 @@
     }
 }
 
-
 /* Adapt to your needs */
 .react-activity-calendar__tooltip {
-  width: max-content;
-  max-width: calc(100vw - 20px);
-  padding: 0.2em 0.5em;
-  border-radius: 0.25em;
-  background-color: var(--color-border);
-  color: hsl(0 0% 94%);
-  font-size: 12px;
+    width: max-content;
+    max-width: calc(100vw - 20px);
+    padding: 0.2em 0.5em;
+    border-radius: 0.25em;
+    background-color: var(--color-border);
+    color: hsl(0 0% 94%);
+    font-size: 12px;
 
-  /* See the `withArrow` setting. */
-  .react-activity-calendar__tooltip-arrow {
-    fill: var(--color-border);
-  }
+    /* See the `withArrow` setting. */
+    .react-activity-calendar__tooltip-arrow {
+        fill: var(--color-border);
+    }
 }

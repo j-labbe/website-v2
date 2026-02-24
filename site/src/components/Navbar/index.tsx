@@ -1,9 +1,5 @@
 export const Navbar: React.FC = () => (
-    <nav
-        className="sticky top-0 z-100 py-4"
-        aria-label="Main navigation"
-        data-scrolled="false"
-    >
+    <nav className="sticky top-0 z-100 py-4" aria-label="Main navigation" data-scrolled="false">
         <div className="max-w-[1200px] mx-auto px-8 flex justify-end items-center">
             <a
                 href="mailto:jack.labbe@icloud.com"

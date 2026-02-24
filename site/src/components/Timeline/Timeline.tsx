@@ -1,9 +1,9 @@
 import type { ProjectsFile } from "@jacklabbe/shared";
-import { groupByMonth } from "../../utils/dateUtils";
 import { useScrollSpy } from "../../hooks/useScrollSpy";
-import { TimelineCard } from "./TimelineCard";
-import { DateSpine } from "./DateSpine";
+import { groupByMonth } from "../../utils/dateUtils";
 import ScrollReveal from "../ScrollReveal/ScrollReveal";
+import { DateSpine } from "./DateSpine";
+import { TimelineCard } from "./TimelineCard";
 
 interface TimelineProps {
     projects: ProjectsFile;
@@ -17,16 +17,13 @@ export function Timeline({ projects }: TimelineProps) {
 
     return (
         <section aria-label="Project timeline">
-
             {/* Two-column layout: cards flex-1, spine fixed-width shrink-0 */}
             <div className="flex gap-2 overflow-visible">
                 {/* Main content */}
                 <div className="flex-1 min-w-0 space-y-10">
                     {months.map((month) => (
                         <div key={month.key} id={"month-" + month.key}>
-                            <h3 className="font-bold font-mono text-text-bright text-sm mb-3 pb-2">
-                                {month.label}
-                            </h3>
+                            <h3 className="font-bold font-mono text-text-bright text-sm mb-3 pb-2">{month.label}</h3>
                             <div className="space-y-3">
                                 {month.projects.map((project) => (
                                     <ScrollReveal
@@ -37,10 +34,7 @@ export function Timeline({ projects }: TimelineProps) {
                                         baseRotation={0}
                                         baseTranslateY={30}
                                     >
-                                        <TimelineCard
-                                            project={project}
-                                            monthKey={month.key}
-                                        />
+                                        <TimelineCard project={project} monthKey={month.key} />
                                     </ScrollReveal>
                                 ))}
                             </div>

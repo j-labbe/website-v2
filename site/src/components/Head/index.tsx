@@ -7,10 +7,7 @@ export const Head: React.FC = () => (
             name="description"
             content="Software and AI engineer. View my live commit activity, projects, and contributions."
         />
-        <meta
-            property="og:title"
-            content="Jack Labbe - Software & AI Engineer"
-        />
+        <meta property="og:title" content="Jack Labbe - Software & AI Engineer" />
         <meta
             property="og:description"
             content="Software and AI engineer. View my live commit activity, projects, and contributions."
@@ -22,10 +19,7 @@ export const Head: React.FC = () => (
         <meta property="og:url" content="https://jacklabbe.com" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-            name="twitter:title"
-            content="Jack Labbe - Software & AI Engineer"
-        />
+        <meta name="twitter:title" content="Jack Labbe - Software & AI Engineer" />
         <meta
             name="twitter:description"
             content="Software and AI engineer. View my live commit activity, projects, and contributions."

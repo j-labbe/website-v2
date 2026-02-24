@@ -1,19 +1,17 @@
-import { Container } from "./components/Container";
-import { Navbar } from "./components/Navbar";
-import { Hero } from "./components/Hero/Hero";
-import { Divider } from "./components/Divider";
 import { About } from "./components/About";
 import { CommitGraph } from "./components/CommitGraph";
-import { Timeline } from "./components/Timeline/Timeline";
-import { Footer } from "./components/Footer/Footer";
-import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop";
-import { useR2Data } from "./hooks/useR2Data";
-import { useFontsReady } from "./hooks/useFontsReady";
-import { useStagedReveal } from "./hooks/useStagedReveal";
-import { stagger } from "./utils/stagger";
-import { SectionHeader } from "./components/SectionHeader";
+import { Container } from "./components/Container";
 import { DataErrorMessage } from "./components/DataErrorMesage";
+import { Footer } from "./components/Footer/Footer";
 import { Head } from "./components/Head";
+import { Hero } from "./components/Hero/Hero";
+import { Navbar } from "./components/Navbar";
+import { ScrollToTop } from "./components/ScrollToTop/ScrollToTop";
+import { SectionHeader } from "./components/SectionHeader";
+import { Timeline } from "./components/Timeline/Timeline";
+import { useFontsReady } from "./hooks/useFontsReady";
+import { useR2Data } from "./hooks/useR2Data";
+import { useStagedReveal } from "./hooks/useStagedReveal";
 
 export default function App() {
     const dataState = useR2Data();
@@ -32,7 +30,7 @@ export default function App() {
     const timelineDataLoaded = dataState.status === "loaded" && dataState.data.projects;
 
     const graphData = graphDataLoaded ? dataState.data.graph : null;
-    console.log(graphData)
+
     const timelineData = timelineDataLoaded ? dataState.data.projects : null;
 
     return (
@@ -48,7 +46,10 @@ export default function App() {
                 </Container>
 
                 <Container>
-                    <SectionHeader text="activity" infoTooltip="Recent Github commits made by j-labbe. Does not include work accounts" />
+                    <SectionHeader
+                        text="activity"
+                        infoTooltip="Recent Github commits made by j-labbe. Does not include work accounts"
+                    />
                     {graphData ? (
                         <CommitGraph data={graphData.days} />
                     ) : (

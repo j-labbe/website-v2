@@ -1,6 +1,6 @@
-import { Octokit } from "@octokit/rest";
-import type { GitHubRepo } from "../types";
+import type { Octokit } from "@octokit/rest";
 import { log } from "../../utils";
+import type { GitHubRepo } from "../types";
 
 /**
  * Fetch all repos the authenticated user contributes to.
@@ -13,18 +13,12 @@ import { log } from "../../utils";
  *
  * Results are deduplicated by repo id.
  */
-export default async function fetchAllRepos(
-    octokit: Octokit,
-    orgs: string[] = [],
-): Promise<GitHubRepo[]> {
+export default async function fetchAllRepos(octokit: Octokit, orgs: string[] = []): Promise<GitHubRepo[]> {
     // fetch org + collaborator + owner repos
-    const userRepos = await octokit.paginate(
-        octokit.repos.listForAuthenticatedUser,
-        {
-            affiliation: "owner,collaborator,organization_member",
-            per_page: 100,
-        },
-    );
+    const userRepos = await octokit.paginate(octokit.repos.listForAuthenticatedUser, {
+        affiliation: "owner,collaborator,organization_member",
+        per_page: 100,
+    });
 
     log("fetch-user-repos", { count: userRepos.length });
 

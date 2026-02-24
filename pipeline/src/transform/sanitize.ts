@@ -41,15 +41,10 @@ export function sanitizePrivateRepo(
     monthlyCommits: Record<string, number>,
     languages: Record<string, number>,
 ): ProjectEntry {
-    const id = createHash("sha256")
-        .update(raw.full_name)
-        .digest("hex")
-        .slice(0, 16);
+    const id = createHash("sha256").update(raw.full_name).digest("hex").slice(0, 16);
 
     const parentRepo =
-        raw.fork && raw.parent && !raw.parent.private
-            ? { name: raw.parent.full_name, url: raw.parent.html_url }
-            : null;
+        raw.fork && raw.parent && !raw.parent.private ? { name: raw.parent.full_name, url: raw.parent.html_url } : null;
 
     return {
         id,

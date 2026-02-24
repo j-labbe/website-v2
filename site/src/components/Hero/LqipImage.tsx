@@ -12,12 +12,7 @@ export function LqipImage({ src, alt, className }: LqipImageProps) {
 
     return (
         <>
-            <img
-                src={LQIP_DATA_URI}
-                alt=""
-                aria-hidden="true"
-                className={`lqip-placeholder ${className}`}
-            />
+            <img src={LQIP_DATA_URI} alt="" aria-hidden="true" className={`lqip-placeholder ${className}`} />
             <img
                 src={src}
                 alt={alt}

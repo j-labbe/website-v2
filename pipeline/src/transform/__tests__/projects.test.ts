@@ -1,6 +1,6 @@
+import type { ProjectEntry } from "@jacklabbe/shared";
 import { describe, it, expect } from "vitest";
 import { transformRepo, filterRepos } from "../projects";
-import type { ProjectEntry } from "@jacklabbe/shared";
 
 const mockPublicRepo = {
     id: 789012,
@@ -61,71 +61,40 @@ const mockRecentCommits = [
 describe("transformRepo", () => {
     describe("public repos", () => {
         it("should include url, description, topics, and recentCommits for public repos", () => {
-            const result = transformRepo(
-                mockPublicRepo,
-                mockMonthlyCommits,
-                mockLanguages,
-                mockRecentCommits,
-            );
-            expect(result.url).toBe(
-                "https://github.com/j-labbe/my-public-project",
-            );
+            const result = transformRepo(mockPublicRepo, mockMonthlyCommits, mockLanguages, mockRecentCommits);
+            expect(result.url).toBe("https://github.com/j-labbe/my-public-project");
             expect(result.description).toBe("An awesome open-source project");
             expect(result.topics).toEqual(["typescript", "open-source"]);
             expect(result.recentCommits).toEqual(mockRecentCommits);
         });
 
         it("should use GitHub numeric ID as string for public repo id", () => {
-            const result = transformRepo(
-                mockPublicRepo,
-                mockMonthlyCommits,
-                mockLanguages,
-            );
+            const result = transformRepo(mockPublicRepo, mockMonthlyCommits, mockLanguages);
             expect(result.id).toBe("789012");
         });
 
         it("should set isPrivate to false for public repos", () => {
-            const result = transformRepo(
-                mockPublicRepo,
-                mockMonthlyCommits,
-                mockLanguages,
-            );
+            const result = transformRepo(mockPublicRepo, mockMonthlyCommits, mockLanguages);
             expect(result.isPrivate).toBe(false);
         });
 
         it("should include name from repo for public repos", () => {
-            const result = transformRepo(
-                mockPublicRepo,
-                mockMonthlyCommits,
-                mockLanguages,
-            );
+            const result = transformRepo(mockPublicRepo, mockMonthlyCommits, mockLanguages);
             expect(result.name).toBe("my-public-project");
         });
 
         it("should include languages as string array", () => {
-            const result = transformRepo(
-                mockPublicRepo,
-                mockMonthlyCommits,
-                mockLanguages,
-            );
+            const result = transformRepo(mockPublicRepo, mockMonthlyCommits, mockLanguages);
             expect(result.languages).toEqual(["TypeScript", "JavaScript"]);
         });
 
         it("should compute totalCommits from monthlyCommits", () => {
-            const result = transformRepo(
-                mockPublicRepo,
-                mockMonthlyCommits,
-                mockLanguages,
-            );
+            const result = transformRepo(mockPublicRepo, mockMonthlyCommits, mockLanguages);
             expect(result.totalCommits).toBe(30); // 10 + 15 + 5
         });
 
         it("should slice dates to YYYY-MM-DD", () => {
-            const result = transformRepo(
-                mockPublicRepo,
-                mockMonthlyCommits,
-                mockLanguages,
-            );
+            const result = transformRepo(mockPublicRepo, mockMonthlyCommits, mockLanguages);
             expect(result.createdAt).toBe("2024-03-10");
             expect(result.lastActiveAt).toBe("2026-02-18");
         });
@@ -141,11 +110,7 @@ describe("transformRepo", () => {
                 },
             };
 
-            const result = transformRepo(
-                publicFork,
-                mockMonthlyCommits,
-                mockLanguages,
-            );
+            const result = transformRepo(publicFork, mockMonthlyCommits, mockLanguages);
             expect(result.isFork).toBe(true);
             expect(result.parentRepo).toEqual({
                 name: "original-org/original-repo",
@@ -156,12 +121,7 @@ describe("transformRepo", () => {
 
     describe("private repos", () => {
         it("should delegate to sanitizePrivateRepo for private repos", () => {
-            const result = transformRepo(
-                mockPrivateRepo,
-                mockMonthlyCommits,
-                mockLanguages,
-                mockRecentCommits,
-            );
+            const result = transformRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages, mockRecentCommits);
             expect(result.name).toBe("Private Repo");
             expect(result.isPrivate).toBe(true);
             // Must NOT have public-only fields
@@ -172,12 +132,7 @@ describe("transformRepo", () => {
         });
 
         it("should NOT leak private repo info even when recentCommits are provided", () => {
-            const result = transformRepo(
-                mockPrivateRepo,
-                mockMonthlyCommits,
-                mockLanguages,
-                mockRecentCommits,
-            );
+            const result = transformRepo(mockPrivateRepo, mockMonthlyCommits, mockLanguages, mockRecentCommits);
             const serialized = JSON.stringify(result);
             expect(serialized).not.toContain("secret-project");
             expect(serialized).not.toContain("Confidential");
@@ -228,10 +183,7 @@ describe("filterRepos", () => {
         ];
         const result = filterRepos(repos);
         expect(result).toHaveLength(2);
-        expect(result.map((r) => r.name)).toEqual([
-            "exactly-three",
-            "just-over",
-        ]);
+        expect(result.map((r) => r.name)).toEqual(["exactly-three", "just-over"]);
     });
 
     it("should return empty array for empty input", () => {

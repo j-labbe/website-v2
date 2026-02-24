@@ -1,6 +1,6 @@
-import { Octokit } from "@octokit/rest";
-import type { GitHubCommit } from "../types";
+import type { Octokit } from "@octokit/rest";
 import { log, safeRepoId } from "../../utils";
+import type { GitHubCommit } from "../types";
 
 /**
  * Fetch commits for a repo filtered by author and date range.

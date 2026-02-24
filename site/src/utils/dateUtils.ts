@@ -26,10 +26,7 @@ export function formatMonthLabel(key: string): string {
 }
 
 /** Returns "Jan 2025 -- Feb 2026" format */
-export function formatDateRange(
-    createdAt: string,
-    lastActiveAt: string,
-): string {
+export function formatDateRange(createdAt: string, lastActiveAt: string): string {
     const start = new Date(createdAt + "T00:00:00Z");
     const end = new Date(lastActiveAt + "T00:00:00Z");
     return `${shortDateFormatter.format(start)} \u2013 ${shortDateFormatter.format(end)}`;
@@ -55,16 +52,12 @@ export function groupByMonth(projects: ProjectEntry[]): MonthGroup[] {
     }
 
     // Sort months newest first
-    const sortedKeys = Array.from(monthMap.keys()).sort((a, b) =>
-        b.localeCompare(a),
-    );
+    const sortedKeys = Array.from(monthMap.keys()).sort((a, b) => b.localeCompare(a));
 
     return sortedKeys.map((key) => {
         const monthProjects = monthMap.get(key)!;
         // Within each month, sort by lastActiveAt descending
-        monthProjects.sort((a, b) =>
-            b.lastActiveAt.localeCompare(a.lastActiveAt),
-        );
+        monthProjects.sort((a, b) => b.lastActiveAt.localeCompare(a.lastActiveAt));
 
         return {
             key,

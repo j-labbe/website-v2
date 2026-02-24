@@ -1,6 +1,6 @@
+import type { PipelineMeta } from "@jacklabbe/shared";
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { isBackfillNeeded } from "../backfill";
-import type { PipelineMeta } from "@jacklabbe/shared";
 
 describe("isBackfillNeeded", () => {
     afterEach(() => {

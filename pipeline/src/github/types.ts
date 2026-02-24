@@ -3,12 +3,7 @@
  * These represent the raw API shape before transformation into shared types.
  */
 
-export type ContributionLevel =
-    | "NONE"
-    | "FIRST_QUARTILE"
-    | "SECOND_QUARTILE"
-    | "THIRD_QUARTILE"
-    | "FOURTH_QUARTILE";
+export type ContributionLevel = "NONE" | "FIRST_QUARTILE" | "SECOND_QUARTILE" | "THIRD_QUARTILE" | "FOURTH_QUARTILE";
 
 export interface GitHubContributionDay {
     contributionCount: number;

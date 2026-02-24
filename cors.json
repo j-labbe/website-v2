@@ -2,11 +2,7 @@
     "rules": [
         {
             "allowed": {
-                "origins": [
-                    "https://jacklabbe.com",
-                    "https://jacklabbe.pages.dev",
-                    "http://localhost:5173"
-                ],
+                "origins": ["https://jacklabbe.com", "https://jacklabbe.pages.dev", "http://localhost:5173"],
                 "methods": ["GET", "HEAD"],
                 "headers": ["content-type"]
             },

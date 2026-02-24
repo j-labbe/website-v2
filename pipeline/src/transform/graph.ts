@@ -15,9 +15,7 @@ const LEVEL_MAP: Record<ContributionLevel, 0 | 1 | 2 | 3 | 4> = {
  * Flattens the nested weeks/days structure into a flat ContributionDay array
  * and maps the contributionLevel enum to 0-4 integer levels.
  */
-export function transformContributionCalendar(
-    calendar: GitHubContributionCalendar,
-): GraphData {
+export function transformContributionCalendar(calendar: GitHubContributionCalendar): GraphData {
     const days: ContributionDay[] = calendar.weeks.flatMap((week) =>
         week.contributionDays.map((day) => ({
             date: day.date,

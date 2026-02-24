@@ -1,13 +1,12 @@
 import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { Octokit } from "@octokit/rest";
 import type { CommitDetail, PipelineMeta, ProjectEntry } from "@jacklabbe/shared";
+import { Octokit } from "@octokit/rest";
 import { fetchContributionCalendar } from "./github/graphql";
 import { fetchAllRepos, fetchRepoCommits, fetchRepoLanguages, fetchCommitDetail } from "./github/rest";
 import { transformContributionCalendar } from "./transform/graph";
 import { transformRepo, filterRepos } from "./transform/projects";
 import { log, toMonthKey, loadConfig } from "./utils";
-
 
 async function main() {
     const token = process.env.GH_PAT;
@@ -19,7 +18,6 @@ async function main() {
     const outDir = join(process.cwd(), "output");
 
     try {
-
         const config = loadConfig();
         log("config-loaded", { username: config.username, orgs: config.orgs });
 
@@ -27,10 +25,7 @@ async function main() {
 
         log("pipeline-start", { mode: "backfill" });
 
-        const calendar = await fetchContributionCalendar(
-            token,
-            config.username,
-        );
+        const calendar = await fetchContributionCalendar(token, config.username);
 
         const graphData = transformContributionCalendar(calendar);
 
@@ -46,11 +41,7 @@ async function main() {
 
         // Date range: 24 months back for full backfill
         const now = new Date();
-        const since = new Date(
-            now.getFullYear() - 2,
-            now.getMonth(),
-            now.getDate(),
-        ).toISOString();
+        const since = new Date(now.getFullYear() - 2, now.getMonth(), now.getDate()).toISOString();
         const until = now.toISOString();
 
         // process repos
@@ -61,11 +52,7 @@ async function main() {
             const repo = allRepos[i];
             const [owner, repoName] = repo.full_name.split("/");
 
-            const languages = await fetchRepoLanguages(
-                octokit,
-                owner,
-                repoName,
-            );
+            const languages = await fetchRepoLanguages(octokit, owner, repoName);
 
             const commits = await fetchRepoCommits(
                 octokit,
@@ -90,12 +77,7 @@ async function main() {
                 const recentShas = commits.slice(0, 10);
 
                 for (const c of recentShas) {
-                    const detail = await fetchCommitDetail(
-                        octokit,
-                        owner,
-                        repoName,
-                        c.sha,
-                    );
+                    const detail = await fetchCommitDetail(octokit, owner, repoName, c.sha);
                     if (detail === null) {
                         rateLimitDepleted = true;
                         log("rate-limit-depleted", {
@@ -165,10 +147,7 @@ async function main() {
         };
 
         writeFileSync(join(outDir, "graph.json"), JSON.stringify(graphData));
-        writeFileSync(
-            join(outDir, "projects.json"),
-            JSON.stringify({ projects }),
-        );
+        writeFileSync(join(outDir, "projects.json"), JSON.stringify({ projects }));
         writeFileSync(join(outDir, "meta.json"), JSON.stringify(meta));
 
         log("pipeline-complete", {
@@ -178,8 +157,7 @@ async function main() {
             outputDir: outDir,
         });
     } catch (err) {
-        const message =
-            err instanceof Error ? err.message : "Unknown pipeline error";
+        const message = err instanceof Error ? err.message : "Unknown pipeline error";
         log("pipeline-error", { error: message });
 
         const errorMeta: PipelineMeta = {
