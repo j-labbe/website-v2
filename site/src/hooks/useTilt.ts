@@ -12,9 +12,9 @@ export function useTilt<T extends HTMLElement>() {
         const rect = el.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width;
         const y = (e.clientY - rect.top) / rect.height;
-        const rotateX = (0.5 - y) * MAX_DEGREES;
-        const rotateY = (x - 0.5) * MAX_DEGREES;
-        el.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${SCALE})`;
+        const rotateX = (0.5 - y) * MAX_DEGREES * -1;
+        const rotateY = (x - 0.5) * MAX_DEGREES * -1;
+        el.style.transform = `perspective(400px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${SCALE})`;
     }, []);
 
     const onMouseLeave = useCallback(() => {

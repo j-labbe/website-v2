@@ -31,6 +31,8 @@
     /* Animations */
     --animate-shimmer: shimmer 1.5s ease-in-out infinite;
     --animate-fade-in-up: fadeInUp 400ms ease-out forwards;
+    --animate-stream-word: streamWord 350ms ease-out both;
+    --animate-blink-cursor: blinkCursor 750ms step-end infinite both;
 }
 
 /* Custom keyframes */
@@ -62,6 +64,29 @@
     to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+@keyframes streamWord {
+    from {
+        opacity: 0;
+        filter: blur(4px);
+        translate: -6px 0;
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+        translate: 0 0;
+    }
+}
+
+@keyframes blinkCursor {
+    from,
+    to {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
     }
 }
 
@@ -151,11 +176,6 @@
         transform: none;
     }
 
-    nav[data-scrolled="true"] {
-        border-bottom-color: var(--color-border);
-    }
-
-    /* LQIP (Low Quality Image Placeholder) blur-in transition */
     .lqip-container {
         position: relative;
         overflow: hidden;
@@ -183,20 +203,6 @@
         opacity: 1;
     }
 
-    /* Commit graph cell wave animation + hover */
-    .commit-cell {
-        opacity: 0;
-        animation: cellFadeIn 300ms ease-out forwards;
-        transform-box: fill-box;
-        transform-origin: center;
-        transition: transform 120ms ease;
-        cursor: pointer;
-    }
-    .commit-cell:hover {
-        transform: scale(1.8);
-    }
-
-    /* Timeline card hover: Linear-style lift + background shift */
     .timeline-card {
         transition:
             transform 120ms ease,
@@ -209,7 +215,6 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
-    /* Link hover: color brighten + underline slide in */
     .link-hover {
         position: relative;
         transition: color 120ms ease;
@@ -265,4 +270,26 @@
     .timeline-card:hover {
         transform: none;
     }
+
+    .animate-blink-cursor {
+        animation: none !important;
+        opacity: 0 !important;
+    }
+}
+
+
+/* Adapt to your needs */
+.react-activity-calendar__tooltip {
+  width: max-content;
+  max-width: calc(100vw - 20px);
+  padding: 0.2em 0.5em;
+  border-radius: 0.25em;
+  background-color: var(--color-border);
+  color: hsl(0 0% 94%);
+  font-size: 12px;
+
+  /* See the `withArrow` setting. */
+  .react-activity-calendar__tooltip-arrow {
+    fill: var(--color-border);
+  }
 }

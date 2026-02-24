@@ -6,14 +6,14 @@ import {
 } from "../icons/SocialIcons";
 
 const socialLinks = [
-    { href: "https://github.com/jacklabbe", label: "GitHub", Icon: GitHubIcon },
+    { href: "https://github.com/j-labbe", label: "GitHub", Icon: GitHubIcon },
     {
-        href: "https://linkedin.com/in/jacklabbe",
+        href: "https://linkedin.com/in/jack-labbe",
         label: "LinkedIn",
         Icon: LinkedInIcon,
     },
-    { href: "mailto:contact@jacklabbe.com", label: "Email", Icon: MailIcon },
-    { href: "https://x.com/jacklabbe", label: "X", Icon: XIcon },
+    { href: "mailto:jack.labbe@icloud.com", label: "Email", Icon: MailIcon },
+    // { href: "https://x.com/jacklabbe", label: "X", Icon: XIcon },
 ] as const;
 
 export function Footer() {

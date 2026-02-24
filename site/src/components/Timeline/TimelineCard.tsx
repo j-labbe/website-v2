@@ -1,6 +1,8 @@
 import type { ProjectEntry } from "@jacklabbe/shared";
 import { LanguageBadge } from "./LanguageBadge";
 import { formatDateRange } from "../../utils/dateUtils";
+import { IoLockClosed } from "react-icons/io5";
+
 
 interface TimelineCardProps {
     project: ProjectEntry;
@@ -29,7 +31,8 @@ export function TimelineCard({ project }: TimelineCardProps) {
                     )}
                 </>
             ) : (
-                <span className="font-semibold text-text-dim border-l-2 border-accent-secondary pl-2">
+                <span className="font-semibold text-text-dim cursor-default">
+                    <IoLockClosed className="inline-block mb-1.5 mr-1.5" aria-hidden="true" />
                     Private Repo
                 </span>
             )}

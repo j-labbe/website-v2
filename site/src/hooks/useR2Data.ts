@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { GraphData, ProjectsFile, PipelineMeta } from "@jacklabbe/shared";
+import fetchWithTimeout from "../utils/fetchWithTimeout";
 
 export interface R2Data {
     graph: GraphData | null;
@@ -12,30 +13,16 @@ export type R2State =
     | { status: "loaded"; data: R2Data }
     | { status: "error"; error: string };
 
-const R2_BASE = "https://data.jacklabbe.com";
-const TIMEOUT_MS = 5_000;
-const CACHE_KEY = "r2-data-cache";
-const CACHE_MAX_AGE_MS = 60 * 60 * 1000; // 1 hour
-
 interface CachedData {
     timestamp: number;
     data: R2Data;
 }
 
-async function fetchWithTimeout(
-    url: string,
-    timeoutMs: number,
-): Promise<Response> {
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), timeoutMs);
-    try {
-        const res = await fetch(url, { signal: controller.signal });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res;
-    } finally {
-        clearTimeout(id);
-    }
-}
+const R2_BASE = "https://data.jacklabbe.com";
+const TIMEOUT_MS = 5_000;
+const CACHE_KEY = "jlabbe-data-cache";
+const CACHE_MAX_AGE_MS = 60 * 60 * 1000; // 1 hour
+const resources = ["graph.json", "projects.json", "meta.json"];
 
 function getCachedData(): R2Data | null {
     try {
@@ -57,7 +44,7 @@ function setCachedData(data: R2Data): void {
         const cached: CachedData = { timestamp: Date.now(), data };
         sessionStorage.setItem(CACHE_KEY, JSON.stringify(cached));
     } catch {
-        // sessionStorage full or unavailable -- silently ignore
+        // sessionStorage full or unavailable - silently ignore
     }
 }
 
@@ -73,17 +60,17 @@ export function useR2Data(): R2State {
 
         async function load() {
             try {
-                const [graphRes, projectsRes, metaRes] = await Promise.all([
-                    fetchWithTimeout(`${R2_BASE}/graph.json`, TIMEOUT_MS),
-                    fetchWithTimeout(`${R2_BASE}/projects.json`, TIMEOUT_MS),
-                    fetchWithTimeout(`${R2_BASE}/meta.json`, TIMEOUT_MS),
-                ]);
 
-                const [graph, projects, meta] = await Promise.all([
-                    graphRes.json() as Promise<GraphData>,
-                    projectsRes.json() as Promise<ProjectsFile>,
-                    metaRes.json() as Promise<PipelineMeta>,
-                ]);
+                // goal: try to reduce repeated code
+                // i'm not super happy with how this turned out and the repetition is small so i might refactor this later
+                // it feels like Promise.all is a bit awkward. if you are reading this and have suggestions for improvement, please let me know or submit a PR!
+                const [graph, projects, meta] = (await Promise.all(
+                    resources.map((resource) =>
+                        fetchWithTimeout(`${R2_BASE}/${resource}`, TIMEOUT_MS).then((response) =>
+                            response.json()
+                        )
+                    )
+                )) as [GraphData, ProjectsFile, PipelineMeta];
 
                 const data: R2Data = { graph, projects, meta };
                 setCachedData(data);
@@ -93,12 +80,12 @@ export function useR2Data(): R2State {
                 }
             } catch (err) {
                 if (!cancelled) {
-                    const message =
-                        err instanceof DOMException && err.name === "AbortError"
-                            ? "Request timed out"
-                            : err instanceof Error
-                              ? err.message
-                              : "Failed to load data";
+                    let message = "An unknown error occurred";
+                    if (err instanceof DOMException && err.name === "AbortError") {
+                        message = "Request timed out";
+                    } else if (err instanceof Error) {
+                        message = err.message;
+                    }
                     setState({ status: "error", error: message });
                 }
             }

@@ -1,17 +1,11 @@
 import { useState, useEffect } from "react";
+import { IoCaretUp } from "react-icons/io5";
 
-/**
- * Fixed scroll-to-top button that appears once the user scrolls
- * past a threshold. Positioned bottom-right, inset from the page
- * edge so it aligns with the 1200px content container and avoids
- * overlapping the timeline date spine.
- */
 export function ScrollToTop() {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         function onScroll() {
-            // Show after scrolling ~600px (roughly past hero + graph)
             setVisible(window.scrollY > 600);
         }
 
@@ -33,18 +27,7 @@ export function ScrollToTop() {
                     : "opacity-0 translate-y-4 pointer-events-none"
             }`}
         >
-            <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            >
-                <path d="M8 12V4M4 7l4-4 4 4" />
-            </svg>
+            <IoCaretUp size={20} />
         </button>
     );
 }
