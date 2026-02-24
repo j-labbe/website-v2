@@ -8,6 +8,7 @@ const DateItem = ({
     hoveredIndex,
     isActive,
     timelineHover,
+    isMobile = false,
     onClick,
     onHover,
     onLeave,
@@ -18,6 +19,7 @@ const DateItem = ({
     hoveredIndex: number | null;
     isActive: boolean;
     timelineHover: boolean;
+    isMobile?: boolean;
     onClick: () => void;
     onHover: () => void;
     onLeave: () => void;
@@ -36,8 +38,8 @@ const DateItem = ({
     const barColor = isActive
         ? lerpColor(COLOR_ACCENT, COLOR_BRIGHT, brightness * 0.4)
         : lerpColor(COLOR_DIM, COLOR_BRIGHT, brightness);
-    const labelOpacity = timelineHover ? 0.3 + brightness * 0.7 : 0;
-    const labelColor = isActive ? COLOR_ACCENT : lerpColor("#6e7a8a", COLOR_BRIGHT, brightness);
+    const labelOpacity = isMobile ? (isActive ? 1 : 0.5) : timelineHover ? 0.3 + brightness * 0.7 : 0;
+    const labelColor = isActive ? COLOR_ACCENT : isMobile ? "#6e7a8a" : lerpColor("#6e7a8a", COLOR_BRIGHT, brightness);
 
     return (
         <li
@@ -58,7 +60,7 @@ const DateItem = ({
                 style={{
                     opacity: labelOpacity,
                     color: labelColor,
-                    transform: timelineHover ? "translateX(0)" : "translateX(4px)",
+                    transform: isMobile ? "none" : timelineHover ? "translateX(0)" : "translateX(4px)",
                     transition: "all 150ms ease-out",
                 }}
             >

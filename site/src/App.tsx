@@ -56,7 +56,7 @@ export default function App() {
                     )}
                 </Container>
 
-                <Container>
+                <div className="max-w-[1200px] mx-auto px-8">
                     <SectionHeader text="projects" infoTooltip="Currently only has running 2 years of data" />
                     {timelineData ? (
                         <Timeline projects={timelineData} />
@@ -66,7 +66,7 @@ export default function App() {
                             onRetry={retry}
                         />
                     )}
-                </Container>
+                </div>
             </main>
             <Footer />
             <ScrollToTop />
