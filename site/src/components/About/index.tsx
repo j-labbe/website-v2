@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const ABOUT_TEXT = [
     "I'm a software engineer who builds things that solve real problems. I work across data, AI, and full stack engineering, building everything from search platforms and custom tooling to iOS apps that people actually use.",
-    "Currently I'm experimenting with what AI can do in production; things like fine-tuning tone and output in large-scale LLM deployments to building APIs that connect MCP servers and semantic search for seamless chat experiences.",
+    "Currently I'm experimenting with what AI can do in production; things like fine-tuning tone and output in large-scale LLM deployments to building APIs that connect MCP servers and semantic search for seamless, data-rich experiences.",
     "Feel free to check out my projects below, or reach out if you want to chat about anything!",
 ];
 const WORD_DELAY_MS = 50;
