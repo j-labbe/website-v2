@@ -14,7 +14,7 @@ import { useR2Data } from "./hooks/useR2Data";
 import { useStagedReveal } from "./hooks/useStagedReveal";
 
 export default function App() {
-    const dataState = useR2Data();
+    const { retry, ...dataState } = useR2Data();
     const fontsReady = useFontsReady();
 
     const isReady = fontsReady && (dataState.status === "loaded" || dataState.status === "error");
@@ -26,12 +26,8 @@ export default function App() {
     // 0-3: hero internals, 4+: rest of page
     const { phase, isVisible } = useStagedReveal(isReady, 8);
 
-    const graphDataLoaded = dataState.status === "loaded" && dataState.data.graph;
-    const timelineDataLoaded = dataState.status === "loaded" && dataState.data.projects;
-
-    const graphData = graphDataLoaded ? dataState.data.graph : null;
-
-    const timelineData = timelineDataLoaded ? dataState.data.projects : null;
+    const graphData = dataState.status === "loaded" && dataState.data.graph ? dataState.data.graph : null;
+    const timelineData = dataState.status === "loaded" && dataState.data.projects ? dataState.data.projects : null;
 
     return (
         <div className={`relative transition-opacity duration-300 ${phase === "blank" ? "opacity-0" : "opacity-100"}`}>
@@ -53,7 +49,10 @@ export default function App() {
                     {graphData ? (
                         <CommitGraph data={graphData.days} />
                     ) : (
-                        <DataErrorMessage message="An error occurred while loading activity data. Please try again later." />
+                        <DataErrorMessage
+                            message="An error occurred while loading activity data."
+                            onRetry={retry}
+                        />
                     )}
                 </Container>
 
@@ -62,7 +61,10 @@ export default function App() {
                     {timelineData ? (
                         <Timeline projects={timelineData} />
                     ) : (
-                        <DataErrorMessage message="An error occurred while loading project data. Please try again later." />
+                        <DataErrorMessage
+                            message="An error occurred while loading project data."
+                            onRetry={retry}
+                        />
                     )}
                 </Container>
             </main>

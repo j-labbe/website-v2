@@ -1,5 +1,5 @@
 import type { GraphData, ProjectsFile, PipelineMeta } from "@jacklabbe/shared";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import fetchWithTimeout from "../utils/fetchWithTimeout";
 
 export interface R2Data {
@@ -8,7 +8,10 @@ export interface R2Data {
     meta: PipelineMeta | null;
 }
 
-export type R2State = { status: "loading" } | { status: "loaded"; data: R2Data } | { status: "error"; error: string };
+export type R2State =
+    | { status: "loading" }
+    | { status: "loaded"; data: R2Data; partial: boolean }
+    | { status: "error"; error: string };
 
 interface CachedData {
     timestamp: number;
@@ -16,7 +19,8 @@ interface CachedData {
 }
 
 const R2_BASE = "https://data.jacklabbe.com";
-const TIMEOUT_MS = 5_000;
+const TIMEOUT_MS = 12_000;
+// const TIMEOUT_MS = 1;
 const CACHE_KEY = "jlabbe-data-cache";
 const CACHE_MAX_AGE_MS = 60 * 60 * 1000; // 1 hour
 const resources = ["graph.json", "projects.json", "meta.json"];
@@ -45,51 +49,72 @@ function setCachedData(data: R2Data): void {
     }
 }
 
-export function useR2Data(): R2State {
+export function useR2Data(): R2State & { retry: () => void } {
     const [state, setState] = useState<R2State>(() => {
         const cached = getCachedData();
-        if (cached) return { status: "loaded", data: cached };
+        if (cached) return { status: "loaded", data: cached, partial: false };
         return { status: "loading" };
     });
 
-    useEffect(() => {
-        let cancelled = false;
+    const load = useCallback(async (signal: { cancelled: boolean }) => {
+        setState({ status: "loading" });
 
-        async function load() {
-            try {
-                // goal: try to reduce repeated code
-                // i'm not super happy with how this turned out and the repetition is small so i might refactor this later
-                // it feels like Promise.all is a bit awkward. if you are reading this and have suggestions for improvement, please let me know or submit a PR!
-                const [graph, projects, meta] = (await Promise.all(
-                    resources.map((resource) =>
-                        fetchWithTimeout(`${R2_BASE}/${resource}`, TIMEOUT_MS).then((response) => response.json()),
-                    ),
-                )) as [GraphData, ProjectsFile, PipelineMeta];
+        const results = await Promise.allSettled(
+            resources.map((resource) =>
+                fetchWithTimeout(`${R2_BASE}/${resource}`, TIMEOUT_MS).then((response) => response.json()),
+            ),
+        );
 
-                const data: R2Data = { graph, projects, meta };
-                setCachedData(data);
+        if (signal.cancelled) return;
 
-                if (!cancelled) {
-                    setState({ status: "loaded", data });
-                }
-            } catch (err) {
-                if (!cancelled) {
-                    let message = "An unknown error occurred";
-                    if (err instanceof DOMException && err.name === "AbortError") {
-                        message = "Request timed out";
-                    } else if (err instanceof Error) {
-                        message = err.message;
-                    }
-                    setState({ status: "error", error: message });
-                }
+        const graph = results[0].status === "fulfilled" ? (results[0].value as GraphData) : null;
+        const projects = results[1].status === "fulfilled" ? (results[1].value as ProjectsFile) : null;
+        const meta = results[2].status === "fulfilled" ? (results[2].value as PipelineMeta) : null;
+
+        const allFailed = !graph && !projects && !meta;
+
+        if (allFailed) {
+            const firstError = results.find((r) => r.status === "rejected") as PromiseRejectedResult | undefined;
+            const reason = firstError?.reason;
+            let message = "An unknown error occurred";
+            if (reason instanceof DOMException && reason.name === "AbortError") {
+                message = "Request timed out";
+            } else if (reason instanceof Error) {
+                message = reason.message;
             }
+            setState({ status: "error", error: message });
+            return;
         }
 
-        load();
-        return () => {
-            cancelled = true;
-        };
+        const data: R2Data = { graph, projects, meta };
+        const partial = !graph || !projects || !meta;
+        setCachedData(data);
+        setState({ status: "loaded", data, partial });
     }, []);
 
-    return state;
+    const signalRef = { current: { cancelled: false } };
+
+    useEffect(() => {
+        const signal = { cancelled: false };
+        signalRef.current = signal;
+
+        if (state.status !== "loaded") {
+            load(signal);
+        }
+
+        return () => {
+            signal.cancelled = true;
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const retry = useCallback(() => {
+        signalRef.current.cancelled = true;
+        const signal = { cancelled: false };
+        signalRef.current = signal;
+        load(signal);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [load]);
+
+    return { ...state, retry };
 }

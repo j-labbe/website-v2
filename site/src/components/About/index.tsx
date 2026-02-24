@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const ABOUT_TEXT = [
     "I'm a software engineer who turns complex problems into elegant, intelligent systems. I work across data, AI, and full stack engineering, building everything from search platforms and custom tooling to iOS apps that people actually use.",
@@ -31,6 +31,18 @@ export const About = () => {
         return () => observer.disconnect();
     }, []);
 
+    // When animation ends on a word, strip the animation and set final styles directly.
+    // This forces Safari/WebKit to tear down the compositing layer created for the
+    // blur filter, which otherwise causes text to stay blurry.
+    const handleAnimationEnd = useCallback((e: React.AnimationEvent<HTMLSpanElement>) => {
+        const el = e.currentTarget;
+        el.classList.remove("animate-stream-word", "opacity-0");
+        el.style.animation = "none";
+        el.style.opacity = "1";
+        el.style.filter = "";
+        el.style.translate = "";
+    }, []);
+
     return (
         <div ref={containerRef} className="mb-8">
             {ABOUT_TEXT.map((paragraph, index) => {
@@ -59,6 +71,7 @@ export const About = () => {
                                                       }
                                                     : undefined
                                             }
+                                            onAnimationEnd={handleAnimationEnd}
                                         >
                                             {word}{" "}
                                         </span>
