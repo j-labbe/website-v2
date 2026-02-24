@@ -1,0 +1,39 @@
+name: Deploy Site
+
+on:
+    push:
+        branches: [master]
+        paths:
+            - "site/**"
+            - "shared/**"
+            - "pnpm-lock.yaml"
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    deployments: write
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: pnpm/action-setup@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  cache: "pnpm"
+
+            - run: pnpm install
+
+            - name: Build site
+              run: pnpm --filter @jacklabbe/site build
+
+            - name: Deploy to Cloudflare Pages
+              uses: cloudflare/wrangler-action@v3
+              with:
+                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  accountId: ef226d71a9cc27a00dfb2f2c9b5cb362
+                  command: pages deploy site/dist --project-name=jacklabbe
