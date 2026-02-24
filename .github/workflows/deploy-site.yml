@@ -37,3 +37,4 @@ jobs:
                   apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                   accountId: ef226d71a9cc27a00dfb2f2c9b5cb362
                   command: pages deploy site/dist --project-name=jacklabbe
+                  packageManager: pnpm
