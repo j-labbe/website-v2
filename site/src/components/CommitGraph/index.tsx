@@ -1,5 +1,5 @@
 import type { ContributionDay } from "@jacklabbe/shared";
-import { cloneElement } from "react";
+import { cloneElement, useEffect, useRef } from "react";
 import { ActivityCalendar } from "react-activity-calendar";
 import type { Activity, ThemeInput } from "react-activity-calendar";
 
@@ -11,8 +11,15 @@ export const CommitGraph = ({ data }: { data: ContributionDay[] }) => {
         dark: LEVEL_COLORS,
     };
 
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const el = scrollRef.current;
+        if (el) el.scrollLeft = el.scrollWidth;
+    }, [data]);
+
     return (
-        <div className="p-4 overflow-x-auto">
+        <div ref={scrollRef} className="p-4 overflow-x-auto">
             <div className="w-fit min-w-[720px]">
                 <ActivityCalendar
                     data={data as Activity[]}

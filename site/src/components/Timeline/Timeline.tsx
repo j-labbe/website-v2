@@ -43,7 +43,7 @@ export function Timeline({ projects }: TimelineProps) {
                 </div>
 
                 {/* Date spine — fixed width column, hover content overflows left */}
-                <div className="shrink-0 w-20 overflow-visible">
+                <div className="hidden md:block shrink-0 w-20 overflow-visible">
                     <DateSpine
                         months={months.map((m) => ({
                             key: m.key,
