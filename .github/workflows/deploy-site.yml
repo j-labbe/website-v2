@@ -30,6 +30,8 @@ jobs:
 
             - name: Build site
               run: pnpm --filter @jacklabbe/site build
+              env:
+                  VITE_ENABLE_WEBMCP: "true"
 
             - name: Deploy to Cloudflare Pages
               uses: cloudflare/wrangler-action@v3
