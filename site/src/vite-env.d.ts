@@ -2,6 +2,7 @@
 
 interface ImportMetaEnv {
     readonly VITE_R2_BASE_URL: string;
+    readonly VITE_ENABLE_WEBMCP?: string;
 }
 
 interface ImportMeta {

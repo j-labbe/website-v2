@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const ABOUT_TEXT = [
+export const ABOUT_TEXT = [
     "I'm a software engineer who builds things that solve real problems. I work across data, AI, and full stack engineering, building everything from search platforms and custom tooling to iOS apps that people actually use.",
     "Currently I'm experimenting with what AI can do in production; things like fine-tuning tone and output in large-scale LLM deployments to building APIs that connect MCP servers and semantic search for seamless, data-rich experiences.",
     "Feel free to check out my projects below, or reach out if you want to chat about anything!",
@@ -13,22 +13,32 @@ export const About = () => {
 
     const aboutParagraphLengths = ABOUT_TEXT.map((p) => p.split(" ").filter(Boolean).length);
 
+    // Delay observer setup so the word-stream doesn't start while the page
+    // is still fading in from opacity-0 → opacity-100 (300ms CSS transition).
     useEffect(() => {
         const el = containerRef.current;
         if (!el) return;
 
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setInView(true);
-                    observer.disconnect();
-                }
-            },
-            { threshold: 0.2 },
-        );
+        const FADE_IN_BUFFER_MS = 400;
+        let observer: IntersectionObserver | null = null;
 
-        observer.observe(el);
-        return () => observer.disconnect();
+        const timer = setTimeout(() => {
+            observer = new IntersectionObserver(
+                ([entry]) => {
+                    if (entry.isIntersecting) {
+                        setInView(true);
+                        observer?.disconnect();
+                    }
+                },
+                { threshold: 0.2 },
+            );
+            observer.observe(el);
+        }, FADE_IN_BUFFER_MS);
+
+        return () => {
+            clearTimeout(timer);
+            observer?.disconnect();
+        };
     }, []);
 
     // When animation ends on a word, strip the animation and set final styles directly.

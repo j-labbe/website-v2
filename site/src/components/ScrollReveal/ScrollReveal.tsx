@@ -3,7 +3,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { ReactNode, RefObject } from "react";
 import { useEffect, useRef, useMemo } from "react";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 interface ScrollRevealProps {
     children: ReactNode;
