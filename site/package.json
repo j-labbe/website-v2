@@ -3,7 +3,7 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "node scripts/generate-lqip.mjs && tsc -b && vite build",
+        "build": "node scripts/generate-lqip.mjs && tsc -b && vite build && node scripts/prerender.mjs",
         "dev": "vite",
         "generate:lqip": "node scripts/generate-lqip.mjs",
         "typecheck": "tsc --noEmit"

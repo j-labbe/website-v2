@@ -1,0 +1,1 @@
+export const MONTH_KEY_RE = /^\d{4}-\d{2}$/;

@@ -27,6 +27,7 @@ const resources = ["graph.json", "projects.json", "meta.json"];
 
 function getCachedData(): R2Data | null {
     try {
+        if (typeof sessionStorage === "undefined") return null;
         const raw = sessionStorage.getItem(CACHE_KEY);
         if (!raw) return null;
         const cached: CachedData = JSON.parse(raw);
@@ -113,7 +114,7 @@ export function useR2Data(): R2State & { retry: () => void } {
         const signal = { cancelled: false };
         signalRef.current = signal;
         load(signal);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [load]);
 
     return { ...state, retry };
